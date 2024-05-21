@@ -1,6 +1,0 @@
-POST login ? id 810420432 password halalalaylalalay
-POST logout ?
-POST login ? id 0 password UT_account
-POST logout ?
-POST logout ?
-POST post ? title "hello world" message "this is my text"
