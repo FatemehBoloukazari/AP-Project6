@@ -1,0 +1,97 @@
+#include "request.hpp"
+
+void add_admin(vector <User*> &users)
+{
+    Admin* new_admin = new Admin("0", "UT_account");
+    for (auto user : users)
+        user->connect(new_admin);
+    users.push_back(new_admin);
+}
+
+Request::Request(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path)
+{
+    logged_in_user = NULL;
+    read_majors_file(majors, majors_file_path);
+    read_students_file(users,majors,  students_file_path);
+    read_courses_file(courses, courses_file_path);
+    read_professors_file(users, majors, professors_file_path);
+    add_admin(users);
+}
+
+void Request::handle_login(string id, string password)
+{
+    if (logged_in_user != NULL)
+    {
+        cerr << PERMISSION_DENIED_ERROR << endl;
+        return;
+    }
+    bool user_exists = false;
+    for (auto user : users)
+    {
+        if (user->get_id() == id)
+        {
+            if (user->login(password))
+                logged_in_user = user;
+            else
+                cerr << PERMISSION_DENIED_ERROR << endl;
+            return;
+        }
+    }
+    cerr << NOT_FOUND_ERROR << endl;
+}
+
+void Request::handle_logout()
+{
+    if (logged_in_user == NULL)
+    {
+        cerr << PERMISSION_DENIED_ERROR << endl;
+        return;
+    }
+    logged_in_user = NULL;
+    cout << "OK" << endl;
+}
+
+void Request::handle_new_post(string _title, string _message)
+{
+    logged_in_user->send_post(_title, _message);
+    cout << "OK" << endl;
+}
+
+void Request::handle_post_delete(int id)
+{
+    logged_in_user->delete_post(id);
+}
+
+void Request::handle_view_personal_page(string id_str)
+{
+    if (!is_a_number(id_str))
+    {
+        cerr << BAD_REQUEST_ERROR << endl;
+        return;
+    }
+    for (auto user : users)
+    {
+        if (user->get_id() == id_str)
+        {
+            user->show_personal_page();
+            return;
+        }
+    }
+    cerr << NOT_FOUND_ERROR << endl;
+}
+
+void Request::handle_connect_users(vector<string> &splited_command)
+{
+    string user_id = splited_command[4];
+    if (!is_a_number(user_id))
+        throw BadRequest();
+    for (auto user : users)
+    {
+        if (user->get_id() == user_id)
+        {
+            user->connect(logged_in_user);
+            logged_in_user->connect(user);
+        }
+    }
+    throw NotFound();
+}
