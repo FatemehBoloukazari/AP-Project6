@@ -21,34 +21,32 @@ Request::Request(string majors_file_path, string students_file_path, string cour
 void Request::handle_login(string id, string password)
 {
     if (logged_in_user != NULL)
-    {
-        cerr << PERMISSION_DENIED_ERROR << endl;
-        return;
-    }
+        throw PermissionDenied();
     bool user_exists = false;
     for (auto user : users)
     {
         if (user->get_id() == id)
         {
-            if (user->login(password))
+            try
+            {
+                user->login(password);
                 logged_in_user = user;
-            else
-                cerr << PERMISSION_DENIED_ERROR << endl;
-            return;
+                return;
+            }
+            catch (PermissionDenied &ex)
+            {
+                throw;
+            }
         }
     }
-    cerr << NOT_FOUND_ERROR << endl;
+    throw NotFound();
 }
 
 void Request::handle_logout()
 {
     if (logged_in_user == NULL)
-    {
-        cerr << PERMISSION_DENIED_ERROR << endl;
-        return;
-    }
+        throw PermissionDenied();
     logged_in_user = NULL;
-    cout << "OK" << endl;
 }
 
 void Request::handle_new_post(string _title, string _message)

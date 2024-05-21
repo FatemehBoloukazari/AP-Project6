@@ -1,13 +1,9 @@
 #include "user.hpp"
 
-bool User::login(string pass)
+void User::login(string pass)
 {
-    if (password == pass)
-    {
-        cout << "OK" << endl;
-        return true;
-    }
-    return false;
+    if (password != pass)
+        throw PermissionDenied();
 }
 
 void User::send_post(string _title, string _message)

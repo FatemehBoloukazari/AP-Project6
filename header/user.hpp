@@ -5,7 +5,7 @@
 class User
 {
 public:
-    bool login(string pass);
+    void login(string pass);
     string get_id() {return id;}
     void send_post(string _title, string _message);
     void delete_post(int _id);

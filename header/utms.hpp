@@ -12,7 +12,7 @@ public:
     void run();
 private:
     Request* request;
-    void handle_login();
+    void handle_login(vector <string> &splited_command);
     void handle_logout();
     void handle_new_post();
     void handle_connect_users(vector <string> &splited_command);

@@ -18,17 +18,18 @@ CommandType get_command_type(string command)
 }
 
 
-void UTMS::handle_login()
+void UTMS::handle_login(vector <string> &splited_command)
 {
     string str;
     string id, pass;
-    for (int i = 0; i < 2; i++)
+    for (int i = 3; i <= 5; i++)
     {
-        cin >> str;
-        if (str == "id")
-            cin >> id;
+        if (splited_command[i] == "id")
+            id = splited_command[i + 1], i++;
+        else if (splited_command[i] == "password")
+            pass = splited_command[i + 1], i++;
         else
-            cin >> pass;
+            throw BadRequest();
     }
     request->handle_login(id, pass);
 }
@@ -75,13 +76,15 @@ void UTMS::handle_connect_users(vector<string> &splited_command)
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[1] == "login")
-        handle_login();
+        handle_login(splited_command);
     else if (splited_command[1] == "logout")
         handle_logout();
     else if (splited_command[1] == "post")
         handle_new_post();
     else if (splited_command[1] == "connect")
         handle_connect_users(splited_command);
+    else
+        throw BadRequest();
 }
 
 void UTMS::handle_post_delete()
@@ -126,22 +129,26 @@ void UTMS::run()
         string command;
         getline(cin, command);
         vector <string> splited_command = get_splited(command, ' ');
-        CommandType command_type = get_command_type(command);
+        CommandType command_type = get_command_type(splited_command[0]);
         switch (command_type)
         {
             case POST:
                 try
                 {
                     handle_post_request(splited_command);
-                    cout << OK << endl;
+                    cout << OK << endl; // I should probably move this to somewhere else
                 }
-                catch(BadRequest &ex)
+                catch (BadRequest &ex)
                 {
                     cerr << BAD_REQUEST_ERROR << endl;
                 }
-                catch(NotFound &ex)
+                catch (NotFound &ex)
                 {
                     cerr << NOT_FOUND_ERROR << endl;
+                }
+                catch (PermissionDenied &ex)
+                {
+                    cerr << PERMISSION_DENIED_ERROR << endl;
                 }
                 break;
             case DELETE:
