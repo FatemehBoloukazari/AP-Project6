@@ -1,2 +1,6 @@
 *.out
 .cache
+.aiedut.json
+notes.txt
+tasks.txt
+in.txt
