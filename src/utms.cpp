@@ -20,13 +20,13 @@ CommandType get_command_type(string command)
 
 void UTMS::handle_login(vector <string> &splited_command)
 {
-    string str;
-    string id, pass;
+    string id = EMPTY_STRING;
+    string pass = EMPTY_STRING;
     for (int i = 3; i <= 5; i++)
     {
-        if (splited_command[i] == "id")
+        if (splited_command[i] == "id" && id == EMPTY_STRING)
             id = splited_command[i + 1], i++;
-        else if (splited_command[i] == "password")
+        else if (splited_command[i] == "password" && pass == EMPTY_STRING)
             pass = splited_command[i + 1], i++;
         else
             throw BadRequest();
@@ -39,31 +39,34 @@ void UTMS::handle_logout()
     request->handle_logout();
 }
 
-string get_post_text()
+void UTMS::handle_new_post(vector <string> &splited_command)
 {
-    string ret = "";
-    string str;
-    do
+    string title = EMPTY_STRING;
+    string message = EMPTY_STRING;
+    for (int i = 3; i < (int)splited_command.size(); i++)
     {
-        if (ret != "")
-            ret += ' ';
-        cin >> str;
-        ret += str;
-    } while (str.back() != '\"');
-    return ret;
-}
-
-void UTMS::handle_new_post()
-{
-    string title, message;
-    for (int i = 0; i < 2; i++)
-    {
-        string input_type;
-        cin >> input_type;
-        if (input_type == "title")
-            title = get_post_text();
+        if (splited_command[i] == "title" && title == EMPTY_STRING)
+        {
+            while (++i < (int)splited_command.size() && (title.empty() || title.back() != '\"'))
+            {
+                if (title != EMPTY_STRING)
+                    title += ' ';
+                title += splited_command[i];
+            }
+            i--;
+        }
+        else if (splited_command[i] == "message" && message == EMPTY_STRING)
+        {
+            while (++i < (int)splited_command.size() && (message.empty() || message.back() != '\"'))
+            {
+                if (message != EMPTY_STRING)
+                    message += ' ';
+                message += splited_command[i];
+            }
+            i--;
+        }
         else
-            message = get_post_text();
+            throw BadRequest();
     }
     request->handle_new_post(title, message);
 }
@@ -75,12 +78,14 @@ void UTMS::handle_connect_users(vector<string> &splited_command)
 
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
+    if (splited_command[2] != "?")
+        throw BadRequest();
     if (splited_command[1] == "login")
         handle_login(splited_command);
     else if (splited_command[1] == "logout")
         handle_logout();
     else if (splited_command[1] == "post")
-        handle_new_post();
+        handle_new_post(splited_command);
     else if (splited_command[1] == "connect")
         handle_connect_users(splited_command);
     else

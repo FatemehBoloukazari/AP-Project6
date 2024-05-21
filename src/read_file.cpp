@@ -78,13 +78,13 @@ void read_courses_file(vector<Course*> &courses, string courses_file_path)
         string majors_str = seprated_str[4];
         vector <int> major_ids;
         majors_str += ';';
-        string major_id = "";
+        string major_id = EMPTY_STRING;
         for (auto c : majors_str)
         {
             if (c == ';')
             {
                 major_ids.push_back(stoi(major_id));
-                major_id = "";
+                major_id = EMPTY_STRING;
             }
             else
                 major_id += c;
