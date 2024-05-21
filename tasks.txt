@@ -1,2 +1,2 @@
 show_courses
-
+what should happen if someone wants to connect to admin?

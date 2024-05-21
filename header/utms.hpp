@@ -14,7 +14,7 @@ private:
     Request* request;
     void handle_login(vector <string> &splited_command);
     void handle_logout();
-    void handle_new_post();
+    void handle_new_post(vector <string> &splited_command);
     void handle_connect_users(vector <string> &splited_command);
     void handle_post_request(vector <string> &splited_command);
 

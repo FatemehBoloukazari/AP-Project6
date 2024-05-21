@@ -47,5 +47,7 @@ const string BAD_REQUEST_ERROR = "Bad Request";
 const string NOT_FOUND_ERROR = "Not Found";
 const string OK = "OK";
 
+const string EMPTY_STRING = "";
+
 vector <string> get_splited(string str, char seprating_char);
 bool is_a_number(string str);

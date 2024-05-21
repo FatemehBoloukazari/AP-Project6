@@ -51,8 +51,9 @@ void Request::handle_logout()
 
 void Request::handle_new_post(string _title, string _message)
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     logged_in_user->send_post(_title, _message);
-    cout << "OK" << endl;
 }
 
 void Request::handle_post_delete(int id)
@@ -83,12 +84,17 @@ void Request::handle_connect_users(vector<string> &splited_command)
     string user_id = splited_command[4];
     if (!is_a_number(user_id))
         throw BadRequest();
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (logged_in_user->get_id() == "0")
+        throw PermissionDenied();
     for (auto user : users)
     {
         if (user->get_id() == user_id)
         {
             user->connect(logged_in_user);
             logged_in_user->connect(user);
+            return;
         }
     }
     throw NotFound();

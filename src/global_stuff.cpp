@@ -4,13 +4,14 @@ vector <string> get_splited(string str, char seprating_char)
 {
     vector <string> ret;
     str += seprating_char;
-    string cur_str = "";
+    string cur_str = EMPTY_STRING;
     for (auto c : str)
     {
         if (c == seprating_char)
         {
-            ret.push_back(cur_str);
-            cur_str = "";
+            if (cur_str != EMPTY_STRING)
+                ret.push_back(cur_str);
+            cur_str = EMPTY_STRING;
         }
         else
             cur_str += c;
