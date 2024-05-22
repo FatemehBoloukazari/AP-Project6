@@ -58,6 +58,8 @@ void Request::handle_new_post(string _title, string _message)
 
 void Request::handle_post_delete(int id)
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     logged_in_user->delete_post(id);
 }
 
