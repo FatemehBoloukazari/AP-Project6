@@ -6,3 +6,4 @@ POST logout ?
 POST post ? title "hello world" message "this is my text"
 POST connect ? id 810102342
 GET notification ?
+GET personal_page ? id 810420432

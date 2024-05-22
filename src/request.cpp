@@ -64,10 +64,7 @@ void Request::handle_post_delete(int id)
 void Request::handle_view_personal_page(string id_str)
 {
     if (!is_a_number(id_str))
-    {
-        cerr << BAD_REQUEST_ERROR << endl;
-        return;
-    }
+        throw BadRequest();
     for (auto user : users)
     {
         if (user->get_id() == id_str)
@@ -76,7 +73,7 @@ void Request::handle_view_personal_page(string id_str)
             return;
         }
     }
-    cerr << NOT_FOUND_ERROR << endl;
+    throw NotFound();
 }
 
 void Request::handle_connect_users(vector<string> &splited_command)

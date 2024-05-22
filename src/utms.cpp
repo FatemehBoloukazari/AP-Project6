@@ -110,10 +110,11 @@ void UTMS::handle_delete_request(vector <string> &splited_command)
         handle_post_delete();
 }
 
-void UTMS::handle_view_personal_page()
+void UTMS::handle_view_personal_page(vector <string> &splited_command)
 {
-    string id_str, id;
-    cin >> id_str >> id;
+    if (splited_command[3] != "id")
+        throw BadRequest();
+    string id = splited_command[4];
     request->handle_view_personal_page(id);
 }
 
@@ -127,9 +128,11 @@ void UTMS::handle_get_request(vector <string> &splited_command)
     if (splited_command[2] != "?")
         throw BadRequest();
     if (splited_command[1] == "personal_page")
-        handle_view_personal_page();
-    if (splited_command[1] == "notification")
+        handle_view_personal_page(splited_command);
+    else if (splited_command[1] == "notification")
         handle_view_notifications();
+    else
+        throw BadRequest();
 }
 
 void UTMS::run()
