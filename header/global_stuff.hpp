@@ -46,6 +46,12 @@ const string PERMISSION_DENIED_ERROR = "Permission Denied";
 const string BAD_REQUEST_ERROR = "Bad Request";
 const string NOT_FOUND_ERROR = "Not Found";
 const string OK = "OK";
+const string EMPTY = "Empty";
+
+const string NEW_POST_NOTIFICATION = "New Post";
+const string GET_COURSE_NOTIFICATION = "Get Course";
+const string DELETE_COURSE_NOTIFICATION = "Delete Course";
+const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 
 const string EMPTY_STRING = "";
 

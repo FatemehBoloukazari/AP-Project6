@@ -22,5 +22,6 @@ private:
     void handle_delete_request(vector <string> &splited_command);
 
     void handle_view_personal_page();
+    void handle_view_notifications();
     void handle_get_request(vector <string> &splited_command);
 };

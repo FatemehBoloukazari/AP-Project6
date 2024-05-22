@@ -16,6 +16,5 @@ private:
     int major_id;
     string major_str;
     int semester;
-    string name;
     vector <CourseOffer*> courses;
 };

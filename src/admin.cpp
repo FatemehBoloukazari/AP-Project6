@@ -1,7 +1,8 @@
 #include "admin.hpp"
 
-Admin::Admin(string _id, string pass)
+Admin::Admin(string _name, string _id, string pass)
 {
+    name = _name;
     id = _id;
     password = pass;
 }

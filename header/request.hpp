@@ -16,6 +16,7 @@ public:
     void handle_post_delete(int id);
     void handle_view_personal_page(string id_str);
     void handle_connect_users(vector<string> &splited_command);
+    void handle_view_notifications();
 private:
     User *logged_in_user;
     vector <Course*> courses;

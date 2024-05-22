@@ -2,9 +2,9 @@
 
 void add_admin(vector <User*> &users)
 {
-    Admin* new_admin = new Admin("0", "UT_account");
+    Admin* new_admin = new Admin("UT_account", "0", "UT_account");
     for (auto user : users)
-        user->connect(new_admin);
+        new_admin->connect(user);
     users.push_back(new_admin);
 }
 
@@ -98,4 +98,13 @@ void Request::handle_connect_users(vector<string> &splited_command)
         }
     }
     throw NotFound();
+}
+
+void Request::handle_view_notifications()
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (logged_in_user->get_id() == "0")
+        throw PermissionDenied();
+    logged_in_user->view_notifications();
 }

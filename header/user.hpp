@@ -1,6 +1,7 @@
 #pragma once
 
 #include "global_stuff.hpp"
+#include "notification.hpp"
 
 class User
 {
@@ -12,13 +13,14 @@ public:
     virtual void show_personal_page() = 0;
     void show_posts();
     void connect(User* user);
-    //void add_notification();
-    //void get_notifications();
+    void add_notification(Notification *new_notification);
+    void view_notifications();
 protected:
+    string name;
     string password;
     string id;
     vector <Post*> posts;
     int last_post_id;
     vector <User*> connected_users;
-    //vector <Notification*> notifications;
+    vector <Notification*> notifications;
 };

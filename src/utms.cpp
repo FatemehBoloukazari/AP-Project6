@@ -117,14 +117,19 @@ void UTMS::handle_view_personal_page()
     request->handle_view_personal_page(id);
 }
 
+void UTMS::handle_view_notifications()
+{
+    request->handle_view_notifications();
+}
+
 void UTMS::handle_get_request(vector <string> &splited_command)
 {
-    string command;
-    cin >> command;
-    string question_mark;
-    cin >> question_mark;
-    if (command == "personal_page")
+    if (splited_command[2] != "?")
+        throw BadRequest();
+    if (splited_command[1] == "personal_page")
         handle_view_personal_page();
+    if (splited_command[1] == "notification")
+        handle_view_notifications();
 }
 
 void UTMS::run()
@@ -160,7 +165,22 @@ void UTMS::run()
                 handle_delete_request(splited_command);
                 break;
             case GET:
-                handle_get_request(splited_command);
+                try
+                {
+                    handle_get_request(splited_command);
+                }
+                catch (BadRequest &ex)
+                {
+                    cerr << BAD_REQUEST_ERROR << endl;
+                }
+                catch (NotFound &ex)
+                {
+                    cerr << NOT_FOUND_ERROR << endl;
+                }
+                catch (PermissionDenied &ex)
+                {
+                    cerr << PERMISSION_DENIED_ERROR << endl;
+                }
                 break;
             default:
                 cerr << BAD_REQUEST_ERROR << endl;
