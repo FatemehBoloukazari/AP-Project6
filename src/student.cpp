@@ -10,7 +10,7 @@ Student::Student(string _id, string _name, int _major_id, string _major_str, int
     password = _password;
 }
 
-void Student::show_personal_page()
+void Student::show_user_details()
 {
     cout << name << ' ' << major_str << ' ' << semester << ' ';
     for (int i = 0; i < (int)courses.size(); i++)
@@ -20,5 +20,4 @@ void Student::show_personal_page()
         cout << courses[i]->get_name();
     }
     cout << endl;
-    show_posts();
 }

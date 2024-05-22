@@ -7,8 +7,7 @@ Admin::Admin(string _name, string _id, string pass)
     password = pass;
 }
 
-void Admin::show_personal_page()
+void Admin::show_user_details()
 {
     cout << "UT_account" << endl;
-    show_posts();
 }

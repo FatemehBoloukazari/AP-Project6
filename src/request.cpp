@@ -107,3 +107,20 @@ void Request::handle_view_notifications()
         throw PermissionDenied();
     logged_in_user->view_notifications();
 }
+
+void Request::handle_view_post(string _id, string _post_id)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_number(_id) || !is_a_number(_post_id))
+        throw BadRequest();
+    for (auto user : users)
+    {
+        if (user->get_id() == _id)
+        {
+            user->view_post(stoi(_post_id));
+            return;
+        }
+    }
+    throw NotFound();
+}

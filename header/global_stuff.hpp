@@ -29,19 +29,6 @@ struct Major
     string major;
 };
 
-struct Post
-{
-    Post(string _title, string _message, int _id)
-    {
-        title = _title;
-        message = _message;
-        id = _id;
-    }
-    string title;
-    string message;
-    int id;
-};
-
 const string PERMISSION_DENIED_ERROR = "Permission Denied";
 const string BAD_REQUEST_ERROR = "Bad Request";
 const string NOT_FOUND_ERROR = "Not Found";

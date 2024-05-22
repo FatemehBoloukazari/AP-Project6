@@ -7,6 +7,6 @@ class Admin : public User
 {
 public:
     Admin(string _name, string _id, string pass);
-    virtual void show_personal_page();
+    virtual void show_user_details();
 private:
 };

@@ -19,7 +19,7 @@ void User::delete_post(int _id)
 {
     for (int i = 0; i < (int)posts.size(); i++)
     {
-        if (posts[i]->id == _id)
+        if (posts[i]->get_id() == _id)
         {
             posts.erase(posts.begin() + i);
             return;
@@ -28,10 +28,17 @@ void User::delete_post(int _id)
     throw NotFound();
 }
 
+void User::show_personal_page()
+{
+    show_user_details();
+    show_posts();
+}
+
+
 void User::show_posts()
 {
     for (int i = (int)posts.size() - 1; i >= 0; i--)
-        cout << posts[i]->id << ' ' << posts[i]->title << endl;
+        posts[i]->show_post_overview();
 }
 
 void User::connect(User *user)
@@ -57,4 +64,18 @@ void User::view_notifications()
     for (auto notif : notifications)
         notif->show_notification();
     notifications.clear();
+}
+
+void User::view_post(int post_id)
+{
+    for (auto post : posts)
+    {
+        if (post->get_id() == post_id)
+        {
+            show_user_details();
+            post->show_post_details();
+            return;
+        }
+    }
+    throw NotFound();
 }

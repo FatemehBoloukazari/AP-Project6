@@ -123,6 +123,22 @@ void UTMS::handle_view_notifications()
     request->handle_view_notifications();
 }
 
+void UTMS::handle_view_post(vector<string> &splited_command)
+{
+    string id = EMPTY_STRING;
+    string post_id = EMPTY_STRING;
+    for (int i = 3; i <= 5; i++)
+    {
+        if (splited_command[i] == "id" && id == EMPTY_STRING)
+            id = splited_command[i + 1], i++;
+        else if (splited_command[i] == "post_id" && post_id == EMPTY_STRING)
+            post_id = splited_command[i + 1], i++;
+        else
+            throw BadRequest();
+    }
+    request->handle_view_post(id, post_id);
+}
+
 void UTMS::handle_get_request(vector <string> &splited_command)
 {
     if (splited_command[2] != "?")
@@ -131,6 +147,8 @@ void UTMS::handle_get_request(vector <string> &splited_command)
         handle_view_personal_page(splited_command);
     else if (splited_command[1] == "notification")
         handle_view_notifications();
+    else if (splited_command[1] == "post")
+        handle_view_post(splited_command);
     else
         throw BadRequest();
 }

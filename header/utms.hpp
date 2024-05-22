@@ -23,5 +23,6 @@ private:
 
     void handle_view_personal_page(vector <string> &splited_command);
     void handle_view_notifications();
+    void handle_view_post(vector <string> &splited_command);
     void handle_get_request(vector <string> &splited_command);
 };
