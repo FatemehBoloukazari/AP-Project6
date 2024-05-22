@@ -19,14 +19,13 @@ void User::delete_post(int _id)
 {
     for (int i = 0; i < (int)posts.size(); i++)
     {
-        if (posts[i]->id == i)
+        if (posts[i]->id == _id)
         {
             posts.erase(posts.begin() + i);
-            cout << "OK" << endl;
             return;
         }
     }
-    cerr << NOT_FOUND_ERROR << endl;
+    throw NotFound();
 }
 
 void User::show_posts()

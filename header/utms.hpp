@@ -18,7 +18,7 @@ private:
     void handle_connect_users(vector <string> &splited_command);
     void handle_post_request(vector <string> &splited_command);
 
-    void handle_post_delete();
+    void handle_post_delete(vector <string> &splited_command);
     void handle_delete_request(vector <string> &splited_command);
 
     void handle_view_personal_page(vector <string> &splited_command);

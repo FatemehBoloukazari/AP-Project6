@@ -92,22 +92,22 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         throw BadRequest();
 }
 
-void UTMS::handle_post_delete()
+void UTMS::handle_post_delete(vector <string> &splited_command)
 {
-    string id_str;
-    int id;
-    cin >> id_str >> id;
-    request->handle_post_delete(id);
+    if (splited_command[3] != "id")
+        throw BadRequest();
+    string id = splited_command[4];
+    request->handle_post_delete(stoi(id));
 }
 
 void UTMS::handle_delete_request(vector <string> &splited_command)
 {
-    string command;
-    cin >> command;
-    string question_mark;
-    cin >> question_mark;
-    if (command == "post")
-        handle_post_delete();
+    if (splited_command[2] != "?")
+        throw BadRequest();
+    if (splited_command[1] == "post")
+        handle_post_delete(splited_command);
+    else
+        throw BadRequest();
 }
 
 void UTMS::handle_view_personal_page(vector <string> &splited_command)
@@ -165,7 +165,23 @@ void UTMS::run()
                 }
                 break;
             case DELETE:
-                handle_delete_request(splited_command);
+                try
+                {
+                    handle_delete_request(splited_command);
+                    cout << OK << endl;
+                }
+                catch (BadRequest &ex)
+                {
+                    cerr << BAD_REQUEST_ERROR << endl;
+                }
+                catch (NotFound &ex)
+                {
+                    cerr << NOT_FOUND_ERROR << endl;
+                }
+                catch (PermissionDenied &ex)
+                {
+                    cerr << PERMISSION_DENIED_ERROR << endl;
+                }
                 break;
             case GET:
                 try
