@@ -193,12 +193,22 @@ void UTMS::handle_post_delete(vector <string> &splited_command)
     request->handle_post_delete(stoi(id));
 }
 
+void UTMS::handle_delete_taken_course(vector<string> &splited_command)
+{
+    if (splited_command[3] != "id")
+        throw BadRequest();
+    string id = splited_command[4];
+    request->handle_delete_taken_course(id);
+}
+
 void UTMS::handle_delete_request(vector <string> &splited_command)
 {
     if (splited_command[2] != "?")
         throw BadRequest();
     if (splited_command[1] == "post")
         handle_post_delete(splited_command);
+    else if (splited_command[1] == "my_courses")
+        handle_delete_taken_course(splited_command);
     else
         throw NotFound();
 }

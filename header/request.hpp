@@ -23,6 +23,7 @@ public:
     void handle_view_all_courses();
     void handle_view_course_details(string course_offer_id);
     void handle_take_new_course(string _course_id);
+    void handle_delete_taken_course(string _course_id);
 private:
     User *logged_in_user;
     vector <Course*> courses;

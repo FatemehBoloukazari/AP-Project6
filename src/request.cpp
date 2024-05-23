@@ -229,3 +229,22 @@ void Request::handle_take_new_course(string _course_id)
     }
     throw NotFound();
 }
+
+void Request::handle_delete_taken_course(string _course_id)
+{
+    if (!is_a_number(_course_id))
+        throw BadRequest();
+    if (!is_a_student(logged_in_user))
+        throw PermissionDenied();
+    int course_id = stoi(_course_id);
+    for (int i = 0; i < (int)course_offers.size(); i++)
+    {
+        CourseOffer *course_offer = course_offers[i];
+        if (course_offer->get_id() == course_id)
+        {
+            course_offers.erase(course_offers.begin() + i);
+            return;
+        }
+    }
+    throw NotFound();
+}
