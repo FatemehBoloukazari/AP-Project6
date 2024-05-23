@@ -1,3 +1,0 @@
-show_courses
-what should happen if someone wants to connect to admin?
-handle splited_command.size() < required
