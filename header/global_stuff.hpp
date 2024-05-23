@@ -15,6 +15,7 @@ enum CommandType
     POST,
     DELETE,
     GET,
+    PUT,
     NOT_COMMAND
 };
 

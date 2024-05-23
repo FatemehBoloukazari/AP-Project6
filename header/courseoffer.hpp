@@ -14,6 +14,7 @@ public:
     Time* get_time() {return time;}
     void show_course_overview();
     void show_course_details();
+    bool can_take(int semester, int major_id);
 private:
     int id;
     Course* course;

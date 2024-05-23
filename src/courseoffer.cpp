@@ -42,3 +42,10 @@ void CourseOffer::show_course_details()
 {
     cout << id << ' ' << get_name() << ' ' << capacity << ' ' << professor_name << ' ' << convert_time_to_string(time) << ' ' << convert_date_to_string(exam_date) << ' ' << class_number << endl;
 }
+
+bool CourseOffer::can_take(int semester, int major_id)
+{
+    if (course->have_allowed_major(major_id) && course->have_allowed_semester(semester))
+        return true;
+    return false;
+}

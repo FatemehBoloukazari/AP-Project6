@@ -16,3 +16,10 @@ bool Course::have_allowed_major(int major_id)
             return true;
     return false;
 }
+
+bool Course::have_allowed_semester(int semester)
+{
+    if (semester >= prerequisites)
+        return true;
+    return false;
+}

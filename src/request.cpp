@@ -200,3 +200,32 @@ void Request::handle_view_course_details(string course_offer_id)
     }
     throw NotFound();
 }
+
+bool is_a_student(User* user)
+{
+    if (user == NULL)
+        return false;
+    Student* student = dynamic_cast<Student*> (user);
+    if (student == NULL)
+        return false;
+    return true;
+}
+
+void Request::handle_take_new_course(string _course_id)
+{
+    if (!is_a_number(_course_id))
+        throw BadRequest();
+    if (!is_a_student(logged_in_user))
+        throw PermissionDenied();
+    int course_id = stoi(_course_id);
+    for (auto course_offer : course_offers)
+    {
+        if (course_offer->get_id() == course_id)
+        {
+            Student* student = dynamic_cast<Student*> (logged_in_user);
+            student->take_course(course_offer);
+            return;
+        }
+    }
+    throw NotFound();
+}

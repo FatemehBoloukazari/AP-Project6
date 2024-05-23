@@ -22,6 +22,7 @@ public:
     void handle_course_offer(string course_id, string professor_id, string capacity, Time *time, Date *exam_date, string class_number);
     void handle_view_all_courses();
     void handle_view_course_details(string course_offer_id);
+    void handle_take_new_course(string _course_id);
 private:
     User *logged_in_user;
     vector <Course*> courses;

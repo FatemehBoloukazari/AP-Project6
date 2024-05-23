@@ -14,6 +14,8 @@ CommandType get_command_type(string command)
         return DELETE;
     if (command == "GET")
         return GET;
+    if (command == "PUT")
+        return PUT;
     return NOT_COMMAND;
 }
 
@@ -258,6 +260,23 @@ void UTMS::handle_get_request(vector <string> &splited_command)
         throw NotFound();
 }
 
+void UTMS::handle_take_new_course(vector<string> &splited_command)
+{
+    if (splited_command[3] != "id")
+        throw BadRequest();
+    request->handle_take_new_course(splited_command[4]);
+}
+
+void UTMS::handle_put_request(vector<string> &splited_command)
+{
+    if (splited_command[2] != "?")
+        throw BadRequest();
+    if (splited_command[1] == "my_courses")
+        handle_take_new_course(splited_command);
+    else
+        throw NotFound();
+}
+
 void UTMS::run()
 {
     while (true)
@@ -310,6 +329,25 @@ void UTMS::run()
                 try
                 {
                     handle_get_request(splited_command);
+                }
+                catch (BadRequest &ex)
+                {
+                    cerr << BAD_REQUEST_ERROR << endl;
+                }
+                catch (NotFound &ex)
+                {
+                    cerr << NOT_FOUND_ERROR << endl;
+                }
+                catch (PermissionDenied &ex)
+                {
+                    cerr << PERMISSION_DENIED_ERROR << endl;
+                }
+                break;
+            case PUT:
+                try
+                {
+                    handle_put_request(splited_command);
+                    cout << OK << endl;
                 }
                 catch (BadRequest &ex)
                 {
