@@ -2,7 +2,7 @@ GPP = g++
 GPPFLAGS = -std=c++2a -Wall -Wextra -fsanitize=undefined -I./header
 SRC_DIR = src
 OBJ_DIR = obj
-EXES = ./UTms.out
+EXES = ./utms.out
 
 SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))

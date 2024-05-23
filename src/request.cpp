@@ -169,7 +169,7 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
     CourseOffer *new_course_offer = new CourseOffer(++last_course_offer_id, course, professor_name, stoi(capacity), time, exam_date, stoi(class_number));
     professor->add_course_offer(new_course_offer);
     course_offers.push_back(new_course_offer);
-    Notification *new_notification = new Notification(logged_in_user->get_id(), logged_in_user->get_name(), NEW_COURSE_OFFERING_NOTIFICATION);
+    Notification *new_notification = new Notification(professor_id, professor_name, NEW_COURSE_OFFERING_NOTIFICATION);
     for (auto user : users)
         user->add_notification(new_notification);
 }
