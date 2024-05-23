@@ -27,6 +27,7 @@ private:
     void handle_view_notifications();
     void handle_view_post(vector <string> &splited_command);
     void handle_view_courses(vector <string> &splited_command);
+    void handle_view_taken_courses();
     void handle_get_request(vector <string> &splited_command);
 
     void handle_take_new_course(vector <string> &splited_command);

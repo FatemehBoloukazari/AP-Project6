@@ -254,6 +254,11 @@ void UTMS::handle_view_courses(vector<string> &splited_command)
     request->handle_view_course_details(splited_command[4]);
 }
 
+void UTMS::handle_view_taken_courses()
+{
+    request->handle_view_taken_courses();
+}
+
 void UTMS::handle_get_request(vector <string> &splited_command)
 {
     if (splited_command[2] != "?")
@@ -266,6 +271,8 @@ void UTMS::handle_get_request(vector <string> &splited_command)
         handle_view_post(splited_command);
     else if (splited_command[1] == "courses")
         handle_view_courses(splited_command);
+    else if (splited_command[1] == "my_courses")
+        handle_view_taken_courses();
     else
         throw NotFound();
 }

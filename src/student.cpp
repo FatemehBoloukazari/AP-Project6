@@ -36,3 +36,28 @@ void Student::take_course(CourseOffer *course_offer)
     }
     courses.push_back(course_offer);
 }
+
+void Student::remove_course(int course_id)
+{
+    for (int i = 0; i < (int)courses.size(); i++)
+    {
+        CourseOffer *course_offer = courses[i];
+        if (course_offer->get_id() == course_id)
+        {
+            courses.erase(courses.begin() + i);
+            return;
+        }
+    }
+    throw NotFound();
+}
+
+void Student::view_taken_courses()
+{
+    if (courses.empty())
+    {
+        cout << EMPTY << endl;
+        return;
+    }
+    for (auto course_offer : courses)
+        course_offer->show_course_details();
+}

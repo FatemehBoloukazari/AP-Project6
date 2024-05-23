@@ -6,7 +6,6 @@ class Course
 {
 public:
     Course(string _id, string _name, int _credit, int pre, vector <int> ids);
-    void get_course_details();
     string get_name() {return name;}
     string get_id() {return id;}
     bool have_allowed_major(int major_id);
