@@ -151,9 +151,9 @@ void UTMS::handle_course_offer(vector<string> &splited_command)
             professor_id = splited_command[i + 1], i++;
         else if (splited_command[i] == "capacity" && capacity == EMPTY_STRING)
             capacity = splited_command[i + 1], i++;
-        else if (splited_command[i] == "time_str" && time_str == EMPTY_STRING)
+        else if (splited_command[i] == "time" && time_str == EMPTY_STRING)
             time_str = splited_command[i + 1], i++;
-        else if (splited_command[i] == "exam_date_str" && exam_date_str == EMPTY_STRING)
+        else if (splited_command[i] == "exam_date" && exam_date_str == EMPTY_STRING)
             exam_date_str = splited_command[i + 1], i++;
         else if (splited_command[i] == "class_number" && class_number == EMPTY_STRING)
             class_number = splited_command[i + 1], i++;
@@ -230,6 +230,18 @@ void UTMS::handle_view_post(vector<string> &splited_command)
     request->handle_view_post(id, post_id);
 }
 
+void UTMS::handle_view_courses(vector<string> &splited_command)
+{
+    if (splited_command.size() == 3)
+    {
+        request->handle_view_all_courses();
+        return;
+    }
+    if (splited_command[3] != "id")
+        throw BadRequest();
+    request->handle_view_course_details(splited_command[4]);
+}
+
 void UTMS::handle_get_request(vector <string> &splited_command)
 {
     if (splited_command[2] != "?")
@@ -240,6 +252,8 @@ void UTMS::handle_get_request(vector <string> &splited_command)
         handle_view_notifications();
     else if (splited_command[1] == "post")
         handle_view_post(splited_command);
+    else if (splited_command[1] == "courses")
+        handle_view_courses(splited_command);
     else
         throw NotFound();
 }

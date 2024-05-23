@@ -152,6 +152,8 @@ Course* Request::find_course_by_id(string id)
 
 void Request::handle_course_offer(string course_id, string professor_id, string capacity, Time* time, Date* exam_date, string class_number)
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     if (logged_in_user->get_id() != "0")
         throw PermissionDenied();
     if (!is_a_number(course_id) || !is_a_number(professor_id) || !is_a_number(capacity) || !is_a_number(class_number))
@@ -163,9 +165,38 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
         throw PermissionDenied();
     if (professor->time_intersects(time))
         throw PermissionDenied();
-    CourseOffer *new_course_offer = new CourseOffer(course, professor_id, stoi(capacity), time, exam_date, stoi(class_number));
+    string professor_name = professor->get_name();
+    CourseOffer *new_course_offer = new CourseOffer(++last_course_offer_id, course, professor_name, stoi(capacity), time, exam_date, stoi(class_number));
     professor->add_course_offer(new_course_offer);
+    course_offers.push_back(new_course_offer);
     Notification *new_notification = new Notification(logged_in_user->get_id(), logged_in_user->get_name(), NEW_COURSE_OFFERING_NOTIFICATION);
     for (auto user : users)
         user->add_notification(new_notification);
+}
+
+void Request::handle_view_all_courses()
+{
+    if (course_offers.empty())
+    {
+        cout << EMPTY << endl;
+        return;
+    }
+    for (auto course_offer : course_offers)
+        course_offer->show_course_overview();
+}
+
+void Request::handle_view_course_details(string course_offer_id)
+{
+    if (!is_a_number(course_offer_id))
+        throw BadRequest();
+    int id = stoi(course_offer_id);
+    for (auto course_offer : course_offers)
+    {
+        if (course_offer->get_id() == id)
+        {
+            course_offer->show_course_details();
+            return;
+        }
+    }
+    throw NotFound();
 }
