@@ -76,6 +76,95 @@ void UTMS::handle_connect_users(vector<string> &splited_command)
     request->handle_connect_users(splited_command);
 }
 
+Time* convert_string_to_time(string time_str)
+{
+    bool reading_week_day = true;
+    bool reading_start_time = false;
+    string day = EMPTY_STRING;
+    string start_time = EMPTY_STRING;
+    string end_time = EMPTY_STRING;
+    for (auto c : time_str)
+    {
+        if (c == ':')
+        {
+            reading_start_time = true;
+            reading_week_day = false;
+        }
+        else if (c == '-')
+        {
+            reading_start_time = false;
+        }
+        else if (reading_week_day)
+            day += c;
+        else if (reading_start_time)
+            start_time += c;
+        else
+            end_time += c;
+    }
+    Time* new_time = new Time(day, stoi(start_time), stoi(end_time));
+    return new_time;
+}
+
+Date* convert_string_to_date(string date_str)
+{
+    bool reading_year = true;
+    bool reading_month = false;
+    string day = EMPTY_STRING;
+    string year = EMPTY_STRING;
+    string month = EMPTY_STRING;
+    for (auto c : date_str)
+    {
+        if (c == '/')
+        {
+            if (reading_year)
+            {
+                reading_year = false;
+                reading_month = true;
+            }
+            else
+                reading_month = false;
+        }
+        else if (reading_year)
+            year += c;
+        else if (reading_month)
+            month += c;
+        else
+            day += c;
+    }
+    Date* new_date = new Date(stoi(year), stoi(month), stoi(day));
+    return new_date;
+}
+
+void UTMS::handle_course_offer(vector<string> &splited_command)
+{
+    string course_id = EMPTY_STRING;
+    string professor_id = EMPTY_STRING;
+    string capacity = EMPTY_STRING;
+    string time_str = EMPTY_STRING;
+    string exam_date_str = EMPTY_STRING;
+    string class_number = EMPTY_STRING;
+    for (int i = 3; i < 14; i++)
+    {
+        if (splited_command[i] == "course_id" && course_id == EMPTY_STRING)
+            course_id = splited_command[i + 1], i++;
+        else if (splited_command[i] == "professor_id" && professor_id == EMPTY_STRING)
+            professor_id = splited_command[i + 1], i++;
+        else if (splited_command[i] == "capacity" && capacity == EMPTY_STRING)
+            capacity = splited_command[i + 1], i++;
+        else if (splited_command[i] == "time_str" && time_str == EMPTY_STRING)
+            time_str = splited_command[i + 1], i++;
+        else if (splited_command[i] == "exam_date_str" && exam_date_str == EMPTY_STRING)
+            exam_date_str = splited_command[i + 1], i++;
+        else if (splited_command[i] == "class_number" && class_number == EMPTY_STRING)
+            class_number = splited_command[i + 1], i++;
+        else
+            throw BadRequest();
+    }
+    Time *time = convert_string_to_time(time_str);
+    Date *exam_date = convert_string_to_date(exam_date_str);
+    request->handle_course_offer(course_id, professor_id, capacity, time, exam_date, class_number);
+}
+
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[2] != "?")
@@ -88,8 +177,10 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         handle_new_post(splited_command);
     else if (splited_command[1] == "connect")
         handle_connect_users(splited_command);
+    else if (splited_command[1] == "course_offer")
+        handle_course_offer(splited_command);
     else
-        throw BadRequest();
+        throw NotFound();
 }
 
 void UTMS::handle_post_delete(vector <string> &splited_command)
@@ -107,7 +198,7 @@ void UTMS::handle_delete_request(vector <string> &splited_command)
     if (splited_command[1] == "post")
         handle_post_delete(splited_command);
     else
-        throw BadRequest();
+        throw NotFound();
 }
 
 void UTMS::handle_view_personal_page(vector <string> &splited_command)
@@ -150,7 +241,7 @@ void UTMS::handle_get_request(vector <string> &splited_command)
     else if (splited_command[1] == "post")
         handle_view_post(splited_command);
     else
-        throw BadRequest();
+        throw NotFound();
 }
 
 void UTMS::run()
@@ -167,7 +258,7 @@ void UTMS::run()
                 try
                 {
                     handle_post_request(splited_command);
-                    cout << OK << endl; // I should probably move this to somewhere else
+                    cout << OK << endl;
                 }
                 catch (BadRequest &ex)
                 {

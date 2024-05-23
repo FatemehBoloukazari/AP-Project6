@@ -8,6 +8,7 @@ Student::Student(string _id, string _name, int _major_id, string _major_str, int
     major_str = _major_str;
     semester = _semester;
     password = _password;
+    last_post_id = 0;
 }
 
 void Student::show_user_details()

@@ -9,6 +9,7 @@ class User
 public:
     void login(string pass);
     string get_id() {return id;}
+    string get_name() {return name;}
     void send_post(string _title, string _message);
     void delete_post(int _id);
     void show_personal_page();

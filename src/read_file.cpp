@@ -3,8 +3,8 @@
 string find_major_name_by_id(vector <Major*> const &majors, int id)
 {
     for (auto major : majors)
-        if (major->major_id)
-            return major->major;
+        if (major->major_id == id)
+            return major->major_name;
 }
 
 void read_professors_file(vector <User*> &users, vector <Major*> const &majors, string professors_file_path)
@@ -71,7 +71,7 @@ void read_courses_file(vector<Course*> &courses, string courses_file_path)
     while (getline(courses_file, course_str))
     {
         vector <string> seprated_str = get_splited(course_str, ',');
-        int id = stoi(seprated_str[0]);
+        string id = seprated_str[0];
         string name = seprated_str[1];
         int credit = stoi(seprated_str[2]);
         int prerequisites = stoi(seprated_str[3]);
@@ -94,5 +94,3 @@ void read_courses_file(vector<Course*> &courses, string courses_file_path)
     }
     courses_file.close();
 }
-
-//Course::Course(int _id, string _name, int _credit, vector<int> pre, vector<int> ids)

@@ -5,6 +5,7 @@
 #include "user.hpp"
 #include "admin.hpp"
 #include "student.hpp"
+#include "date.hpp"
 
 class Request
 {
@@ -18,9 +19,13 @@ public:
     void handle_connect_users(vector<string> &splited_command);
     void handle_view_notifications();
     void handle_view_post(string _id, string _post_id);
+    void handle_course_offer(string course_id, string professor_id, string capacity, Time *time, Date *exam_date, string class_number);
 private:
     User *logged_in_user;
     vector <Course*> courses;
     vector <User*> users;
     vector <Major*> majors;
+    int last_course_offer_id;
+    Professor* find_professor_by_id(string id);
+    Course* find_course_by_id(string id);
 };

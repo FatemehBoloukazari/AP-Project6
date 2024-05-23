@@ -61,8 +61,8 @@ void User::view_notifications()
         cout << EMPTY << endl;
         return;
     }
-    for (auto notif : notifications)
-        notif->show_notification();
+    for (int i = (int)notifications.size() - 1; i >= 0; i--)
+        notifications[i]->show_notification();
     notifications.clear();
 }
 

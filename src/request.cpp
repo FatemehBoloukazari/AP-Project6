@@ -16,13 +16,13 @@ Request::Request(string majors_file_path, string students_file_path, string cour
     read_courses_file(courses, courses_file_path);
     read_professors_file(users, majors, professors_file_path);
     add_admin(users);
+    last_course_offer_id = 0;
 }
 
 void Request::handle_login(string id, string password)
 {
     if (logged_in_user != NULL)
         throw PermissionDenied();
-    bool user_exists = false;
     for (auto user : users)
     {
         if (user->get_id() == id)
@@ -123,4 +123,49 @@ void Request::handle_view_post(string _id, string _post_id)
         }
     }
     throw NotFound();
+}
+
+Professor* Request::find_professor_by_id(string id)
+{
+    for (auto user : users)
+    {
+        if (user->get_id() == id)
+        {
+            Professor* professor = dynamic_cast<Professor*> (user);
+            if (professor == NULL)
+                throw PermissionDenied();
+            return professor;
+        }
+    }
+    throw NotFound();
+}
+
+Course* Request::find_course_by_id(string id)
+{
+    for (auto course : courses)
+    {
+        if (course->get_id() == id)
+            return course;
+    }
+    throw NotFound();
+}
+
+void Request::handle_course_offer(string course_id, string professor_id, string capacity, Time* time, Date* exam_date, string class_number)
+{
+    if (logged_in_user->get_id() != "0")
+        throw PermissionDenied();
+    if (!is_a_number(course_id) || !is_a_number(professor_id) || !is_a_number(capacity) || !is_a_number(class_number))
+        throw BadRequest();
+    Professor* professor = find_professor_by_id(professor_id);
+    Course* course = find_course_by_id(course_id);
+    int major_id = professor->get_major_id();
+    if (!course->have_allowed_major(major_id))
+        throw PermissionDenied();
+    if (professor->time_intersects(time))
+        throw PermissionDenied();
+    CourseOffer *new_course_offer = new CourseOffer(course, professor_id, stoi(capacity), time, exam_date, stoi(class_number));
+    professor->add_course_offer(new_course_offer);
+    Notification *new_notification = new Notification(logged_in_user->get_id(), logged_in_user->get_name(), NEW_COURSE_OFFERING_NOTIFICATION);
+    for (auto user : users)
+        user->add_notification(new_notification);
 }

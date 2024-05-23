@@ -23,10 +23,10 @@ struct Major
     Major(int id, string name)
     {
         major_id = id;
-        major = name;
+        major_name = name;
     }
     int major_id;
-    string major;
+    string major_name;
 };
 
 const string PERMISSION_DENIED_ERROR = "Permission Denied";
