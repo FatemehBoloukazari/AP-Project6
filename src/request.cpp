@@ -58,15 +58,17 @@ void Request::handle_new_post(string _title, string _message)
 
 void Request::handle_post_delete(string id)
 {
-    if (!is_a_number(id) || id == ZERO)
-        throw BadRequest();
     if (logged_in_user == NULL)
         throw PermissionDenied();
+    if (!is_a_number(id) || id == ZERO)
+        throw BadRequest();
     logged_in_user->delete_post(stoi(id));
 }
 
 vector <string> Request::handle_view_personal_page(string id_str)
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     if (!is_a_number(id_str))
         throw BadRequest();
     for (auto user : users)
@@ -84,12 +86,12 @@ vector <string> Request::handle_view_personal_page(string id_str)
 void Request::handle_connect_users(vector<string> &splited_command)
 {
     string user_id = splited_command[FIRST_DATA_INDEX + 1];
-    if (!is_a_number(user_id) || user_id == ZERO)
-        throw BadRequest();
     if (logged_in_user == NULL)
         throw PermissionDenied();
     if (logged_in_user->get_id() == ADMIN_ID)
         throw PermissionDenied();
+    if (!is_a_number(user_id) || user_id == ZERO)
+        throw BadRequest();
     for (auto user : users)
     {
         if (user->get_id() == user_id)
@@ -158,9 +160,7 @@ Course* Request::find_course_by_id(string id)
 
 void Request::handle_course_offer(string course_id, string professor_id, string capacity, Time* time, Date* exam_date, string class_number)
 {
-    if (logged_in_user == NULL)
-        throw PermissionDenied();
-    if (logged_in_user->get_id() != ADMIN_ID)
+    if (logged_in_user == NULL || logged_in_user->get_id() != ADMIN_ID)
         throw PermissionDenied();
     if (!is_a_number(course_id) || !is_a_number(professor_id) || !is_a_number(capacity) || !is_a_number(class_number))
         throw BadRequest();
@@ -184,6 +184,8 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
 
 vector <string> Request::handle_view_all_courses()
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     vector <string> result;
     if (course_offers.empty())
     {
@@ -198,6 +200,8 @@ vector <string> Request::handle_view_all_courses()
 
 vector <string> Request::handle_view_course_details(string course_offer_id)
 {
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
     if (!is_a_number(course_offer_id) || course_offer_id == ZERO)
         throw BadRequest();
     int id = stoi(course_offer_id);
@@ -225,10 +229,10 @@ bool is_a_student(User* user)
 
 void Request::handle_take_new_course(string _course_id)
 {
-    if (!is_a_number(_course_id) || _course_id == ZERO)
-        throw BadRequest();
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
+    if (!is_a_number(_course_id) || _course_id == ZERO)
+        throw BadRequest();
     int course_id = stoi(_course_id);
     Student* student = dynamic_cast<Student*> (logged_in_user);
     for (auto course_offer : course_offers)
@@ -244,10 +248,10 @@ void Request::handle_take_new_course(string _course_id)
 
 void Request::handle_delete_taken_course(string _course_id)
 {
-    if (!is_a_number(_course_id) || _course_id == ZERO)
-        throw BadRequest();
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
+    if (!is_a_number(_course_id) || _course_id == ZERO)
+        throw BadRequest();
     int course_id = stoi(_course_id);
     Student* student = dynamic_cast<Student*> (logged_in_user);
     student->remove_course(course_id);

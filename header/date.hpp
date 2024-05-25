@@ -7,6 +7,7 @@ public:
     int get_year() {return year;}
     int get_month() {return month;}
     int get_day() {return day;}
+    bool intersects(Date* new_date);
 private:
     int year;
     int month;

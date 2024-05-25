@@ -15,6 +15,7 @@ public:
     void show_course_overview(vector <string> &result);
     void show_course_details(vector <string> &result);
     bool can_take(int semester, int major_id);
+    Date* get_exam_date() {return exam_date;}
 private:
     int id;
     Course* course;

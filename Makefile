@@ -1,5 +1,5 @@
 GPP = g++
-GPPFLAGS = -std=c++2a -Wall -Wextra -fsanitize=undefined -I./header
+GPPFLAGS = -std=c++2a -I./header
 SRC_DIR = src
 OBJ_DIR = obj
 EXES = ./utms.out

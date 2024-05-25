@@ -38,6 +38,10 @@ void Student::take_course(CourseOffer *course_offer)
         Time *new_time = course_offer->get_time();
         if (taken_time->intersects(new_time))
             throw PermissionDenied();
+        Date* taken_date = taken_course->get_exam_date();
+        Date* new_date = course_offer->get_exam_date();
+        if (taken_date->intersects(new_date))
+            throw PermissionDenied();
     }
     courses.push_back(course_offer);
     Notification *new_notification = new Notification(id, name, GET_COURSE_NOTIFICATION);
