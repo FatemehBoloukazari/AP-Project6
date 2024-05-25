@@ -336,10 +336,9 @@ void UTMS::handle_put_request(vector<string> &splited_command)
 
 void UTMS::run()
 {
-    while (true)
+    string command;
+    while (getline(cin, command))
     {
-        string command;
-        getline(cin, command);
         vector <string> splited_command = get_splited(command, SPACE_CHAR);
         if (splited_command.empty())
             continue;
