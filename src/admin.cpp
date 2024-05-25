@@ -8,7 +8,8 @@ Admin::Admin(string _name, string _id, string pass)
     last_post_id = 0;
 }
 
-void Admin::show_user_details()
+void Admin::show_user_details(vector <string> &result)
 {
-    cout << "UT_account" << endl;
+    result.push_back("UT_account");
+    result.push_back("\n");
 }

@@ -63,7 +63,7 @@ void Request::handle_post_delete(int id)
     logged_in_user->delete_post(id);
 }
 
-void Request::handle_view_personal_page(string id_str)
+vector <string> Request::handle_view_personal_page(string id_str)
 {
     if (!is_a_number(id_str))
         throw BadRequest();
@@ -71,8 +71,9 @@ void Request::handle_view_personal_page(string id_str)
     {
         if (user->get_id() == id_str)
         {
-            user->show_personal_page();
-            return;
+            vector <string> result;
+            user->show_personal_page(result);
+            return result;
         }
     }
     throw NotFound();
@@ -99,16 +100,18 @@ void Request::handle_connect_users(vector<string> &splited_command)
     throw NotFound();
 }
 
-void Request::handle_view_notifications()
+vector <string> Request::handle_view_notifications()
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
     if (logged_in_user->get_id() == "0")
         throw PermissionDenied();
-    logged_in_user->view_notifications();
+    vector <string> result;
+    logged_in_user->view_notifications(result);
+    return result;
 }
 
-void Request::handle_view_post(string _id, string _post_id)
+vector <string> Request::handle_view_post(string _id, string _post_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -118,8 +121,9 @@ void Request::handle_view_post(string _id, string _post_id)
     {
         if (user->get_id() == _id)
         {
-            user->view_post(stoi(_post_id));
-            return;
+            vector <string> result;
+            user->view_post(result, stoi(_post_id));
+            return result;
         }
     }
     throw NotFound();
@@ -174,18 +178,21 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
         user->add_notification(new_notification);
 }
 
-void Request::handle_view_all_courses()
+vector <string> Request::handle_view_all_courses()
 {
+    vector <string> result;
     if (course_offers.empty())
     {
-        cout << EMPTY << endl;
-        return;
+        result.push_back(EMPTY);
+        result.push_back("\n");
+        return result;
     }
     for (auto course_offer : course_offers)
-        course_offer->show_course_overview();
+        course_offer->show_course_overview(result);
+    return result;
 }
 
-void Request::handle_view_course_details(string course_offer_id)
+vector <string> Request::handle_view_course_details(string course_offer_id)
 {
     if (!is_a_number(course_offer_id))
         throw BadRequest();
@@ -194,8 +201,9 @@ void Request::handle_view_course_details(string course_offer_id)
     {
         if (course_offer->get_id() == id)
         {
-            course_offer->show_course_details();
-            return;
+            vector <string> result;
+            course_offer->show_course_details(result);
+            return result;
         }
     }
     throw NotFound();
@@ -241,10 +249,12 @@ void Request::handle_delete_taken_course(string _course_id)
     student->remove_course(course_id);
 }
 
-void Request::handle_view_taken_courses()
+vector <string> Request::handle_view_taken_courses()
 {
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
+    vector <string> result;
     Student* student = dynamic_cast<Student*> (logged_in_user);
-    student->view_taken_courses();
+    student->view_taken_courses(result);
+    return result;
 }

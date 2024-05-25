@@ -33,14 +33,34 @@ string convert_date_to_string(Date *date)
     return ret;
 }
 
-void CourseOffer::show_course_overview()
+void CourseOffer::show_course_overview(vector <string> &result)
 {
-    cout << id << ' ' << get_name() << ' ' << capacity << ' ' << professor_name << endl;
+    result.push_back(to_string(id));
+    result.push_back(SPACE);
+    result.push_back(get_name());
+    result.push_back(SPACE);
+    result.push_back(to_string(capacity));
+    result.push_back(SPACE);
+    result.push_back(professor_name);
+    result.push_back("\n");
 }
 
-void CourseOffer::show_course_details()
+void CourseOffer::show_course_details(vector <string> &result)
 {
-    cout << id << ' ' << get_name() << ' ' << capacity << ' ' << professor_name << ' ' << convert_time_to_string(time) << ' ' << convert_date_to_string(exam_date) << ' ' << class_number << endl;
+    result.push_back(to_string(id));
+    result.push_back(SPACE);
+    result.push_back(get_name());
+    result.push_back(SPACE);
+    result.push_back(to_string(capacity));
+    result.push_back(SPACE);
+    result.push_back(professor_name);
+    result.push_back(SPACE);
+    result.push_back(convert_time_to_string(time));
+    result.push_back(SPACE);
+    result.push_back(convert_date_to_string(exam_date));
+    result.push_back(SPACE);
+    result.push_back(to_string(class_number));
+    result.push_back("\n");
 }
 
 bool CourseOffer::can_take(int semester, int major_id)

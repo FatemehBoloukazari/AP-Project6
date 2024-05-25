@@ -12,8 +12,8 @@ public:
     string get_name() {return course->get_name();}
     int get_id() {return id;}
     Time* get_time() {return time;}
-    void show_course_overview();
-    void show_course_details();
+    void show_course_overview(vector <string> &result);
+    void show_course_details(vector <string> &result);
     bool can_take(int semester, int major_id);
 private:
     int id;

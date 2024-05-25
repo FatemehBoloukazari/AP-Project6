@@ -229,6 +229,12 @@ void UTMS::handle_delete_request(vector <string> &splited_command)
         throw NotFound();
 }
 
+void print_output(vector <string> const &output)
+{
+    for (auto word : output)
+        cout << word;
+}
+
 void UTMS::handle_view_personal_page(vector <string> &splited_command)
 {
     if (splited_command.size() != 5)
@@ -236,14 +242,16 @@ void UTMS::handle_view_personal_page(vector <string> &splited_command)
     if (splited_command[3] != "id")
         throw BadRequest();
     string id = splited_command[4];
-    request->handle_view_personal_page(id);
+    vector <string> output = request->handle_view_personal_page(id);
+    print_output(output);
 }
 
 void UTMS::handle_view_notifications(vector <string> &splited_command)
 {
     if (splited_command.size() != 3)
         throw BadRequest();
-    request->handle_view_notifications();
+    vector <string> output = request->handle_view_notifications();
+    print_output(output);
 }
 
 void UTMS::handle_view_post(vector<string> &splited_command)
@@ -261,7 +269,8 @@ void UTMS::handle_view_post(vector<string> &splited_command)
         else
             throw BadRequest();
     }
-    request->handle_view_post(id, post_id);
+    vector <string> output = request->handle_view_post(id, post_id);
+    print_output(output);
 }
 
 void UTMS::handle_view_courses(vector<string> &splited_command)
@@ -270,19 +279,22 @@ void UTMS::handle_view_courses(vector<string> &splited_command)
         throw BadRequest();
     if (splited_command.size() == 3)
     {
-        request->handle_view_all_courses();
+        vector <string> output = request->handle_view_all_courses();
+        print_output(output);
         return;
     }
     if (splited_command[3] != "id")
         throw BadRequest();
-    request->handle_view_course_details(splited_command[4]);
+    vector <string> output = request->handle_view_course_details(splited_command[4]);
+    print_output(output);
 }
 
 void UTMS::handle_view_taken_courses(vector <string> &splited_command)
 {
     if (splited_command.size() != 3)
         throw BadRequest();
-    request->handle_view_taken_courses();
+    vector <string> output = request->handle_view_taken_courses();
+    print_output(output);
 }
 
 void UTMS::handle_get_request(vector <string> &splited_command)

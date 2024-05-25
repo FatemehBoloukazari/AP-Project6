@@ -28,17 +28,17 @@ void User::delete_post(int _id)
     throw NotFound();
 }
 
-void User::show_personal_page()
+void User::show_personal_page(vector <string> &result)
 {
-    show_user_details();
-    show_posts();
+    show_user_details(result);
+    show_posts(result);
 }
 
 
-void User::show_posts()
+void User::show_posts(vector <string> &result)
 {
     for (int i = (int)posts.size() - 1; i >= 0; i--)
-        posts[i]->show_post_overview();
+        posts[i]->show_post_overview(result);
 }
 
 void User::connect(User *user)
@@ -54,26 +54,27 @@ void User::add_notification(Notification *new_notification)
     notifications.push_back(new_notification);
 }
 
-void User::view_notifications()
+void User::view_notifications(vector <string> &result)
 {
     if (notifications.empty())
     {
-        cout << EMPTY << endl;
+        result.push_back(EMPTY);
+        result.push_back("\n");
         return;
     }
     for (int i = (int)notifications.size() - 1; i >= 0; i--)
-        notifications[i]->show_notification();
+        notifications[i]->show_notification(result);
     notifications.clear();
 }
 
-void User::view_post(int post_id)
+void User::view_post(vector <string> &result, int post_id)
 {
     for (auto post : posts)
     {
         if (post->get_id() == post_id)
         {
-            show_user_details();
-            post->show_post_details();
+            show_user_details(result);
+            post->show_post_details(result);
             return;
         }
     }

@@ -42,6 +42,7 @@ const string DELETE_COURSE_NOTIFICATION = "Delete Course";
 const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 
 const string EMPTY_STRING = "";
+const string SPACE = " ";
 
 vector <string> get_splited(string str, char seprating_char);
 bool is_a_number(string str);

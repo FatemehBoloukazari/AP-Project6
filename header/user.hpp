@@ -12,13 +12,13 @@ public:
     string get_name() {return name;}
     void send_post(string _title, string _message);
     void delete_post(int _id);
-    void show_personal_page();
-    void show_posts();
+    void show_personal_page(vector <string> &result);
+    void show_posts(vector <string> &result);
     void connect(User* user);
     void add_notification(Notification *new_notification);
-    void view_notifications();
-    void view_post(int post_id);
-    virtual void show_user_details() = 0;
+    void view_notifications(vector <string> &result);
+    void view_post(vector <string> &result, int post_id);
+    virtual void show_user_details(vector <string> &result) = 0;
 protected:
     string name;
     string password;

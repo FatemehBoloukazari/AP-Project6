@@ -15,16 +15,16 @@ public:
     void handle_logout();
     void handle_new_post(string _title, string _message);
     void handle_post_delete(int id);
-    void handle_view_personal_page(string id_str);
+    vector <string> handle_view_personal_page(string id_str);
     void handle_connect_users(vector<string> &splited_command);
-    void handle_view_notifications();
-    void handle_view_post(string _id, string _post_id);
+    vector <string> handle_view_notifications();
+    vector <string> handle_view_post(string _id, string _post_id);
     void handle_course_offer(string course_id, string professor_id, string capacity, Time *time, Date *exam_date, string class_number);
-    void handle_view_all_courses();
-    void handle_view_course_details(string course_offer_id);
+    vector <string> handle_view_all_courses();
+    vector <string> handle_view_course_details(string course_offer_id);
     void handle_take_new_course(string _course_id);
     void handle_delete_taken_course(string _course_id);
-    void handle_view_taken_courses();
+    vector <string> handle_view_taken_courses();
 private:
     User *logged_in_user;
     vector <Course*> courses;

@@ -8,10 +8,10 @@ class Student : public User
 {
 public:
     Student(string _id, string _name, int _major_id, string _major_str, int _semester, string _password);
-    virtual void show_user_details();
+    virtual void show_user_details(vector <string> &result);
     void take_course(CourseOffer* course_offer);
     void remove_course(int course_id);
-    void view_taken_courses();
+    void view_taken_courses(vector <string> &result);
 private:
     int major_id;
     string major_str;

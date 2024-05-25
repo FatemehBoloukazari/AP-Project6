@@ -7,7 +7,12 @@ Notification::Notification(string _id, string _name, string _text)
     text = _text;
 }
 
-void Notification::show_notification()
+void Notification::show_notification(vector <string> &result)
 {
-    cout << id << ' ' << name << ": " << text << endl;
+    result.push_back(id);
+    result.push_back(SPACE);
+    result.push_back(name);
+    result.push_back(": ");
+    result.push_back(text);
+    result.push_back("\n");
 }

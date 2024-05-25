@@ -6,8 +6,8 @@ class Post
 {
 public:
     Post(string _title, string _message, int _id);
-    void show_post_overview();
-    void show_post_details();
+    void show_post_overview(vector <string> &result);
+    void show_post_details(vector <string> &result);
     int get_id() {return id;}
 private:
     string title;
