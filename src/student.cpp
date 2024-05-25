@@ -35,6 +35,9 @@ void Student::take_course(CourseOffer *course_offer)
             throw PermissionDenied();
     }
     courses.push_back(course_offer);
+    Notification *new_notification = new Notification(id, name, GET_COURSE_NOTIFICATION);
+    for (auto connected_user : connected_users)
+        connected_user->add_notification(new_notification);
 }
 
 void Student::remove_course(int course_id)
@@ -45,6 +48,9 @@ void Student::remove_course(int course_id)
         if (course_offer->get_id() == course_id)
         {
             courses.erase(courses.begin() + i);
+            Notification *new_notification = new Notification(id, name, DELETE_COURSE_NOTIFICATION);
+            for (auto connected_user : connected_users)
+                connected_user->add_notification(new_notification);
             return;
         }
     }

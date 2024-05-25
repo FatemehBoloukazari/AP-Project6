@@ -22,6 +22,8 @@ CommandType get_command_type(string command)
 
 void UTMS::handle_login(vector <string> &splited_command)
 {
+    if (splited_command.size() != 7)
+        throw BadRequest();
     string id = EMPTY_STRING;
     string pass = EMPTY_STRING;
     for (int i = 3; i <= 5; i++)
@@ -36,8 +38,10 @@ void UTMS::handle_login(vector <string> &splited_command)
     request->handle_login(id, pass);
 }
 
-void UTMS::handle_logout()
+void UTMS::handle_logout(vector <string> &splited_command)
 {
+    if (splited_command.size() != 3)
+        throw BadRequest();
     request->handle_logout();
 }
 
@@ -55,6 +59,8 @@ void UTMS::handle_new_post(vector <string> &splited_command)
                     title += ' ';
                 title += splited_command[i];
             }
+            if (title == EMPTY_STRING || title.back() != '\"')
+                throw BadRequest();
             i--;
         }
         else if (splited_command[i] == "message" && message == EMPTY_STRING)
@@ -65,6 +71,8 @@ void UTMS::handle_new_post(vector <string> &splited_command)
                     message += ' ';
                 message += splited_command[i];
             }
+            if (message == EMPTY_STRING || message.back() != '\"')
+                throw BadRequest();
             i--;
         }
         else
@@ -75,6 +83,8 @@ void UTMS::handle_new_post(vector <string> &splited_command)
 
 void UTMS::handle_connect_users(vector<string> &splited_command)
 {
+    if (splited_command.size() != 5)
+        throw BadRequest();
     request->handle_connect_users(splited_command);
 }
 
@@ -139,6 +149,8 @@ Date* convert_string_to_date(string date_str)
 
 void UTMS::handle_course_offer(vector<string> &splited_command)
 {
+    if (splited_command.size() != 15)
+        throw BadRequest();
     string course_id = EMPTY_STRING;
     string professor_id = EMPTY_STRING;
     string capacity = EMPTY_STRING;
@@ -174,7 +186,7 @@ void UTMS::handle_post_request(vector <string> &splited_command)
     if (splited_command[1] == "login")
         handle_login(splited_command);
     else if (splited_command[1] == "logout")
-        handle_logout();
+        handle_logout(splited_command);
     else if (splited_command[1] == "post")
         handle_new_post(splited_command);
     else if (splited_command[1] == "connect")
@@ -187,6 +199,8 @@ void UTMS::handle_post_request(vector <string> &splited_command)
 
 void UTMS::handle_post_delete(vector <string> &splited_command)
 {
+    if (splited_command.size() != 5)
+        throw BadRequest();
     if (splited_command[3] != "id")
         throw BadRequest();
     string id = splited_command[4];
@@ -195,6 +209,8 @@ void UTMS::handle_post_delete(vector <string> &splited_command)
 
 void UTMS::handle_delete_taken_course(vector<string> &splited_command)
 {
+    if (splited_command.size() != 5)
+        throw BadRequest();
     if (splited_command[3] != "id")
         throw BadRequest();
     string id = splited_command[4];
@@ -215,19 +231,25 @@ void UTMS::handle_delete_request(vector <string> &splited_command)
 
 void UTMS::handle_view_personal_page(vector <string> &splited_command)
 {
+    if (splited_command.size() != 5)
+        throw BadRequest();
     if (splited_command[3] != "id")
         throw BadRequest();
     string id = splited_command[4];
     request->handle_view_personal_page(id);
 }
 
-void UTMS::handle_view_notifications()
+void UTMS::handle_view_notifications(vector <string> &splited_command)
 {
+    if (splited_command.size() != 3)
+        throw BadRequest();
     request->handle_view_notifications();
 }
 
 void UTMS::handle_view_post(vector<string> &splited_command)
 {
+    if (splited_command.size() != 7)
+        throw BadRequest();
     string id = EMPTY_STRING;
     string post_id = EMPTY_STRING;
     for (int i = 3; i <= 5; i++)
@@ -244,6 +266,8 @@ void UTMS::handle_view_post(vector<string> &splited_command)
 
 void UTMS::handle_view_courses(vector<string> &splited_command)
 {
+    if (splited_command.size() != 5 && splited_command.size() != 3)
+        throw BadRequest();
     if (splited_command.size() == 3)
     {
         request->handle_view_all_courses();
@@ -254,8 +278,10 @@ void UTMS::handle_view_courses(vector<string> &splited_command)
     request->handle_view_course_details(splited_command[4]);
 }
 
-void UTMS::handle_view_taken_courses()
+void UTMS::handle_view_taken_courses(vector <string> &splited_command)
 {
+    if (splited_command.size() != 3)
+        throw BadRequest();
     request->handle_view_taken_courses();
 }
 
@@ -266,13 +292,13 @@ void UTMS::handle_get_request(vector <string> &splited_command)
     if (splited_command[1] == "personal_page")
         handle_view_personal_page(splited_command);
     else if (splited_command[1] == "notification")
-        handle_view_notifications();
+        handle_view_notifications(splited_command);
     else if (splited_command[1] == "post")
         handle_view_post(splited_command);
     else if (splited_command[1] == "courses")
         handle_view_courses(splited_command);
     else if (splited_command[1] == "my_courses")
-        handle_view_taken_courses();
+        handle_view_taken_courses(splited_command);
     else
         throw NotFound();
 }
@@ -301,6 +327,8 @@ void UTMS::run()
         string command;
         getline(cin, command);
         vector <string> splited_command = get_splited(command, ' ');
+        if (splited_command.empty())
+            continue;
         CommandType command_type = get_command_type(splited_command[0]);
         switch (command_type)
         {
@@ -312,15 +340,15 @@ void UTMS::run()
                 }
                 catch (BadRequest &ex)
                 {
-                    cerr << BAD_REQUEST_ERROR << endl;
+                    cout << BAD_REQUEST_ERROR << endl;
                 }
                 catch (NotFound &ex)
                 {
-                    cerr << NOT_FOUND_ERROR << endl;
+                    cout << NOT_FOUND_ERROR << endl;
                 }
                 catch (PermissionDenied &ex)
                 {
-                    cerr << PERMISSION_DENIED_ERROR << endl;
+                    cout << PERMISSION_DENIED_ERROR << endl;
                 }
                 break;
             case DELETE:
@@ -331,15 +359,15 @@ void UTMS::run()
                 }
                 catch (BadRequest &ex)
                 {
-                    cerr << BAD_REQUEST_ERROR << endl;
+                    cout << BAD_REQUEST_ERROR << endl;
                 }
                 catch (NotFound &ex)
                 {
-                    cerr << NOT_FOUND_ERROR << endl;
+                    cout << NOT_FOUND_ERROR << endl;
                 }
                 catch (PermissionDenied &ex)
                 {
-                    cerr << PERMISSION_DENIED_ERROR << endl;
+                    cout << PERMISSION_DENIED_ERROR << endl;
                 }
                 break;
             case GET:
@@ -349,15 +377,15 @@ void UTMS::run()
                 }
                 catch (BadRequest &ex)
                 {
-                    cerr << BAD_REQUEST_ERROR << endl;
+                    cout << BAD_REQUEST_ERROR << endl;
                 }
                 catch (NotFound &ex)
                 {
-                    cerr << NOT_FOUND_ERROR << endl;
+                    cout << NOT_FOUND_ERROR << endl;
                 }
                 catch (PermissionDenied &ex)
                 {
-                    cerr << PERMISSION_DENIED_ERROR << endl;
+                    cout << PERMISSION_DENIED_ERROR << endl;
                 }
                 break;
             case PUT:
@@ -368,19 +396,19 @@ void UTMS::run()
                 }
                 catch (BadRequest &ex)
                 {
-                    cerr << BAD_REQUEST_ERROR << endl;
+                    cout << BAD_REQUEST_ERROR << endl;
                 }
                 catch (NotFound &ex)
                 {
-                    cerr << NOT_FOUND_ERROR << endl;
+                    cout << NOT_FOUND_ERROR << endl;
                 }
                 catch (PermissionDenied &ex)
                 {
-                    cerr << PERMISSION_DENIED_ERROR << endl;
+                    cout << PERMISSION_DENIED_ERROR << endl;
                 }
                 break;
             default:
-                cerr << BAD_REQUEST_ERROR << endl;
+                cout << BAD_REQUEST_ERROR << endl;
                 break;
         }
     }

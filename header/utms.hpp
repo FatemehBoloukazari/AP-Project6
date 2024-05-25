@@ -13,7 +13,7 @@ public:
 private:
     Request* request;
     void handle_login(vector <string> &splited_command);
-    void handle_logout();
+    void handle_logout(vector <string> &splited_command);
     void handle_new_post(vector <string> &splited_command);
     void handle_connect_users(vector <string> &splited_command);
     void handle_course_offer(vector <string> &splited_command);
@@ -24,10 +24,10 @@ private:
     void handle_delete_request(vector <string> &splited_command);
 
     void handle_view_personal_page(vector <string> &splited_command);
-    void handle_view_notifications();
+    void handle_view_notifications(vector <string> &splited_command);
     void handle_view_post(vector <string> &splited_command);
     void handle_view_courses(vector <string> &splited_command);
-    void handle_view_taken_courses();
+    void handle_view_taken_courses(vector <string> &splited_command);
     void handle_get_request(vector <string> &splited_command);
 
     void handle_take_new_course(vector <string> &splited_command);

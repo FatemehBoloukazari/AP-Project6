@@ -15,6 +15,6 @@ all : $(EXES)
 $(EXES) : $(OBJECTS)
 	$(GPP) $(GPPFLAGS) -o $@ $^
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(wildcard $(SRC_DIR)/*.h)
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(wildcard $(SRC_DIR)/*.hpp)
 	mkdir -p $(OBJ_DIR)
 	$(GPP) $(GPPFLAGS) -c $< -o $@
