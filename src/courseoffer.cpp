@@ -15,9 +15,9 @@ string convert_time_to_string(Time *time)
 {
     string ret = EMPTY_STRING;
     ret += time->get_day();
-    ret += ':';
+    ret += COLON;
     ret += to_string(time->get_start_time());
-    ret += '-';
+    ret += DASH;
     ret += to_string(time->get_end_time());
     return ret;
 }
@@ -26,9 +26,9 @@ string convert_date_to_string(Date *date)
 {
     string ret = EMPTY_STRING;
     ret += to_string(date->get_year());
-    ret += '/';
+    ret += SLASH;
     ret += to_string(date->get_month());
-    ret += '/';
+    ret += SLASH;
     ret += to_string(date->get_day());
     return ret;
 }
@@ -42,7 +42,7 @@ void CourseOffer::show_course_overview(vector <string> &result)
     result.push_back(to_string(capacity));
     result.push_back(SPACE);
     result.push_back(professor_name);
-    result.push_back("\n");
+    result.push_back(NEW_LINE);
 }
 
 void CourseOffer::show_course_details(vector <string> &result)
@@ -60,7 +60,7 @@ void CourseOffer::show_course_details(vector <string> &result)
     result.push_back(convert_date_to_string(exam_date));
     result.push_back(SPACE);
     result.push_back(to_string(class_number));
-    result.push_back("\n");
+    result.push_back(NEW_LINE);
 }
 
 bool CourseOffer::can_take(int semester, int major_id)

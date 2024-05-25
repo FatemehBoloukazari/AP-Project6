@@ -43,6 +43,70 @@ const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 
 const string EMPTY_STRING = "";
 const string SPACE = " ";
+const string QUESTION_MARK = "?";
+const string NEW_LINE = "\n";
+const string COLON_STR = ":";
+const string COMMA = ",";
+
+const string POST_STRING = "POST";
+const string DELETE_STRING = "DELETE";
+const string GET_STRING = "GET";
+const string PUT_STRING = "PUT";
 
 vector <string> get_splited(string str, char seprating_char);
 bool is_a_number(string str);
+
+const int NUM_OF_POST_LOGIN_ENTRIES = 7;
+const int NUM_OF_POST_LOGOUT_ENTRIES = 3;
+const int NUM_OF_POST_CONNECT_ENTRIES = 5;
+const int NUM_OF_POST_COURSE_OFFER_ENTRIES = 15;
+
+const int NUM_OF_DELETE_POST_ENTRIES = 5;
+const int NUM_OF_DELETE_COURSE_ENTRIES = 5;
+
+const int NUM_OF_GET_PERSONAL_PAGE_ENTRIES = 5;
+const int NUM_OF_GET_NOTIFICATION_ENTRIES = 3;
+const int NUM_OF_GET_POST_ENTRIES = 7;
+const int NUM_OF_GET_ALL_COURSES_ENTRIES = 3;
+const int NUM_OF_GET_A_COURSE_ENTRIES = 5;
+const int NUM_OF_GET_MY_COURSES_ENTRIES = 3;
+
+const int NUM_OF_PUT_MY_COURSES_ENTRIES = 5;
+
+const string ID = "id";
+const string PASSWORD = "password";
+const string TITLE = "title";
+const string MESSAGE = "message";
+const string COURSE_ID = "course_id";
+const string PROFESSOR_ID = "professor_id";
+const string CAPACITY = "capacity";
+const string TIME = "time";
+const string EXAM_DATE = "exam_date";
+const string CLASS_NUMBER = "class_number";
+const string LOGIN = "login";
+const string LOGOUT = "logout";
+const string POST_STR = "post";
+const string CONNECT = "connect";
+const string COURSE_OFFER = "course_offer";
+const string MY_COURSES = "my_courses";
+const string POST_ID = "post_id";
+const string PERSONAL_PAGE = "personal_page";
+const string NOTIFICATION = "notification";
+const string COURSES = "courses";
+
+const char DASH = '-';
+const char COLON = ':';
+const char SLASH = '/';
+const char DOUBLE_QUOTATION = '\"';
+const char SPACE_CHAR = ' ';
+const char COMMA_CHAR = ',';
+const char SEMICOLON = ';';
+
+const int MAIN_COMMAND_INDEX = 0;
+const int REQUEST_INDEX = 1;
+const int QUESTION_MARK_INDEX = 2;
+const int FIRST_DATA_INDEX = 3;
+
+const string ADMIN_ID = "0";
+const string ADMIN_NAME = "UT_account";
+const string ADMIN_PASSWORD = "UT_account";

@@ -59,7 +59,7 @@ void User::view_notifications(vector <string> &result)
     if (notifications.empty())
     {
         result.push_back(EMPTY);
-        result.push_back("\n");
+        result.push_back(NEW_LINE);
         return;
     }
     for (int i = (int)notifications.size() - 1; i >= 0; i--)

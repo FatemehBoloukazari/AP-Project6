@@ -5,6 +5,7 @@ string find_major_name_by_id(vector <Major*> const &majors, int id)
     for (auto major : majors)
         if (major->major_id == id)
             return major->major_name;
+    return EMPTY_STRING;
 }
 
 void read_professors_file(vector <User*> &users, vector <Major*> const &majors, string professors_file_path)
@@ -14,7 +15,7 @@ void read_professors_file(vector <User*> &users, vector <Major*> const &majors, 
     getline(professors_file, professor_str);
     while (getline(professors_file, professor_str))
     {
-        vector <string> seprated_str = get_splited(professor_str, ',');
+        vector <string> seprated_str = get_splited(professor_str, COMMA_CHAR);
         string id = seprated_str[0];
         string name = seprated_str[1];
         int major_id = stoi(seprated_str[2]);
@@ -34,7 +35,7 @@ void read_majors_file(vector<Major*> &majors, string majors_file_path)
     getline(majors_file, major_str);
     while (getline(majors_file, major_str))
     {
-        vector <string> seprated_str = get_splited(major_str, ',');
+        vector <string> seprated_str = get_splited(major_str, COMMA_CHAR);
         int id = stoi(seprated_str[0]);
         string major = seprated_str[1];
         Major* new_major = new Major(id, major);
@@ -50,7 +51,7 @@ void read_students_file(vector<User*> &users, vector <Major*> const &majors, str
     getline(students_file, student_str);
     while (getline(students_file, student_str))
     {
-        vector <string> seprated_str = get_splited(student_str, ',');
+        vector <string> seprated_str = get_splited(student_str, COMMA_CHAR);
         string id = seprated_str[0];
         string name = seprated_str[1];
         int major_id = stoi(seprated_str[2]);
@@ -70,18 +71,18 @@ void read_courses_file(vector<Course*> &courses, string courses_file_path)
     getline(courses_file, course_str);
     while (getline(courses_file, course_str))
     {
-        vector <string> seprated_str = get_splited(course_str, ',');
+        vector <string> seprated_str = get_splited(course_str, COMMA_CHAR);
         string id = seprated_str[0];
         string name = seprated_str[1];
         int credit = stoi(seprated_str[2]);
         int prerequisites = stoi(seprated_str[3]);
         string majors_str = seprated_str[4];
         vector <int> major_ids;
-        majors_str += ';';
+        majors_str += SEMICOLON;
         string major_id = EMPTY_STRING;
         for (auto c : majors_str)
         {
-            if (c == ';')
+            if (c == SEMICOLON)
             {
                 major_ids.push_back(stoi(major_id));
                 major_id = EMPTY_STRING;

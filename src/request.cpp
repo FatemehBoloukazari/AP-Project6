@@ -2,7 +2,7 @@
 
 void add_admin(vector <User*> &users)
 {
-    Admin* new_admin = new Admin("UT_account", "0", "UT_account");
+    Admin* new_admin = new Admin(ADMIN_NAME, ADMIN_ID, ADMIN_PASSWORD);
     for (auto user : users)
         new_admin->connect(user);
     users.push_back(new_admin);
@@ -86,7 +86,7 @@ void Request::handle_connect_users(vector<string> &splited_command)
         throw BadRequest();
     if (logged_in_user == NULL)
         throw PermissionDenied();
-    if (logged_in_user->get_id() == "0")
+    if (logged_in_user->get_id() == ADMIN_ID)
         throw PermissionDenied();
     for (auto user : users)
     {
@@ -104,7 +104,7 @@ vector <string> Request::handle_view_notifications()
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
-    if (logged_in_user->get_id() == "0")
+    if (logged_in_user->get_id() == ADMIN_ID)
         throw PermissionDenied();
     vector <string> result;
     logged_in_user->view_notifications(result);
@@ -158,7 +158,7 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
-    if (logged_in_user->get_id() != "0")
+    if (logged_in_user->get_id() != ADMIN_ID)
         throw PermissionDenied();
     if (!is_a_number(course_id) || !is_a_number(professor_id) || !is_a_number(capacity) || !is_a_number(class_number))
         throw BadRequest();
@@ -184,7 +184,7 @@ vector <string> Request::handle_view_all_courses()
     if (course_offers.empty())
     {
         result.push_back(EMPTY);
-        result.push_back("\n");
+        result.push_back(NEW_LINE);
         return result;
     }
     for (auto course_offer : course_offers)
