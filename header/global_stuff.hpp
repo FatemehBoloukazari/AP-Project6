@@ -47,6 +47,7 @@ const string QUESTION_MARK = "?";
 const string NEW_LINE = "\n";
 const string COLON_STR = ":";
 const string COMMA = ",";
+const string ZERO = "0";
 
 const string POST_STRING = "POST";
 const string DELETE_STRING = "DELETE";

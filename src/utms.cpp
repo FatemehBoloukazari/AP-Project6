@@ -204,7 +204,7 @@ void UTMS::handle_post_delete(vector <string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
     string id = splited_command[FIRST_DATA_INDEX + 1];
-    request->handle_post_delete(stoi(id));
+    request->handle_post_delete(id);
 }
 
 void UTMS::handle_delete_taken_course(vector<string> &splited_command)
@@ -328,7 +328,7 @@ void UTMS::handle_put_request(vector<string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
         throw BadRequest();
-    if (splited_command[1] == MY_COURSES)
+    if (splited_command[REQUEST_INDEX] == MY_COURSES)
         handle_take_new_course(splited_command);
     else
         throw NotFound();
