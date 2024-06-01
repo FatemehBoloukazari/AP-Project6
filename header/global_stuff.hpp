@@ -94,6 +94,7 @@ const string POST_ID = "post_id";
 const string PERSONAL_PAGE = "personal_page";
 const string NOTIFICATION = "notification";
 const string COURSES = "courses";
+const string IMAGE = "image";
 
 const char DASH = '-';
 const char COLON = ':';

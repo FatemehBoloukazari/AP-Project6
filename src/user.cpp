@@ -6,9 +6,9 @@ void User::login(string pass)
         throw PermissionDenied();
 }
 
-void User::send_post(string _title, string _message)
+void User::send_post(string _title, string _message, string _image_address)
 {
-    Post* new_post = new Post(_title, _message, ++last_post_id);
+    Post* new_post = new Post(_title, _message, ++last_post_id, _image_address);
     posts.push_back(new_post);
     Notification *new_notification = new Notification(id, name, NEW_POST_NOTIFICATION);
     for (auto connected_user : connected_users)

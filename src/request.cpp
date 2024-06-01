@@ -49,11 +49,11 @@ void Request::handle_logout()
     logged_in_user = NULL;
 }
 
-void Request::handle_new_post(string _title, string _message)
+void Request::handle_new_post(string _title, string _message, string _image_address)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
-    logged_in_user->send_post(_title, _message);
+    logged_in_user->send_post(_title, _message, _image_address);
 }
 
 void Request::handle_post_delete(string id)

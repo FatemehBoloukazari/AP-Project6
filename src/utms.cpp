@@ -49,6 +49,7 @@ void UTMS::handle_new_post(vector <string> &splited_command)
 {
     string title = EMPTY_STRING;
     string message = EMPTY_STRING;
+    string image_address = EMPTY_STRING;
     for (int i = FIRST_DATA_INDEX; i < (int)splited_command.size(); i++)
     {
         if (splited_command[i] == TITLE && title == EMPTY_STRING)
@@ -59,7 +60,7 @@ void UTMS::handle_new_post(vector <string> &splited_command)
                     title += SPACE_CHAR;
                 title += splited_command[i];
             }
-            if (title == EMPTY_STRING || title.back() != DOUBLE_QUOTATION)
+            if (title == EMPTY_STRING || title.back() != DOUBLE_QUOTATION || title[0] != DOUBLE_QUOTATION)
                 throw BadRequest();
             i--;
         }
@@ -71,14 +72,21 @@ void UTMS::handle_new_post(vector <string> &splited_command)
                     message += SPACE_CHAR;
                 message += splited_command[i];
             }
-            if (message == EMPTY_STRING || message.back() != DOUBLE_QUOTATION)
+            if (message == EMPTY_STRING || message.back() != DOUBLE_QUOTATION || message[0] != DOUBLE_QUOTATION)
                 throw BadRequest();
             i--;
+        }
+        else if (splited_command[i] == IMAGE && image_address == EMPTY_STRING && i != splited_command.size() - 1)
+        {
+            image_address = splited_command[i + 1];
+            i++;
         }
         else
             throw BadRequest();
     }
-    request->handle_new_post(title, message);
+    if (title == EMPTY_STRING || message == EMPTY_STRING)
+        throw BadRequest();
+    request->handle_new_post(title, message, image_address);
 }
 
 void UTMS::handle_connect_users(vector<string> &splited_command)
