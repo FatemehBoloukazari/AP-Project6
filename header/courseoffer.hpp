@@ -4,6 +4,7 @@
 #include "course.hpp"
 #include "time.hpp"
 #include "date.hpp"
+#include "channel.hpp"
 
 class CourseOffer
 {
@@ -16,6 +17,8 @@ public:
     void show_course_details(vector <string> &result);
     bool can_take(int semester, int major_id);
     Date* get_exam_date() {return exam_date;}
+    bool have_allowed_major(int major_id) {return course->have_allowed_major(major_id);}
+    void add_channel_post(string title, string message, string image_address);
 private:
     int id;
     Course* course;
@@ -24,4 +27,5 @@ private:
     Time *time;
     Date *exam_date;
     int class_number;
+    Channel* channel;
 };

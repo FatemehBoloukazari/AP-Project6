@@ -273,3 +273,32 @@ void Request::handle_add_profile_photo(string _image_address)
         throw PermissionDenied();
     logged_in_user->set_profile_photo(_image_address);
 }
+
+CourseOffer* Request::find_course_offer_by_id(int course_offer_id)
+{
+    for (auto course_offer : course_offers)
+        if (course_offer->get_id() == course_offer_id)
+            return course_offer;
+    throw NotFound();
+}
+
+void Request::handle_new_course_post(string course_offer_id_str, string title, string message, string image_address)
+{
+    if (logged_in_user == NULL || logged_in_user->get_id() == ADMIN_ID)
+        throw PermissionDenied();
+    if (!is_a_number(course_offer_id_str) || course_offer_id_str == ZERO)
+        throw BadRequest();
+    int course_offer_id = stoi(course_offer_id_str);
+    CourseOffer *course_offer = find_course_offer_by_id(course_offer_id);
+    if (!logged_in_user->have_course_offer(course_offer))
+        throw PermissionDenied();
+    course_offer->add_channel_post(title, message, image_address);
+    for (auto user : users)
+    {
+        if (user->have_course_offer(course_offer))
+        {
+            Notification *new_notification = new Notification(course_offer_id_str, course_offer->get_name(), NEW_COURSE_POST_NOTIFICATION);
+            user->add_notification(new_notification);
+        }
+    }
+}

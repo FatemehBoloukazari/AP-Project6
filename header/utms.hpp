@@ -14,7 +14,7 @@ private:
     Request* request;
     void handle_login(vector <string> &splited_command);
     void handle_logout(vector <string> &splited_command);
-    void handle_new_post(vector <string> &splited_command);
+    void handle_new_post(vector <string> &splited_command, bool post_type);
     void handle_connect_users(vector <string> &splited_command);
     void handle_course_offer(vector <string> &splited_command);
     void handle_add_profile_photo(vector <string> &splited_command);

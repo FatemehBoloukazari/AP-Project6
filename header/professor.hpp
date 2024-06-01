@@ -13,6 +13,7 @@ public:
     int get_major_id() {return major_id;}
     bool time_intersects(Time *time);
     void add_course_offer(CourseOffer* new_course_offer);
+    bool have_course_offer(CourseOffer* searching_course_offer);
 private:
     int major_id;
     string major_str;

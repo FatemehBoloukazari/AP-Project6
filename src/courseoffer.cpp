@@ -9,6 +9,7 @@ CourseOffer::CourseOffer(int _id, Course *_course, string _professor_name, int _
     time = _time;
     exam_date = _exam_date;
     class_number = _class_number;
+    channel = new Channel();
 }
 
 string convert_time_to_string(Time *time)
@@ -68,4 +69,9 @@ bool CourseOffer::can_take(int semester, int major_id)
     if (course->have_allowed_major(major_id) && course->have_allowed_semester(semester))
         return true;
     return false;
+}
+
+void CourseOffer::add_channel_post(string title, string message, string image_address)
+{
+    channel->add_post(title, message, image_address);
 }

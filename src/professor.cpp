@@ -43,3 +43,11 @@ void Professor::add_course_offer(CourseOffer *new_course_offer)
 {
     courses.push_back(new_course_offer);
 }
+
+bool Professor::have_course_offer(CourseOffer *searching_course_offer)
+{
+    for (auto course_offer : courses)
+        if (course_offer == searching_course_offer)
+            return true;
+    return false;
+}

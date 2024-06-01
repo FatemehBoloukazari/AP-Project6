@@ -12,9 +12,11 @@ public:
     void take_course(CourseOffer* course_offer);
     void remove_course(int course_id);
     void view_taken_courses(vector <string> &result);
+    bool have_course_offer(CourseOffer* searching_course_offer);
 private:
     int major_id;
     string major_str;
     int semester;
     vector <CourseOffer*> courses;
+    vector <CourseOffer*> ta_courses;
 };

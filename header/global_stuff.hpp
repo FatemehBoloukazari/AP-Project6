@@ -40,6 +40,7 @@ const string NEW_POST_NOTIFICATION = "New Post";
 const string GET_COURSE_NOTIFICATION = "Get Course";
 const string DELETE_COURSE_NOTIFICATION = "Delete Course";
 const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
+const string NEW_COURSE_POST_NOTIFICATION = "New Course Post";
 
 const string EMPTY_STRING = "";
 const string SPACE = " ";
@@ -62,6 +63,7 @@ const int NUM_OF_POST_LOGOUT_ENTRIES = 3;
 const int NUM_OF_POST_CONNECT_ENTRIES = 5;
 const int NUM_OF_POST_COURSE_OFFER_ENTRIES = 15;
 const int NUM_OF_POST_PROFILE_PHOTO_ENTRIES = 5;
+const int NUM_OF_POST_COURSE_POST_ENTRIES = 11;
 
 const int NUM_OF_DELETE_POST_ENTRIES = 5;
 const int NUM_OF_DELETE_COURSE_ENTRIES = 5;
@@ -98,6 +100,7 @@ const string COURSES = "courses";
 const string IMAGE = "image";
 const string PROFILE_PHOTO = "profile_photo";
 const string PHOTO = "photo";
+const string COURSE_POST = "course_post";
 
 const char DASH = '-';
 const char COLON = ':';
@@ -115,3 +118,6 @@ const int FIRST_DATA_INDEX = 3;
 const string ADMIN_ID = "0";
 const string ADMIN_NAME = "UT_account";
 const string ADMIN_PASSWORD = "UT_account";
+
+const bool USER_POST = false;
+const bool CHANNEL_POST = true;

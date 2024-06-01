@@ -45,11 +45,12 @@ void UTMS::handle_logout(vector <string> &splited_command)
     request->handle_logout();
 }
 
-void UTMS::handle_new_post(vector <string> &splited_command)
+void UTMS::handle_new_post(vector <string> &splited_command, bool post_type)
 {
     string title = EMPTY_STRING;
     string message = EMPTY_STRING;
     string image_address = EMPTY_STRING;
+    string course_offer_id = EMPTY_STRING;
     for (int i = FIRST_DATA_INDEX; i < (int)splited_command.size(); i++)
     {
         if (splited_command[i] == TITLE && title == EMPTY_STRING)
@@ -81,12 +82,24 @@ void UTMS::handle_new_post(vector <string> &splited_command)
             image_address = splited_command[i + 1];
             i++;
         }
+        else if (splited_command[i] == ID && post_type == CHANNEL_POST && course_offer_id == EMPTY_STRING && i != splited_command.size() - 1)
+        {
+            course_offer_id = splited_command[i + 1];
+            i++;
+        }
         else
             throw BadRequest();
     }
     if (title == EMPTY_STRING || message == EMPTY_STRING)
         throw BadRequest();
-    request->handle_new_post(title, message, image_address);
+    if (post_type == USER_POST)
+        request->handle_new_post(title, message, image_address);
+    else
+    {
+        if (course_offer_id == EMPTY_STRING)
+            throw BadRequest();
+        request->handle_new_course_post(course_offer_id, title, message, image_address);
+    }
 }
 
 void UTMS::handle_connect_users(vector<string> &splited_command)
@@ -206,13 +219,15 @@ void UTMS::handle_post_request(vector <string> &splited_command)
     else if (splited_command[REQUEST_INDEX] == LOGOUT)
         handle_logout(splited_command);
     else if (splited_command[REQUEST_INDEX] == POST_STR)
-        handle_new_post(splited_command);
+        handle_new_post(splited_command, USER_POST);
     else if (splited_command[REQUEST_INDEX] == CONNECT)
         handle_connect_users(splited_command);
     else if (splited_command[REQUEST_INDEX] == COURSE_OFFER)
         handle_course_offer(splited_command);
     else if (splited_command[REQUEST_INDEX] == PROFILE_PHOTO)
         handle_add_profile_photo(splited_command);
+    else if (splited_command[REQUEST_INDEX] == COURSE_POST)
+        handle_new_post(splited_command, CHANNEL_POST);
     else
         throw NotFound();
 }
