@@ -80,3 +80,8 @@ void User::view_post(vector <string> &result, int post_id)
     }
     throw NotFound();
 }
+
+void User::set_profile_photo(string _image_address)
+{
+    profile_photo_address = _image_address;
+}

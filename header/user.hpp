@@ -19,10 +19,12 @@ public:
     void view_notifications(vector <string> &result);
     void view_post(vector <string> &result, int post_id);
     virtual void show_user_details(vector <string> &result) = 0;
+    void set_profile_photo(string _image_address);
 protected:
     string name;
     string password;
     string id;
+    string profile_photo_address;
     vector <Post*> posts;
     int last_post_id;
     vector <User*> connected_users;

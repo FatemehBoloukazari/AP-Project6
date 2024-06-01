@@ -266,3 +266,10 @@ vector <string> Request::handle_view_taken_courses()
     student->view_taken_courses(result);
     return result;
 }
+
+void Request::handle_add_profile_photo(string _image_address)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    logged_in_user->set_profile_photo(_image_address);
+}

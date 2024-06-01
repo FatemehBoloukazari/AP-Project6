@@ -187,6 +187,16 @@ void UTMS::handle_course_offer(vector<string> &splited_command)
     request->handle_course_offer(course_id, professor_id, capacity, time, exam_date, class_number);
 }
 
+void UTMS::handle_add_profile_photo(vector <string> &splited_command)
+{
+    if (splited_command.size() != NUM_OF_POST_PROFILE_PHOTO_ENTRIES)
+        throw BadRequest();
+    if (splited_command[FIRST_DATA_INDEX] != PHOTO)
+        throw BadRequest();
+    string image_address = splited_command[FIRST_DATA_INDEX + 1];
+    request->handle_add_profile_photo(image_address);
+}
+
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
@@ -201,6 +211,8 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         handle_connect_users(splited_command);
     else if (splited_command[REQUEST_INDEX] == COURSE_OFFER)
         handle_course_offer(splited_command);
+    else if (splited_command[REQUEST_INDEX] == PROFILE_PHOTO)
+        handle_add_profile_photo(splited_command);
     else
         throw NotFound();
 }

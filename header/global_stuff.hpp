@@ -61,6 +61,7 @@ const int NUM_OF_POST_LOGIN_ENTRIES = 7;
 const int NUM_OF_POST_LOGOUT_ENTRIES = 3;
 const int NUM_OF_POST_CONNECT_ENTRIES = 5;
 const int NUM_OF_POST_COURSE_OFFER_ENTRIES = 15;
+const int NUM_OF_POST_PROFILE_PHOTO_ENTRIES = 5;
 
 const int NUM_OF_DELETE_POST_ENTRIES = 5;
 const int NUM_OF_DELETE_COURSE_ENTRIES = 5;
@@ -95,6 +96,8 @@ const string PERSONAL_PAGE = "personal_page";
 const string NOTIFICATION = "notification";
 const string COURSES = "courses";
 const string IMAGE = "image";
+const string PROFILE_PHOTO = "profile_photo";
+const string PHOTO = "photo";
 
 const char DASH = '-';
 const char COLON = ':';

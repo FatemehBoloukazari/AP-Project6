@@ -25,6 +25,7 @@ public:
     void handle_take_new_course(string _course_id);
     void handle_delete_taken_course(string _course_id);
     vector <string> handle_view_taken_courses();
+    void handle_add_profile_photo(string _image_address);
 private:
     User *logged_in_user;
     vector <Course*> courses;
