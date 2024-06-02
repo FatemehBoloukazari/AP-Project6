@@ -34,7 +34,6 @@ void User::show_personal_page(vector <string> &result)
     show_posts(result);
 }
 
-
 void User::show_posts(vector <string> &result)
 {
     for (int i = (int)posts.size() - 1; i >= 0; i--)

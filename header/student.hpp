@@ -13,6 +13,7 @@ public:
     void remove_course(int course_id);
     void view_taken_courses(vector <string> &result);
     bool have_course_offer(CourseOffer* searching_course_offer);
+    bool can_post_in_course_channel(CourseOffer* searching_course_offer);
 private:
     int major_id;
     string major_str;

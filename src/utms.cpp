@@ -289,7 +289,7 @@ void UTMS::handle_view_notifications(vector <string> &splited_command)
     print_output(output);
 }
 
-void UTMS::handle_view_post(vector<string> &splited_command)
+void UTMS::handle_view_post(vector<string> &splited_command, bool post_type)
 {
     if (splited_command.size() != NUM_OF_GET_POST_ENTRIES)
         throw BadRequest();
@@ -304,7 +304,11 @@ void UTMS::handle_view_post(vector<string> &splited_command)
         else
             throw BadRequest();
     }
-    vector <string> output = request->handle_view_post(id, post_id);
+    vector <string> output;
+    if (post_type == USER_POST)
+        output = request->handle_view_post(id, post_id);
+    else
+        output = request->handle_view_course_post(id, post_id);
     print_output(output);
 }
 
@@ -332,6 +336,16 @@ void UTMS::handle_view_taken_courses(vector <string> &splited_command)
     print_output(output);
 }
 
+void UTMS::handle_view_course_channel(vector<string> &splited_command)
+{
+    if (splited_command.size() != NUM_OF_GET_COURSE_CHANNEL_ENTRIES)
+        throw BadRequest();
+    if (splited_command[FIRST_DATA_INDEX] != ID)
+        throw BadRequest();
+    vector <string> output = request->handle_view_course_channel(splited_command[FIRST_DATA_INDEX + 1]);
+    print_output(output);
+}
+
 void UTMS::handle_get_request(vector <string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
@@ -341,11 +355,15 @@ void UTMS::handle_get_request(vector <string> &splited_command)
     else if (splited_command[REQUEST_INDEX] == NOTIFICATION)
         handle_view_notifications(splited_command);
     else if (splited_command[REQUEST_INDEX] == POST_STR)
-        handle_view_post(splited_command);
+        handle_view_post(splited_command, USER_POST);
     else if (splited_command[REQUEST_INDEX] == COURSES)
         handle_view_courses(splited_command);
     else if (splited_command[REQUEST_INDEX] == MY_COURSES)
         handle_view_taken_courses(splited_command);
+    else if (splited_command[REQUEST_INDEX] == COURSE_CHANNEL)
+        handle_view_course_channel(splited_command);
+    else if (splited_command[REQUEST_INDEX] == COURSE_POST)
+        handle_view_post(splited_command, CHANNEL_POST);
     else
         throw NotFound();
 }

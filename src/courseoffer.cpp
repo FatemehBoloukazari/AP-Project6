@@ -71,7 +71,19 @@ bool CourseOffer::can_take(int semester, int major_id)
     return false;
 }
 
-void CourseOffer::add_channel_post(string title, string message, string image_address)
+void CourseOffer::add_channel_post(string author, string title, string message, string image_address)
 {
-    channel->add_post(title, message, image_address);
+    channel->add_post(author, title, message, image_address);
+}
+
+void CourseOffer::show_channel(vector <string> &result)
+{
+    show_course_details(result);
+    channel->show_channel_posts(result);
+}
+
+void CourseOffer::view_post(vector <string> &result, int post_id)
+{
+    show_course_details(result);
+    channel->view_post(result, post_id);
 }

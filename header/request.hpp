@@ -28,6 +28,8 @@ public:
     void handle_add_profile_photo(string _image_address);
     void handle_new_course_post(string course_offer_id_str, string title, string message, string image_address);
     CourseOffer* find_course_offer_by_id(int course_offer_id);
+    vector <string> handle_view_course_channel(string course_offer_id);
+    vector <string> handle_view_course_post(string _id, string _post_id);
 private:
     User *logged_in_user;
     vector <Course*> courses;

@@ -74,6 +74,7 @@ const int NUM_OF_GET_POST_ENTRIES = 7;
 const int NUM_OF_GET_ALL_COURSES_ENTRIES = 3;
 const int NUM_OF_GET_A_COURSE_ENTRIES = 5;
 const int NUM_OF_GET_MY_COURSES_ENTRIES = 3;
+const int NUM_OF_GET_COURSE_CHANNEL_ENTRIES = 5;
 
 const int NUM_OF_PUT_MY_COURSES_ENTRIES = 5;
 
@@ -101,6 +102,7 @@ const string IMAGE = "image";
 const string PROFILE_PHOTO = "profile_photo";
 const string PHOTO = "photo";
 const string COURSE_POST = "course_post";
+const string COURSE_CHANNEL = "course_channel";
 
 const char DASH = '-';
 const char COLON = ':';

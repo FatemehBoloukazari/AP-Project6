@@ -80,7 +80,15 @@ void Student::view_taken_courses(vector <string> &result)
 
 bool Student::have_course_offer(CourseOffer *searching_course_offer)
 {
-    for (auto course_offer : ta_courses)
+    for (auto course_offer : courses)
+        if (course_offer == searching_course_offer)
+            return true;
+    return false;
+}
+
+bool Student::can_post_in_course_channel(CourseOffer *searching_course_offer)
+{
+    for (auto course_offer : courses)
         if (course_offer == searching_course_offer)
             return true;
     return false;

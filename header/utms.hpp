@@ -26,9 +26,10 @@ private:
 
     void handle_view_personal_page(vector <string> &splited_command);
     void handle_view_notifications(vector <string> &splited_command);
-    void handle_view_post(vector <string> &splited_command);
+    void handle_view_post(vector <string> &splited_command, bool post_type);
     void handle_view_courses(vector <string> &splited_command);
     void handle_view_taken_courses(vector <string> &splited_command);
+    void handle_view_course_channel(vector <string> &splited_command);
     void handle_get_request(vector <string> &splited_command);
 
     void handle_take_new_course(vector <string> &splited_command);

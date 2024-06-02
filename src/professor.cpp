@@ -51,3 +51,8 @@ bool Professor::have_course_offer(CourseOffer *searching_course_offer)
             return true;
     return false;
 }
+
+bool Professor::can_post_in_course_channel(CourseOffer *course_offer)
+{
+    return have_course_offer(course_offer);
+}

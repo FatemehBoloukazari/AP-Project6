@@ -22,6 +22,7 @@ public:
     virtual void show_user_details(vector <string> &result) = 0;
     void set_profile_photo(string _image_address);
     virtual bool have_course_offer(CourseOffer *course_offer) = 0;
+    virtual bool can_post_in_course_channel(CourseOffer* course_offer) = 0;
 protected:
     string name;
     string password;

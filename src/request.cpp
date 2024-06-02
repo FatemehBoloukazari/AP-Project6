@@ -282,6 +282,20 @@ CourseOffer* Request::find_course_offer_by_id(int course_offer_id)
     throw NotFound();
 }
 
+vector <string>  Request::handle_view_course_channel(string course_offer_id)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_number(course_offer_id) || course_offer_id == ZERO)
+        throw BadRequest();
+    CourseOffer *course_offer = find_course_offer_by_id(stoi(course_offer_id));
+    if (!logged_in_user->have_course_offer(course_offer))
+        throw PermissionDenied();
+    vector <string> output;
+    course_offer->show_channel(output);
+    return output;
+}
+
 void Request::handle_new_course_post(string course_offer_id_str, string title, string message, string image_address)
 {
     if (logged_in_user == NULL || logged_in_user->get_id() == ADMIN_ID)
@@ -290,15 +304,33 @@ void Request::handle_new_course_post(string course_offer_id_str, string title, s
         throw BadRequest();
     int course_offer_id = stoi(course_offer_id_str);
     CourseOffer *course_offer = find_course_offer_by_id(course_offer_id);
-    if (!logged_in_user->have_course_offer(course_offer))
+    if (!logged_in_user->can_post_in_course_channel(course_offer))
         throw PermissionDenied();
-    course_offer->add_channel_post(title, message, image_address);
+    string author = logged_in_user->get_name();
+    course_offer->add_channel_post(author, title, message, image_address);
     for (auto user : users)
     {
-        if (user->have_course_offer(course_offer))
+        if (user == logged_in_user)
+            continue;
+        if (user->can_post_in_course_channel(course_offer) || user->have_course_offer(course_offer))
         {
             Notification *new_notification = new Notification(course_offer_id_str, course_offer->get_name(), NEW_COURSE_POST_NOTIFICATION);
             user->add_notification(new_notification);
         }
     }
+}
+
+vector <string> Request::handle_view_course_post(string _id, string _post_id)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_number(_id) || !is_a_number(_post_id) || _post_id == ZERO)
+        throw BadRequest();
+    int id = stoi(_id);
+    CourseOffer *course_offer = find_course_offer_by_id(id);
+    if (!logged_in_user->can_post_in_course_channel(course_offer) && !logged_in_user->have_course_offer(course_offer))
+        throw PermissionDenied();
+    vector <string> result;
+    course_offer->view_post(result, stoi(_post_id));
+    return result;
 }

@@ -18,7 +18,9 @@ public:
     bool can_take(int semester, int major_id);
     Date* get_exam_date() {return exam_date;}
     bool have_allowed_major(int major_id) {return course->have_allowed_major(major_id);}
-    void add_channel_post(string title, string message, string image_address);
+    void add_channel_post(string author, string title, string message, string image_address);
+    void show_channel(vector <string> &result);
+    void view_post(vector <string> &result, int post_id);
 private:
     int id;
     Course* course;
