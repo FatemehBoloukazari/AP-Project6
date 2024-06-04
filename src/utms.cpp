@@ -491,9 +491,8 @@ void UTMS::run()
             {
                 case POST:
                     handle_post_request(splited_command);
-                    //////////////////////////
-                    if (splited_command[1] != CLOSE_TA_FORM)
-                    cout << OK << endl;
+                    if (splited_command[REQUEST_INDEX] != CLOSE_TA_FORM)
+                        cout << OK << endl;
                     break;
                 case DELETE:
                     handle_delete_request(splited_command);
