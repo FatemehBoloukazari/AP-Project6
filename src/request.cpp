@@ -335,6 +335,13 @@ vector <string> Request::handle_view_course_post(string _id, string _post_id)
     return result;
 }
 
+bool is_a_professor(User *user)
+{
+    Professor *professor = dynamic_cast<Professor*> (user);
+    if (professor == NULL)
+        return false;
+    return true;
+}
 void Request::handle_new_ta_form(string course_offer_id, string message)
 {
     if (logged_in_user == NULL)
@@ -342,8 +349,46 @@ void Request::handle_new_ta_form(string course_offer_id, string message)
     if (!is_a_number(course_offer_id) || course_offer_id == ZERO)
         throw PermissionDenied();
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
-    if (professor == NULL)
+    if (!is_a_professor(logged_in_user))
         throw PermissionDenied();
     CourseOffer *course_offer = find_course_offer_by_id(stoi(course_offer_id));
     professor->add_ta_form(course_offer, message);
+}
+
+void Request::check_close_ta_form_access(string post_id)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_number(post_id) || post_id == ZERO)
+        throw PermissionDenied();
+    if (!is_a_professor(logged_in_user))
+        throw PermissionDenied();
+    Professor *professor = dynamic_cast<Professor*> (logged_in_user);
+    professor->check_having_ta_form(stoi(post_id));
+}
+
+vector <string> Request::show_number_of_ta_requests(int form_id)
+{
+    vector <string> result;
+    result.push_back(NUM_OF_TA_REQUESTS_MESSAGE_FIRST_PART);
+    result.push_back(SPACE);
+    Professor *professor = dynamic_cast<Professor*> (logged_in_user);
+    professor->show_number_of_ta_requests(result, form_id);
+    result.push_back(SPACE);
+    result.push_back(NUM_OF_TA_REQUESTS_MESSAGE_SECOND_PART);
+    result.push_back(NEW_LINE);
+    return result;
+}
+
+vector<vector<string>> Request::get_ta_form_requests(int form_id)
+{
+    vector <vector <string>> result;
+    Professor *professor = dynamic_cast<Professor*> (logged_in_user);
+    professor->get_ta_form_requests(result, form_id);
+}
+
+void Request::handle_ta_requests_responeses(vector<Status> const responses, int form_id)
+{
+    Professor *professor = dynamic_cast<Professor*> (logged_in_user);
+    professor->handle_ta_requests_responeses(responses, form_id);
 }

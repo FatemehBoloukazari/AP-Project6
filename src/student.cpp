@@ -93,3 +93,8 @@ bool Student::can_post_in_course_channel(CourseOffer *searching_course_offer)
             return true;
     return false;
 }
+
+void Student::become_ta(CourseOffer *course_offer)
+{
+    ta_courses.push_back(course_offer);
+}

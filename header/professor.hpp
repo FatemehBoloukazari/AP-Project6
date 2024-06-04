@@ -17,6 +17,11 @@ public:
     bool have_course_offer(CourseOffer* searching_course_offer);
     bool can_post_in_course_channel(CourseOffer* course_offer);
     void add_ta_form(CourseOffer *course_offer, string message);
+    TAForm* find_ta_form_by_id(int post_id);
+    void check_having_ta_form(int post_id);
+    void show_number_of_ta_requests(vector <string> &result, int form_id);
+    void get_ta_form_requests(vector <vector <string>> &result, int form_id);
+    void handle_ta_requests_responeses(vector <Status> const responses, int form_id);
 private:
     int major_id;
     string major_str;

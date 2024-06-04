@@ -241,6 +241,39 @@ void UTMS::handle_new_ta_form(vector<string> &splited_command)
     request->handle_new_ta_form(course_offer_id, message);
 }
 
+void UTMS::handle_close_ta_form(vector<string> &splited_command)
+{
+    if (splited_command.size() != NUM_OF_POST_CLOSE_TA_FORM_ENTRIES)
+        throw BadRequest();
+    if (splited_command[FIRST_DATA_INDEX] != ID)
+        throw BadRequest();
+    string post_id = splited_command[FIRST_DATA_INDEX + 1];
+    request->check_close_ta_form_access(post_id);
+    int form_id = stoi(post_id);
+    vector <string> output = request->show_number_of_ta_requests(form_id);
+    print_output(output);
+    vector <vector <string>> requests = request->get_ta_form_requests(form_id);
+    vector <Status> responses;
+    for (int i = 0; i < (int)requests.size();)
+    {
+        for (auto word : requests[i])
+            cout << word;
+        string status;
+        getline(cin, status);
+        if (status == ACCEPT)
+        {
+            responses.push_back(ACCEPTED);
+            i++;
+        }
+        else if (status == REJECT)
+        {
+            responses.push_back(REJECTED);
+            i++;
+        }
+    }
+    request->handle_ta_requests_responeses(responses, form_id);
+}
+
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
@@ -261,6 +294,8 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         handle_new_post(splited_command, CHANNEL_POST);
     else if (splited_command[REQUEST_INDEX] == TA_FORM)
         handle_new_ta_form(splited_command);
+    else if (splited_command[REQUEST_INDEX] == CLOSE_TA_FORM)
+        handle_close_ta_form(splited_command);
     else
         throw NotFound();
 }

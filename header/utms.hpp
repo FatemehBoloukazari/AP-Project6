@@ -19,6 +19,7 @@ private:
     void handle_course_offer(vector <string> &splited_command);
     void handle_add_profile_photo(vector <string> &splited_command);
     void handle_new_ta_form(vector <string> &splited_command);
+    void handle_close_ta_form(vector <string> &splited_command);
     void handle_post_request(vector <string> &splited_command);
 
     void handle_post_delete(vector <string> &splited_command);

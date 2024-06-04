@@ -67,3 +67,43 @@ void Professor::add_ta_form(CourseOffer *course_offer, string message)
     for (auto connected_user : connected_users)
         connected_user->add_notification(new_notification);
 }
+
+TAForm* Professor::find_ta_form_by_id(int post_id)
+{
+    for (auto post : posts)
+    {
+        if (post->get_id() == post_id)
+        {
+            TAForm *ta_form = dynamic_cast<TAForm*> (post);
+            if (ta_form == NULL)
+                throw NotFound();
+            return ta_form;
+        }
+    }
+    return NULL;
+}
+
+void Professor::check_having_ta_form(int post_id)
+{
+    if (find_ta_form_by_id(post_id) == NULL)
+        throw NotFound();
+}
+
+void Professor::show_number_of_ta_requests(vector<string> &result, int form_id)
+{
+    TAForm *ta_form = find_ta_form_by_id(form_id);
+    int num_of_ta_form_requests = ta_form->get_num_of_ta_form_requests();
+    result.push_back(to_string(num_of_ta_form_requests));
+}
+
+void Professor::get_ta_form_requests(vector<vector<string>> &result, int form_id)
+{
+    TAForm *ta_form = find_ta_form_by_id(form_id);
+    ta_form->get_ta_form_requests(result);
+}
+
+void Professor::handle_ta_requests_responeses(vector<Status> const responses, int form_id)
+{
+    TAForm *ta_form = find_ta_form_by_id(form_id);
+    ta_form->handle_ta_requests_responeses(responses);
+}
