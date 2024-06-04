@@ -1,5 +1,5 @@
 #include "global_stuff.hpp"
-#include "normal_post.hpp"
+#include "course_post.hpp"
 
 class Channel
 {
@@ -9,6 +9,6 @@ public:
     void show_channel_posts(vector <string> &result);
     void view_post(vector <string> &result, int post_id);
 private:
-    vector <Post*> posts;
+    vector <CoursePost*> posts;
     int last_post_id;
 };

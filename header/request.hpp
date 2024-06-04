@@ -30,6 +30,7 @@ public:
     CourseOffer* find_course_offer_by_id(int course_offer_id);
     vector <string> handle_view_course_channel(string course_offer_id);
     vector <string> handle_view_course_post(string _id, string _post_id);
+    void handle_new_ta_form(string course_offer_id, string message);
 private:
     User *logged_in_user;
     vector <Course*> courses;

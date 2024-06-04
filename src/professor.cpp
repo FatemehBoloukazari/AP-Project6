@@ -56,3 +56,14 @@ bool Professor::can_post_in_course_channel(CourseOffer *course_offer)
 {
     return have_course_offer(course_offer);
 }
+
+void Professor::add_ta_form(CourseOffer *course_offer, string message)
+{
+    if (!have_course_offer(course_offer))
+        throw PermissionDenied();
+    TAForm* new_ta_form = new TAForm(course_offer, message, ++last_post_id);
+    posts.push_back(new_ta_form);
+    Notification *new_notification = new Notification(id, name, NEW_TA_FORM_NOTIFICATION);
+    for (auto connected_user : connected_users)
+        connected_user->add_notification(new_notification);
+}

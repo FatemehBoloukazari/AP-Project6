@@ -210,6 +210,37 @@ void UTMS::handle_add_profile_photo(vector <string> &splited_command)
     request->handle_add_profile_photo(image_address);
 }
 
+void UTMS::handle_new_ta_form(vector<string> &splited_command)
+{
+    string message = EMPTY_STRING;
+    string course_offer_id = EMPTY_STRING;
+    for (int i = FIRST_DATA_INDEX; i < (int)splited_command.size(); i++)
+    {
+        if (splited_command[i] == MESSAGE && message == EMPTY_STRING)
+        {
+            while (++i < (int)splited_command.size() && (message.empty() || message.back() != DOUBLE_QUOTATION))
+            {
+                if (message != EMPTY_STRING)
+                    message += SPACE_CHAR;
+                message += splited_command[i];
+            }
+            if (message == EMPTY_STRING || message.back() != DOUBLE_QUOTATION || message[0] != DOUBLE_QUOTATION)
+                throw BadRequest();
+            i--;
+        }
+        else if (splited_command[i] == COURSE_ID && course_offer_id == EMPTY_STRING && i != splited_command.size() - 1)
+        {
+            course_offer_id = splited_command[i + 1];
+            i++;
+        }
+        else
+            throw BadRequest();
+    }
+    if (course_offer_id == EMPTY_STRING || message == EMPTY_STRING)
+        throw BadRequest();
+    request->handle_new_ta_form(course_offer_id, message);
+}
+
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
@@ -228,6 +259,8 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         handle_add_profile_photo(splited_command);
     else if (splited_command[REQUEST_INDEX] == COURSE_POST)
         handle_new_post(splited_command, CHANNEL_POST);
+    else if (splited_command[REQUEST_INDEX] == TA_FORM)
+        handle_new_ta_form(splited_command);
     else
         throw NotFound();
 }

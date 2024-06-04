@@ -4,6 +4,7 @@
 #include "user.hpp"
 #include "time.hpp"
 #include "courseoffer.hpp"
+#include "ta_form.hpp"
 
 class Professor : public User
 {
@@ -15,6 +16,7 @@ public:
     void add_course_offer(CourseOffer* new_course_offer);
     bool have_course_offer(CourseOffer* searching_course_offer);
     bool can_post_in_course_channel(CourseOffer* course_offer);
+    void add_ta_form(CourseOffer *course_offer, string message);
 private:
     int major_id;
     string major_str;

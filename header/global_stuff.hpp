@@ -41,8 +41,10 @@ const string GET_COURSE_NOTIFICATION = "Get Course";
 const string DELETE_COURSE_NOTIFICATION = "Delete Course";
 const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 const string NEW_COURSE_POST_NOTIFICATION = "New Course Post";
+const string NEW_TA_FORM_NOTIFICATION = "New Form";
 
 const string TA_FORM_TITLE = "TA form for ";
+const string COURSE = "course";
 
 const string EMPTY_STRING = "";
 const string SPACE = " ";
@@ -105,6 +107,7 @@ const string PROFILE_PHOTO = "profile_photo";
 const string PHOTO = "photo";
 const string COURSE_POST = "course_post";
 const string COURSE_CHANNEL = "course_channel";
+const string TA_FORM = "ta_form";
 
 const char DASH = '-';
 const char COLON = ':';

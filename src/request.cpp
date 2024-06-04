@@ -334,3 +334,16 @@ vector <string> Request::handle_view_course_post(string _id, string _post_id)
     course_offer->view_post(result, stoi(_post_id));
     return result;
 }
+
+void Request::handle_new_ta_form(string course_offer_id, string message)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_number(course_offer_id) || course_offer_id == ZERO)
+        throw PermissionDenied();
+    Professor *professor = dynamic_cast<Professor*> (logged_in_user);
+    if (professor == NULL)
+        throw PermissionDenied();
+    CourseOffer *course_offer = find_course_offer_by_id(stoi(course_offer_id));
+    professor->add_ta_form(course_offer, message);
+}
