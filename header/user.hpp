@@ -2,8 +2,8 @@
 
 #include "global_stuff.hpp"
 #include "notification.hpp"
-#include "post.hpp"
 #include "courseoffer.hpp"
+#include "normal_post.hpp"
 
 class User
 {

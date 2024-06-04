@@ -7,7 +7,7 @@ Channel::Channel()
 
 void Channel::add_post(string author, string title, string message, string image_address)
 {
-    Post* new_post = new Post(author, title, message, ++last_post_id, image_address);
+    NormalPost* new_post = new NormalPost(author, title, message, ++last_post_id, image_address);
     posts.push_back(new_post);
 }
 

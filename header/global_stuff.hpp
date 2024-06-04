@@ -42,6 +42,8 @@ const string DELETE_COURSE_NOTIFICATION = "Delete Course";
 const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 const string NEW_COURSE_POST_NOTIFICATION = "New Course Post";
 
+const string TA_FORM_TITLE = "TA form for ";
+
 const string EMPTY_STRING = "";
 const string SPACE = " ";
 const string QUESTION_MARK = "?";

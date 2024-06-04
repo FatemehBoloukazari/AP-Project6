@@ -1,5 +1,5 @@
 #include "global_stuff.hpp"
-#include "post.hpp"
+#include "normal_post.hpp"
 
 class Channel
 {
