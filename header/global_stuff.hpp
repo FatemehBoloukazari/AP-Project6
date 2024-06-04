@@ -42,8 +42,8 @@ const string DELETE_COURSE_NOTIFICATION = "Delete Course";
 const string NEW_COURSE_OFFERING_NOTIFICATION = "New Course Offering";
 const string NEW_COURSE_POST_NOTIFICATION = "New Course Post";
 const string NEW_TA_FORM_NOTIFICATION = "New Form";
-const string TA_REQUEST_ACCEPTED_NOTIFICATION = "Your request to be a teaching assistant has been accepted";
-const string TA_REQUEST_REJECTED_NOTIFICATION = "Your request to be a teaching assistant has been rejected";
+const string TA_REQUEST_ACCEPTED_NOTIFICATION = "Your request to be a teaching assistant has been accepted.";
+const string TA_REQUEST_REJECTED_NOTIFICATION = "Your request to be a teaching assistant has been rejected.";
 
 const string ACCEPTED_STR = "accepted";
 const string REJECTED_STR = "rejected";
@@ -74,6 +74,7 @@ const int NUM_OF_POST_COURSE_OFFER_ENTRIES = 15;
 const int NUM_OF_POST_PROFILE_PHOTO_ENTRIES = 5;
 const int NUM_OF_POST_COURSE_POST_ENTRIES = 11;
 const int NUM_OF_POST_CLOSE_TA_FORM_ENTRIES = 5;
+const int NUM_OF_TA_REQUEST_ENTRIES = 7;
 
 const int NUM_OF_DELETE_POST_ENTRIES = 5;
 const int NUM_OF_DELETE_COURSE_ENTRIES = 5;
@@ -115,6 +116,8 @@ const string COURSE_POST = "course_post";
 const string COURSE_CHANNEL = "course_channel";
 const string TA_FORM = "ta_form";
 const string CLOSE_TA_FORM = "close_ta_form";
+const string TA_REQUEST = "ta_request";
+const string FORM_ID = "form_id";
 
 const char DASH = '-';
 const char COLON = ':';
@@ -136,7 +139,7 @@ const string ADMIN_PASSWORD = "UT_account";
 const bool USER_POST = false;
 const bool CHANNEL_POST = true;
 
-const string NUM_OF_TA_REQUESTS_MESSAGE_FIRST_PART = "We have recieved";
+const string NUM_OF_TA_REQUESTS_MESSAGE_FIRST_PART = "We have received";
 const string NUM_OF_TA_REQUESTS_MESSAGE_SECOND_PART = "requests for the teaching assistant position";
 
 const string ACCEPT = "accept";

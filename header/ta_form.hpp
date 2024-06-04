@@ -15,6 +15,8 @@ public:
     int get_num_of_ta_form_requests() {return (int)ta_requests.size();};
     void get_ta_form_requests(vector <vector <string>> &result);
     void handle_ta_requests_responeses(vector<Status> const responses);
+    void add_new_ta_request(Student *student);
+    bool have_min_semester_to_become_ta(Student *student);
 private:
     CourseOffer *course_offer;
     vector <Student*> ta_requests;

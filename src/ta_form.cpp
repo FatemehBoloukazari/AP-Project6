@@ -40,6 +40,7 @@ void TAForm::get_ta_form_requests(vector<vector<string>> &result)
         student_data.push_back(to_string(student->get_semester()));
         student_data.push_back(COLON_STR);
         student_data.push_back(SPACE);
+        student_data.push_back(NEW_LINE);
         result.push_back(student_data);
     }
 }
@@ -60,4 +61,16 @@ void TAForm::handle_ta_requests_responeses(vector<Status> const responses)
             ta_requests[i]->add_notification(new_notification);
         }
     }
+}
+
+void TAForm::add_new_ta_request(Student *student)
+{
+    ta_requests.push_back(student);
+}
+
+bool TAForm::have_min_semester_to_become_ta(Student *student)
+{
+    if (course_offer->get_min_semester() >= student->get_semester())
+        return false;
+    return true;
 }

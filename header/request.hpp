@@ -35,6 +35,7 @@ public:
     vector <string> show_number_of_ta_requests(int form_id);
     vector <vector <string>> get_ta_form_requests(int form_id);
     void handle_ta_requests_responeses(vector <Status> const responses, int form_id);
+    void handle_new_ta_request(string professor_id, string form_id);
 private:
     User *logged_in_user;
     vector <Course*> courses;

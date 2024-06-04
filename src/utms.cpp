@@ -19,6 +19,11 @@ CommandType get_command_type(string command)
     return NOT_COMMAND;
 }
 
+void print_output(vector <string> const &output)
+{
+    for (auto word : output)
+        cout << word;
+}
 
 void UTMS::handle_login(vector <string> &splited_command)
 {
@@ -274,6 +279,26 @@ void UTMS::handle_close_ta_form(vector<string> &splited_command)
     request->handle_ta_requests_responeses(responses, form_id);
 }
 
+void UTMS::handle_new_ta_request(vector<string> &splited_command)
+{
+    if (splited_command.size() != NUM_OF_TA_REQUEST_ENTRIES)
+        throw BadRequest();
+    string professor_id = EMPTY_STRING;
+    string form_id = EMPTY_STRING;
+    for (int i = FIRST_DATA_INDEX; i < NUM_OF_TA_REQUEST_ENTRIES - 1; i++)
+    {
+        if (splited_command[i] == PROFESSOR_ID && professor_id == EMPTY_STRING)
+            professor_id = splited_command[i + 1], i++;
+        else if (splited_command[i] == FORM_ID && form_id == EMPTY_STRING)
+            form_id = splited_command[i + 1], i++;
+        else
+            throw BadRequest();
+    }
+    if (professor_id == EMPTY_STRING || form_id == EMPTY_STRING)
+        throw BadRequest();
+    request->handle_new_ta_request(professor_id, form_id);
+}
+
 void UTMS::handle_post_request(vector <string> &splited_command)
 {
     if (splited_command[QUESTION_MARK_INDEX] != QUESTION_MARK)
@@ -296,6 +321,8 @@ void UTMS::handle_post_request(vector <string> &splited_command)
         handle_new_ta_form(splited_command);
     else if (splited_command[REQUEST_INDEX] == CLOSE_TA_FORM)
         handle_close_ta_form(splited_command);
+    else if (splited_command[REQUEST_INDEX] == TA_REQUEST)
+        handle_new_ta_request(splited_command);
     else
         throw NotFound();
 }
@@ -330,12 +357,6 @@ void UTMS::handle_delete_request(vector <string> &splited_command)
         handle_delete_taken_course(splited_command);
     else
         throw NotFound();
-}
-
-void print_output(vector <string> const &output)
-{
-    for (auto word : output)
-        cout << word;
 }
 
 void UTMS::handle_view_personal_page(vector <string> &splited_command)
@@ -470,6 +491,8 @@ void UTMS::run()
             {
                 case POST:
                     handle_post_request(splited_command);
+                    //////////////////////////
+                    if (splited_command[1] != CLOSE_TA_FORM)
                     cout << OK << endl;
                     break;
                 case DELETE:

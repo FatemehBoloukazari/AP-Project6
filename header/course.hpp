@@ -10,6 +10,7 @@ public:
     string get_id() {return id;}
     bool have_allowed_major(int major_id);
     bool have_allowed_semester(int semester);
+    int get_min_semester() {return prerequisites;};
 private:
     string id;
     string name;

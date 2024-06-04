@@ -347,7 +347,7 @@ void Request::handle_new_ta_form(string course_offer_id, string message)
     if (logged_in_user == NULL)
         throw PermissionDenied();
     if (!is_a_number(course_offer_id) || course_offer_id == ZERO)
-        throw PermissionDenied();
+        throw BadRequest();
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
     if (!is_a_professor(logged_in_user))
         throw PermissionDenied();
@@ -385,10 +385,38 @@ vector<vector<string>> Request::get_ta_form_requests(int form_id)
     vector <vector <string>> result;
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
     professor->get_ta_form_requests(result, form_id);
+    return result;
 }
 
 void Request::handle_ta_requests_responeses(vector<Status> const responses, int form_id)
 {
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
     professor->handle_ta_requests_responeses(responses, form_id);
+}
+
+void Request::handle_new_ta_request(string professor_id, string form_id)
+{
+    if (logged_in_user == NULL)
+        throw PermissionDenied();
+    if (!is_a_student(logged_in_user))
+        throw PermissionDenied();
+    Student *student = dynamic_cast<Student*> (logged_in_user);
+    if (!is_a_number(professor_id) || professor_id == ZERO)
+        throw BadRequest();
+    if (!is_a_number(form_id) || form_id == ZERO)
+        throw BadRequest();
+    Professor *professor = NULL;
+    for (auto user : users)
+    {
+        if (user->get_id() == professor_id)
+        {
+            Professor* cur_professor = dynamic_cast<Professor*> (user);
+            if (cur_professor == NULL)
+                throw NotFound();
+            professor = cur_professor;
+        }
+    }
+    if (professor == NULL)
+        throw NotFound();
+    professor->handle_new_ta_request(student, stoi(form_id));
 }

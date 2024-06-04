@@ -22,6 +22,7 @@ public:
     void show_number_of_ta_requests(vector <string> &result, int form_id);
     void get_ta_form_requests(vector <vector <string>> &result, int form_id);
     void handle_ta_requests_responeses(vector <Status> const responses, int form_id);
+    void handle_new_ta_request(Student *student, int form_id);
 private:
     int major_id;
     string major_str;

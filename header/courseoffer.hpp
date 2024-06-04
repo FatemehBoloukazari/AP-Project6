@@ -21,6 +21,7 @@ public:
     void add_channel_post(string author, string title, string message, string image_address);
     void show_channel(vector <string> &result);
     void view_post(vector <string> &result, int post_id);
+    int get_min_semester() {return course->get_min_semester();};
 private:
     int id;
     Course* course;

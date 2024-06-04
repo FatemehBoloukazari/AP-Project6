@@ -106,4 +106,22 @@ void Professor::handle_ta_requests_responeses(vector<Status> const responses, in
 {
     TAForm *ta_form = find_ta_form_by_id(form_id);
     ta_form->handle_ta_requests_responeses(responses);
+    for (int i = 0; i < (int)posts.size(); i++)
+    {
+        if (posts[i]->get_id() == ta_form->get_id())
+        {
+            posts.erase(posts.begin() + i);
+            return;
+        }
+    }
+}
+
+void Professor::handle_new_ta_request(Student *student, int form_id)
+{
+    TAForm *ta_form = find_ta_form_by_id(form_id);
+    if (ta_form == NULL)
+        throw NotFound();
+    if (!ta_form->have_min_semester_to_become_ta(student))
+        throw PermissionDenied();
+    ta_form->add_new_ta_request(student);
 }
