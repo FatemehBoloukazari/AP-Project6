@@ -40,7 +40,6 @@ void TAForm::get_ta_form_requests(vector<vector<string>> &result)
         student_data.push_back(to_string(student->get_semester()));
         student_data.push_back(COLON_STR);
         student_data.push_back(SPACE);
-        student_data.push_back(NEW_LINE);
         result.push_back(student_data);
     }
 }

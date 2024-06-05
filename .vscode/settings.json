@@ -15,6 +15,7 @@
         "deque": "cpp",
         "unordered_map": "cpp",
         "system_error": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "new": "cpp"
     }
 }
