@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ADMIN_HPP
+#define ADMIN_HPP
 
 #include "global_stuff.hpp"
 #include "user.hpp"
@@ -12,3 +13,5 @@ public:
     bool can_post_in_course_channel(CourseOffer *course_offer) {return false;};
 private:
 };
+
+#endif

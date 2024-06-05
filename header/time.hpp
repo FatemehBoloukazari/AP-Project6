@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIME_HPP
+#define TIME_HPP
 
 #include "global_stuff.hpp"
 
@@ -15,3 +16,5 @@ private:
     int start_time;
     int end_time;
 };
+
+#endif

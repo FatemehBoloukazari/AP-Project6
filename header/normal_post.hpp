@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NORMAL_POST_HPP
+#define NORMAL_POST_HPP
 
 #include "global_stuff.hpp"
 #include "post.hpp"
@@ -13,3 +14,5 @@ protected:
     string title;
     string image_address;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COURSE_POST_HPP
+#define COURSE_POST_HPP
 
 #include "global_stuff.hpp"
 #include "normal_post.hpp"
@@ -12,3 +13,5 @@ public:
 private:
     string author;
 };
+
+#endif

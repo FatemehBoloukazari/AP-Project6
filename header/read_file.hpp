@@ -1,4 +1,5 @@
-#pragma once
+#ifndef READ_FILE_HPP
+#define READ_FILE_HPP
 
 #include "global_stuff.hpp"
 #include "user.hpp"
@@ -10,3 +11,5 @@ void read_majors_file(vector <Major*> &majors, string majors_file_path);
 void read_students_file(vector <User*> &users, vector <Major*> const &majors, string students_file_path);
 void read_courses_file(vector <Course*> &courses, string courses_file_path);
 void read_professors_file(vector <User*> &users, vector <Major*> const &majors, string professors_file_path);
+
+#endif

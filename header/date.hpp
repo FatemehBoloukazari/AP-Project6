@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DATE_HPP
+#define DATE_HPP
 
 class Date
 {
@@ -13,3 +14,5 @@ private:
     int month;
     int day;
 };
+
+#endif

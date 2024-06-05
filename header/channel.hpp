@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CAHNNEL_HPP
+#define CHANNEL_HPP
 
 #include "global_stuff.hpp"
 #include "course_post.hpp"
@@ -14,3 +15,5 @@ private:
     vector <CoursePost*> posts;
     int last_post_id;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef USER_HPP
+#define USER_HPP
 
 #include "global_stuff.hpp"
 #include "notification.hpp"
@@ -33,3 +34,5 @@ protected:
     vector <User*> connected_users;
     vector <Notification*> notifications;
 };
+
+#endif

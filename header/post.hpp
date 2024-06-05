@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POST_HPP
+#define POST_HPP
 
 #include "global_stuff.hpp"
 
@@ -12,3 +13,5 @@ protected:
     string message;
     int id;
 };
+
+#endif

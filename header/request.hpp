@@ -1,4 +1,5 @@
-#pragma once
+#ifndef REQUEST_HPP
+#define REQUEST_HPP
 
 #include "global_stuff.hpp"
 #include "read_file.hpp"
@@ -46,3 +47,5 @@ private:
     Professor* find_professor_by_id(string id);
     Course* find_course_by_id(string id);
 };
+
+#endif

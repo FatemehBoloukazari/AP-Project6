@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COURSEOFFER_HPP
+#define COURSEOFFER_HPP
 
 #include "global_stuff.hpp"
 #include "course.hpp"
@@ -32,3 +33,5 @@ private:
     int class_number;
     Channel* channel;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROFESSOR_HPP
+#define PROFESSOR_HPP
 
 #include "global_stuff.hpp"
 #include "user.hpp"
@@ -29,3 +30,5 @@ private:
     string position;
     vector <CourseOffer*> courses;
 };
+
+#endif

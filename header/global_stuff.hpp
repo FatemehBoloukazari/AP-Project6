@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GLOBAL_STUFF_HPP
+#define GLOBAL_STUFF_HPP
 
 #include <iostream>
 #include <vector>
@@ -150,3 +151,5 @@ enum Status
     ACCEPTED,
     REJECTED
 };
+
+#endif

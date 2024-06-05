@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COURSE_HPP
+#define COURSE_HPP
 
 #include "global_stuff.hpp"
 
@@ -18,3 +19,5 @@ private:
     int prerequisites;
     vector <int> major_ids;
 };
+
+#endif

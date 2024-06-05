@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NOTIFICATION_HPP
+#define NOTIFICATION_HPP
 
 #include "global_stuff.hpp"
 
@@ -12,3 +13,5 @@ private:
     string name;
     string text;
 };
+
+#endif

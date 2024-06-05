@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTMS_HPP
+#define UTMS_HPP
 
 #include "global_stuff.hpp"
 #include "professor.hpp"
@@ -38,3 +39,5 @@ private:
     void handle_take_new_course(vector <string> &splited_command);
     void handle_put_request(vector <string> &splited_command);
 };
+
+#endif

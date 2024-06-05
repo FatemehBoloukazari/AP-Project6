@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TA_FORM_HPP
+#define TA_FORM_HPP
 
 #include "global_stuff.hpp"
 #include "post.hpp"
@@ -21,3 +22,5 @@ private:
     CourseOffer *course_offer;
     vector <Student*> ta_requests;
 };
+
+#endif

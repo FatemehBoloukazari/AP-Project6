@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUDENT_HPP
+#define STUDENT_HPP
 
 #include "global_stuff.hpp"
 #include "user.hpp"
@@ -23,3 +24,5 @@ private:
     vector <CourseOffer*> courses;
     vector <CourseOffer*> ta_courses;
 };
+
+#endif
