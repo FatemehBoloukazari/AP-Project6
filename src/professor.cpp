@@ -110,7 +110,9 @@ void Professor::handle_ta_requests_responeses(vector<Status> const responses, in
     {
         if (posts[i]->get_id() == ta_form->get_id())
         {
+            auto temp = posts[i];
             posts.erase(posts.begin() + i);
+            delete temp;
             return;
         }
     }

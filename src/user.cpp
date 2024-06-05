@@ -21,7 +21,9 @@ void User::delete_post(int _id)
     {
         if (posts[i]->get_id() == _id)
         {
+            auto temp = posts[i];
             posts.erase(posts.begin() + i);
+            delete temp;
             return;
         }
     }
