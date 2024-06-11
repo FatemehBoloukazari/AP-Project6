@@ -1,20 +1,39 @@
-GPP = g++
-GPPFLAGS = -std=c++2a -I./header
-SRC_DIR = src
+# Compiler
+CXX = g++
+
+# Compiler flags
+CXXFLAGS = -std=c++20 -I./header
+
+# Directories
+SRC_DIRS = src server utils
 OBJ_DIR = obj
-EXES = ./utms.out
+BIN_DIR = bin
 
-SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
-OBJECTS := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
+# Executable name
+TARGET = utms.out
 
-all : $(EXES)
+# Source files
+SRCS = $(wildcard $(addsuffix /*.cpp, $(SRC_DIRS)))
 
-$(EXES) : $(OBJECTS)
-	$(GPP) $(GPPFLAGS) -o $@ $^
+# Object files
+OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp $(wildcard $(SRC_DIR)/*.hpp)
-	mkdir -p $(OBJ_DIR)
-	$(GPP) $(GPPFLAGS) -c $< -o $@
+# Default target
+all: $(TARGET)
 
+# Link
+$(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Compile
+$(OBJ_DIR)/%.o: %.cpp $(wildcard $(SRC_DIRS)/*.hpp)
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Clean
 clean:
-	rm -rf $(OBJ_DIR)/*.o
+	rm -rf $(OBJ_DIR) $(BIN_DIR)/$(TARGET)
+
+run: $(TARGET)
+	./$(TARGET) ./files/majors.csv ./files/courses.csv ./files/professors.csv ./files/students.csv

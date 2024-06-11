@@ -1,9 +1,11 @@
 #include "utms.hpp"
 
+#include "../server/server.hpp"
+
 UTMS::UTMS(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path)
 {
-    Request* new_request = new Request(majors_file_path, students_file_path, courses_file_path, professors_file_path);
-    request = new_request;
+    System* new_request = new System(majors_file_path, students_file_path, courses_file_path, professors_file_path);
+    system = new_request;
 }
 
 CommandType get_command_type(string command)
@@ -40,14 +42,14 @@ void UTMS::handle_login(vector <string> &splited_command)
         else
             throw BadRequest();
     }
-    request->handle_login(id, pass);
+    system->handle_login(id, pass);
 }
 
 void UTMS::handle_logout(vector <string> &splited_command)
 {
     if (splited_command.size() != NUM_OF_POST_LOGOUT_ENTRIES)
         throw BadRequest();
-    request->handle_logout();
+    system->handle_logout();
 }
 
 void UTMS::handle_new_post(vector <string> &splited_command, bool post_type)
@@ -98,12 +100,12 @@ void UTMS::handle_new_post(vector <string> &splited_command, bool post_type)
     if (title == EMPTY_STRING || message == EMPTY_STRING)
         throw BadRequest();
     if (post_type == USER_POST)
-        request->handle_new_post(title, message, image_address);
+        system->handle_new_post(title, message, image_address);
     else
     {
         if (course_offer_id == EMPTY_STRING)
             throw BadRequest();
-        request->handle_new_course_post(course_offer_id, title, message, image_address);
+        system->handle_new_course_post(course_offer_id, title, message, image_address);
     }
 }
 
@@ -111,7 +113,7 @@ void UTMS::handle_connect_users(vector<string> &splited_command)
 {
     if (splited_command.size() != NUM_OF_POST_CONNECT_ENTRIES)
         throw BadRequest();
-    request->handle_connect_users(splited_command);
+    system->handle_connect_users(splited_command);
 }
 
 Time* convert_string_to_time(string time_str)
@@ -202,7 +204,7 @@ void UTMS::handle_course_offer(vector<string> &splited_command)
     }
     Time *time = convert_string_to_time(time_str);
     Date *exam_date = convert_string_to_date(exam_date_str);
-    request->handle_course_offer(course_id, professor_id, capacity, time, exam_date, class_number);
+    system->handle_course_offer(course_id, professor_id, capacity, time, exam_date, class_number);
 }
 
 void UTMS::handle_add_profile_photo(vector <string> &splited_command)
@@ -212,7 +214,7 @@ void UTMS::handle_add_profile_photo(vector <string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != PHOTO)
         throw BadRequest();
     string image_address = splited_command[FIRST_DATA_INDEX + 1];
-    request->handle_add_profile_photo(image_address);
+    system->handle_add_profile_photo(image_address);
 }
 
 void UTMS::handle_new_ta_form(vector<string> &splited_command)
@@ -243,7 +245,7 @@ void UTMS::handle_new_ta_form(vector<string> &splited_command)
     }
     if (course_offer_id == EMPTY_STRING || message == EMPTY_STRING)
         throw BadRequest();
-    request->handle_new_ta_form(course_offer_id, message);
+    system->handle_new_ta_form(course_offer_id, message);
 }
 
 void UTMS::handle_close_ta_form(vector<string> &splited_command)
@@ -253,11 +255,11 @@ void UTMS::handle_close_ta_form(vector<string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
     string post_id = splited_command[FIRST_DATA_INDEX + 1];
-    request->check_close_ta_form_access(post_id);
+    system->check_close_ta_form_access(post_id);
     int form_id = stoi(post_id);
-    vector <string> output = request->show_number_of_ta_requests(form_id);
+    vector <string> output = system->show_number_of_ta_requests(form_id);
     print_output(output);
-    vector <vector <string>> requests = request->get_ta_form_requests(form_id);
+    vector <vector <string>> requests = system->get_ta_form_requests(form_id);
     vector <Status> responses;
     for (int i = 0; i < (int)requests.size();)
     {
@@ -276,7 +278,7 @@ void UTMS::handle_close_ta_form(vector<string> &splited_command)
             i++;
         }
     }
-    request->handle_ta_requests_responeses(responses, form_id);
+    system->handle_ta_requests_responeses(responses, form_id);
 }
 
 void UTMS::handle_new_ta_request(vector<string> &splited_command)
@@ -296,7 +298,7 @@ void UTMS::handle_new_ta_request(vector<string> &splited_command)
     }
     if (professor_id == EMPTY_STRING || form_id == EMPTY_STRING)
         throw BadRequest();
-    request->handle_new_ta_request(professor_id, form_id);
+    system->handle_new_ta_request(professor_id, form_id);
 }
 
 void UTMS::handle_post_request(vector <string> &splited_command)
@@ -334,7 +336,7 @@ void UTMS::handle_post_delete(vector <string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
     string id = splited_command[FIRST_DATA_INDEX + 1];
-    request->handle_post_delete(id);
+    system->handle_post_delete(id);
 }
 
 void UTMS::handle_delete_taken_course(vector<string> &splited_command)
@@ -344,7 +346,7 @@ void UTMS::handle_delete_taken_course(vector<string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
     string id = splited_command[FIRST_DATA_INDEX + 1];
-    request->handle_delete_taken_course(id);
+    system->handle_delete_taken_course(id);
 }
 
 void UTMS::handle_delete_request(vector <string> &splited_command)
@@ -366,7 +368,7 @@ void UTMS::handle_view_personal_page(vector <string> &splited_command)
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
     string id = splited_command[FIRST_DATA_INDEX + 1];
-    vector <string> output = request->handle_view_personal_page(id);
+    vector <string> output = system->handle_view_personal_page(id);
     print_output(output);
 }
 
@@ -374,7 +376,7 @@ void UTMS::handle_view_notifications(vector <string> &splited_command)
 {
     if (splited_command.size() != NUM_OF_GET_NOTIFICATION_ENTRIES)
         throw BadRequest();
-    vector <string> output = request->handle_view_notifications();
+    vector <string> output = system->handle_view_notifications();
     print_output(output);
 }
 
@@ -395,9 +397,9 @@ void UTMS::handle_view_post(vector<string> &splited_command, bool post_type)
     }
     vector <string> output;
     if (post_type == USER_POST)
-        output = request->handle_view_post(id, post_id);
+        output = system->handle_view_post(id, post_id);
     else
-        output = request->handle_view_course_post(id, post_id);
+        output = system->handle_view_course_post(id, post_id);
     print_output(output);
 }
 
@@ -407,13 +409,13 @@ void UTMS::handle_view_courses(vector<string> &splited_command)
         throw BadRequest();
     if (splited_command.size() == NUM_OF_GET_ALL_COURSES_ENTRIES)
     {
-        vector <string> output = request->handle_view_all_courses();
+        vector <string> output = system->handle_view_all_courses();
         print_output(output);
         return;
     }
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
-    vector <string> output = request->handle_view_course_details(splited_command[FIRST_DATA_INDEX + 1]);
+    vector <string> output = system->handle_view_course_details(splited_command[FIRST_DATA_INDEX + 1]);
     print_output(output);
 }
 
@@ -421,7 +423,7 @@ void UTMS::handle_view_taken_courses(vector <string> &splited_command)
 {
     if (splited_command.size() != NUM_OF_GET_MY_COURSES_ENTRIES)
         throw BadRequest();
-    vector <string> output = request->handle_view_taken_courses();
+    vector <string> output = system->handle_view_taken_courses();
     print_output(output);
 }
 
@@ -431,7 +433,7 @@ void UTMS::handle_view_course_channel(vector<string> &splited_command)
         throw BadRequest();
     if (splited_command[FIRST_DATA_INDEX] != ID)
         throw BadRequest();
-    vector <string> output = request->handle_view_course_channel(splited_command[FIRST_DATA_INDEX + 1]);
+    vector <string> output = system->handle_view_course_channel(splited_command[FIRST_DATA_INDEX + 1]);
     print_output(output);
 }
 
@@ -463,7 +465,7 @@ void UTMS::handle_take_new_course(vector<string> &splited_command)
         throw BadRequest();
     if (splited_command.size() != NUM_OF_PUT_MY_COURSES_ENTRIES)
         throw BadRequest();
-    request->handle_take_new_course(splited_command[FIRST_DATA_INDEX + 1]);
+    system->handle_take_new_course(splited_command[FIRST_DATA_INDEX + 1]);
 }
 
 void UTMS::handle_put_request(vector<string> &splited_command)

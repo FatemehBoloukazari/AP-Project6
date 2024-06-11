@@ -8,10 +8,10 @@
 #include "student.hpp"
 #include "date.hpp"
 
-class Request
+class System
 {
 public:
-    Request(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path);
+    System(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path);
 
     void handle_login(string id, string password);
     void handle_logout();

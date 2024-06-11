@@ -3,7 +3,7 @@
 
 #include "global_stuff.hpp"
 #include "professor.hpp"
-#include "request.hpp"
+#include "system.hpp"
 #include "course.hpp"
 
 class UTMS
@@ -12,7 +12,7 @@ public:
     UTMS(string, string, string, string);
     void run();
 private:
-    Request* request;
+    System* system;
     void handle_login(vector <string> &splited_command);
     void handle_logout(vector <string> &splited_command);
     void handle_new_post(vector <string> &splited_command, bool post_type);

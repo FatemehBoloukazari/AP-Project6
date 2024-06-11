@@ -1,4 +1,4 @@
-#include "request.hpp"
+#include "system.hpp"
 
 void add_admin(vector <User*> &users)
 {
@@ -8,7 +8,7 @@ void add_admin(vector <User*> &users)
     users.push_back(new_admin);
 }
 
-Request::Request(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path)
+System::System(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path)
 {
     logged_in_user = NULL;
     read_majors_file(majors, majors_file_path);
@@ -19,7 +19,7 @@ Request::Request(string majors_file_path, string students_file_path, string cour
     last_course_offer_id = 0;
 }
 
-void Request::handle_login(string id, string password)
+void System::handle_login(string id, string password)
 {
     if (logged_in_user != NULL)
         throw PermissionDenied();
@@ -42,21 +42,21 @@ void Request::handle_login(string id, string password)
     throw NotFound();
 }
 
-void Request::handle_logout()
+void System::handle_logout()
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
     logged_in_user = NULL;
 }
 
-void Request::handle_new_post(string _title, string _message, string _image_address)
+void System::handle_new_post(string _title, string _message, string _image_address)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
     logged_in_user->send_post(_title, _message, _image_address);
 }
 
-void Request::handle_post_delete(string id)
+void System::handle_post_delete(string id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -65,7 +65,7 @@ void Request::handle_post_delete(string id)
     logged_in_user->delete_post(stoi(id));
 }
 
-vector <string> Request::handle_view_personal_page(string id_str)
+vector <string> System::handle_view_personal_page(string id_str)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -83,7 +83,7 @@ vector <string> Request::handle_view_personal_page(string id_str)
     throw NotFound();
 }
 
-void Request::handle_connect_users(vector<string> &splited_command)
+void System::handle_connect_users(vector<string> &splited_command)
 {
     string user_id = splited_command[FIRST_DATA_INDEX + 1];
     if (logged_in_user == NULL)
@@ -104,7 +104,7 @@ void Request::handle_connect_users(vector<string> &splited_command)
     throw NotFound();
 }
 
-vector <string> Request::handle_view_notifications()
+vector <string> System::handle_view_notifications()
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -115,7 +115,7 @@ vector <string> Request::handle_view_notifications()
     return result;
 }
 
-vector <string> Request::handle_view_post(string _id, string _post_id)
+vector <string> System::handle_view_post(string _id, string _post_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -133,7 +133,7 @@ vector <string> Request::handle_view_post(string _id, string _post_id)
     throw NotFound();
 }
 
-Professor* Request::find_professor_by_id(string id)
+Professor* System::find_professor_by_id(string id)
 {
     for (auto user : users)
     {
@@ -148,7 +148,7 @@ Professor* Request::find_professor_by_id(string id)
     throw NotFound();
 }
 
-Course* Request::find_course_by_id(string id)
+Course* System::find_course_by_id(string id)
 {
     for (auto course : courses)
     {
@@ -158,7 +158,7 @@ Course* Request::find_course_by_id(string id)
     throw NotFound();
 }
 
-void Request::handle_course_offer(string course_id, string professor_id, string capacity, Time* time, Date* exam_date, string class_number)
+void System::handle_course_offer(string course_id, string professor_id, string capacity, Time* time, Date* exam_date, string class_number)
 {
     if (logged_in_user == NULL || logged_in_user->get_id() != ADMIN_ID)
         throw PermissionDenied();
@@ -182,7 +182,7 @@ void Request::handle_course_offer(string course_id, string professor_id, string 
         user->add_notification(new_notification);
 }
 
-vector <string> Request::handle_view_all_courses()
+vector <string> System::handle_view_all_courses()
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -198,7 +198,7 @@ vector <string> Request::handle_view_all_courses()
     return result;
 }
 
-vector <string> Request::handle_view_course_details(string course_offer_id)
+vector <string> System::handle_view_course_details(string course_offer_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -227,7 +227,7 @@ bool is_a_student(User* user)
     return true;
 }
 
-void Request::handle_take_new_course(string _course_id)
+void System::handle_take_new_course(string _course_id)
 {
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
@@ -246,7 +246,7 @@ void Request::handle_take_new_course(string _course_id)
     throw NotFound();
 }
 
-void Request::handle_delete_taken_course(string _course_id)
+void System::handle_delete_taken_course(string _course_id)
 {
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
@@ -257,7 +257,7 @@ void Request::handle_delete_taken_course(string _course_id)
     student->remove_course(course_id);
 }
 
-vector <string> Request::handle_view_taken_courses()
+vector <string> System::handle_view_taken_courses()
 {
     if (!is_a_student(logged_in_user))
         throw PermissionDenied();
@@ -267,14 +267,14 @@ vector <string> Request::handle_view_taken_courses()
     return result;
 }
 
-void Request::handle_add_profile_photo(string _image_address)
+void System::handle_add_profile_photo(string _image_address)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
     logged_in_user->set_profile_photo(_image_address);
 }
 
-CourseOffer* Request::find_course_offer_by_id(int course_offer_id)
+CourseOffer* System::find_course_offer_by_id(int course_offer_id)
 {
     for (auto course_offer : course_offers)
         if (course_offer->get_id() == course_offer_id)
@@ -282,7 +282,7 @@ CourseOffer* Request::find_course_offer_by_id(int course_offer_id)
     throw NotFound();
 }
 
-vector <string>  Request::handle_view_course_channel(string course_offer_id)
+vector <string>  System::handle_view_course_channel(string course_offer_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -296,7 +296,7 @@ vector <string>  Request::handle_view_course_channel(string course_offer_id)
     return output;
 }
 
-void Request::handle_new_course_post(string course_offer_id_str, string title, string message, string image_address)
+void System::handle_new_course_post(string course_offer_id_str, string title, string message, string image_address)
 {
     if (logged_in_user == NULL || logged_in_user->get_id() == ADMIN_ID)
         throw PermissionDenied();
@@ -320,7 +320,7 @@ void Request::handle_new_course_post(string course_offer_id_str, string title, s
     }
 }
 
-vector <string> Request::handle_view_course_post(string _id, string _post_id)
+vector <string> System::handle_view_course_post(string _id, string _post_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -342,7 +342,7 @@ bool is_a_professor(User *user)
         return false;
     return true;
 }
-void Request::handle_new_ta_form(string course_offer_id, string message)
+void System::handle_new_ta_form(string course_offer_id, string message)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -355,7 +355,7 @@ void Request::handle_new_ta_form(string course_offer_id, string message)
     professor->add_ta_form(course_offer, message);
 }
 
-void Request::check_close_ta_form_access(string post_id)
+void System::check_close_ta_form_access(string post_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
@@ -367,7 +367,7 @@ void Request::check_close_ta_form_access(string post_id)
     professor->check_having_ta_form(stoi(post_id));
 }
 
-vector <string> Request::show_number_of_ta_requests(int form_id)
+vector <string> System::show_number_of_ta_requests(int form_id)
 {
     vector <string> result;
     result.push_back(NUM_OF_TA_REQUESTS_MESSAGE_FIRST_PART);
@@ -380,7 +380,7 @@ vector <string> Request::show_number_of_ta_requests(int form_id)
     return result;
 }
 
-vector<vector<string>> Request::get_ta_form_requests(int form_id)
+vector<vector<string>> System::get_ta_form_requests(int form_id)
 {
     vector <vector <string>> result;
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
@@ -388,13 +388,13 @@ vector<vector<string>> Request::get_ta_form_requests(int form_id)
     return result;
 }
 
-void Request::handle_ta_requests_responeses(vector<Status> const responses, int form_id)
+void System::handle_ta_requests_responeses(vector<Status> const responses, int form_id)
 {
     Professor *professor = dynamic_cast<Professor*> (logged_in_user);
     professor->handle_ta_requests_responeses(responses, form_id);
 }
 
-void Request::handle_new_ta_request(string professor_id, string form_id)
+void System::handle_new_ta_request(string professor_id, string form_id)
 {
     if (logged_in_user == NULL)
         throw PermissionDenied();
