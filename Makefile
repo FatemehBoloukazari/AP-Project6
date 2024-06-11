@@ -36,4 +36,4 @@ clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)/$(TARGET)
 
 run: $(TARGET)
-	./$(TARGET) ./files/majors.csv ./files/courses.csv ./files/professors.csv ./files/students.csv
+	./$(TARGET) ./files/majors.csv ./files/students.csv ./files/courses.csv ./files/professors.csv

@@ -1,7 +1,5 @@
 #include "utms.hpp"
 
-#include "../server/server.hpp"
-
 UTMS::UTMS(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path)
 {
     System* new_request = new System(majors_file_path, students_file_path, courses_file_path, professors_file_path);

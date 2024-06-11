@@ -1,9 +1,36 @@
 #include "global_stuff.hpp"
 #include "utms.hpp"
+#include "../server/server.hpp"
+#include "handlers.hpp"
+
+void mapServerPaths(Server& server, System *system)
+{
+    server.setNotFoundErrPage("static/404.html");
+    server.get("/", new ShowPage("static/home.html"));
+    server.get("/home.png", new ShowImage("static/home.png"));
+    server.get("/login", new ShowPage("static/login.html"));
+    server.post("/login", new LoginHandler(system));
+    server.get("/music", new ShowPage("static/music.html"));
+    server.get("/music/moonlight.mp3", new ShowFile("static/moonlight.mp3", "audio/mpeg"));
+}
 
 int main(int argc, char *argv[])
 {
-    UTMS *utms = new UTMS(argv[1], argv[2], argv[3], argv[4]);
-    utms->run();
-    delete utms;
+    try
+    {
+        int port = 5000;
+        Server server(port);
+        System* system = new System(argv[1], argv[2], argv[3], argv[4]);
+        mapServerPaths(server, system);
+        cout << "Server running on port: " << port << std::endl;
+        server.run();
+    }
+    catch (const std::invalid_argument& e)
+    {
+        cerr << e.what() << endl;
+    }
+    catch (const Server::Exception& e)
+    {
+        cerr << e.getMessage() << endl;
+    }
 }
