@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <map>
 #include "error.hpp"
 
 using namespace std;
@@ -151,5 +152,11 @@ enum Status
     ACCEPTED,
     REJECTED
 };
+
+const string ADMIN = "admin";
+const string STUDENT = "student";
+const string PROFESSOR = "professor";
+
+const string DEFAULT_PROFILE = "/files/defualt_profile.png";
 
 #endif

@@ -12,8 +12,8 @@ Response *LoginHandler::callback(Request *req)
     Response *res;
     try
     {
+        res = new Response(Response::Status::ok);
         system->handle_login(id, pass);
-        res = Response::redirect("/music");
         res->setSessionId(id);
     }
     catch (BadRequest &ex)
@@ -32,4 +32,22 @@ Response *LoginHandler::callback(Request *req)
         res->setBody(PERMISSION_DENIED_ERROR);
     }
     return res;
+}
+
+MainPageHandler::MainPageHandler(const string &filePath, System *_system) : TemplateHandler(filePath)
+{
+    system = _system;
+}
+
+map<string, string> MainPageHandler::handle(Request *req)
+{
+    map<string, string> context;
+    vector <string> user_data = system->get_user_data(req->getSessionId());
+    context["user_type"] = user_data[0];
+    context["id"] = user_data[1];
+    context["name"] = user_data[2];
+    context["profile_pic_address"] = user_data[3];
+    if (context["user_type"] != ADMIN)
+        context["major"] = user_data[4];
+    return context;
 }

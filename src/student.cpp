@@ -8,6 +8,7 @@ Student::Student(string _id, string _name, int _major_id, string _major_str, int
     major_str = _major_str;
     semester = _semester;
     password = _password;
+    profile_photo_address = DEFAULT_PROFILE;
     last_post_id = 0;
 }
 

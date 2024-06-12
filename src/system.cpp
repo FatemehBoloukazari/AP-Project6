@@ -342,6 +342,7 @@ bool is_a_professor(User *user)
         return false;
     return true;
 }
+
 void System::handle_new_ta_form(string course_offer_id, string message)
 {
     if (logged_in_user == NULL)
@@ -419,4 +420,45 @@ void System::handle_new_ta_request(string professor_id, string form_id)
     if (professor == NULL)
         throw NotFound();
     professor->handle_new_ta_request(student, stoi(form_id));
+}
+
+User* System::find_user_by_id(string id)
+{
+    for (auto user : users)
+        if (user->get_id() == id)
+            return user;
+    return NULL;
+}
+
+vector <string> System::get_user_data(string id)
+{
+    User *user = find_user_by_id(id);
+    vector <string> result;
+    cout << user->get_profile_address() << endl;
+    if (id == "0")
+    {
+        result.push_back(ADMIN);
+        result.push_back(id);
+        result.push_back(user->get_name());
+        result.push_back(user->get_profile_address());
+    }
+    else if (is_a_student(user))
+    {
+        result.push_back(STUDENT);
+        result.push_back(id);
+        result.push_back(user->get_name());
+        result.push_back(user->get_profile_address());
+        Student *student = dynamic_cast<Student*> (user);
+        result.push_back(student->get_major_str());
+    }
+    else
+    {
+        result.push_back(PROFESSOR);
+        result.push_back(id);
+        result.push_back(user->get_name());
+        result.push_back(user->get_profile_address());
+        Professor *professor = dynamic_cast<Professor*> (user);
+        result.push_back(professor->get_major_str());
+    }
+    return result;
 }

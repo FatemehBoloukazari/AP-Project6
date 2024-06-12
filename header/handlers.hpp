@@ -13,4 +13,13 @@ private:
     System* system;
 };
 
+class MainPageHandler : public TemplateHandler
+{
+public:
+    MainPageHandler(const string& filePath, System*);
+    map<string, string> handle(Request* req) override;
+private:
+    System* system;
+};
+
 #endif

@@ -16,6 +16,7 @@ public:
     bool have_course_offer(CourseOffer* searching_course_offer);
     bool can_post_in_course_channel(CourseOffer* searching_course_offer);
     int get_semester() {return semester;}
+    string get_major_str() {return major_str;}
     void become_ta(CourseOffer *course_offer);
 private:
     int major_id;

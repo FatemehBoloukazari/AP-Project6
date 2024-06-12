@@ -8,6 +8,7 @@ Professor::Professor(string _id, string _name, int _major_id, string _major_str,
     major_str = _major_str;
     position = _position;
     password = pass;
+    profile_photo_address = DEFAULT_PROFILE;
     last_post_id = 0;
 }
 

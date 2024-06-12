@@ -13,6 +13,8 @@ class System
 public:
     System(string majors_file_path, string students_file_path, string courses_file_path, string professors_file_path);
 
+    User* find_user_by_id(string id);
+
     void handle_login(string id, string password);
     void handle_logout();
     void handle_new_post(string _title, string _message, string _image_address);
@@ -41,6 +43,8 @@ public:
     vector <vector <string>> get_ta_form_requests(int form_id);
     void handle_ta_requests_responeses(vector <Status> const responses, int form_id);
     void handle_new_ta_request(string professor_id, string form_id);
+
+    vector <string> get_user_data(string id);
 private:
     User *logged_in_user;
     vector <Course*> courses;

@@ -24,6 +24,7 @@ public:
     void set_profile_photo(string _image_address);
     virtual bool have_course_offer(CourseOffer *course_offer) = 0;
     virtual bool can_post_in_course_channel(CourseOffer* course_offer) = 0;
+    string get_profile_address() {return profile_photo_address;};
 protected:
     string name;
     string password;

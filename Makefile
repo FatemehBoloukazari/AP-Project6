@@ -18,6 +18,9 @@ SRCS = $(wildcard $(addsuffix /*.cpp, $(SRC_DIRS)))
 # Object files
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
+#Media files
+MEDIA_PATH = ./files
+
 # Default target
 all: $(TARGET)
 
@@ -29,11 +32,11 @@ $(TARGET): $(OBJS)
 # Compile
 $(OBJ_DIR)/%.o: %.cpp $(wildcard $(SRC_DIRS)/*.hpp)
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $< -I$(MEDIA_PATH)
 
 # Clean
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)/$(TARGET)
 
 run: $(TARGET)
-	./$(TARGET) ./files/majors.csv ./files/students.csv ./files/courses.csv ./files/professors.csv
+	./$(TARGET) ./csv_files/majors.csv ./csv_files/students.csv ./csv_files/courses.csv ./csv_files/professors.csv
