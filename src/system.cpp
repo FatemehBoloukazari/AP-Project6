@@ -430,34 +430,37 @@ User* System::find_user_by_id(string id)
     return NULL;
 }
 
-vector <string> System::get_user_data(string id)
+void System::set_logged_in_user(string id)
 {
-    User *user = find_user_by_id(id);
+    logged_in_user = find_user_by_id(id);
+}
+
+vector<string> System::get_user_data()
+{
     vector <string> result;
-    cout << user->get_profile_address() << endl;
-    if (id == "0")
+    if (logged_in_user->get_id() == "0")
     {
         result.push_back(ADMIN);
-        result.push_back(id);
-        result.push_back(user->get_name());
-        result.push_back(user->get_profile_address());
+        result.push_back(logged_in_user->get_id());
+        result.push_back(logged_in_user->get_name());
+        result.push_back(logged_in_user->get_profile_address());
     }
-    else if (is_a_student(user))
+    else if (is_a_student(logged_in_user))
     {
         result.push_back(STUDENT);
-        result.push_back(id);
-        result.push_back(user->get_name());
-        result.push_back(user->get_profile_address());
-        Student *student = dynamic_cast<Student*> (user);
+        result.push_back(logged_in_user->get_id());
+        result.push_back(logged_in_user->get_name());
+        result.push_back(logged_in_user->get_profile_address());
+        Student *student = dynamic_cast<Student*> (logged_in_user);
         result.push_back(student->get_major_str());
     }
     else
     {
         result.push_back(PROFESSOR);
-        result.push_back(id);
-        result.push_back(user->get_name());
-        result.push_back(user->get_profile_address());
-        Professor *professor = dynamic_cast<Professor*> (user);
+        result.push_back(logged_in_user->get_id());
+        result.push_back(logged_in_user->get_name());
+        result.push_back(logged_in_user->get_profile_address());
+        Professor *professor = dynamic_cast<Professor*> (logged_in_user);
         result.push_back(professor->get_major_str());
     }
     return result;

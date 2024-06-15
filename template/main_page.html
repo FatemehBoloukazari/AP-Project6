@@ -101,12 +101,12 @@
         <p>ID: <% cout << context["id"]; %></p>
         <div class="menu">
             <ul>
-                <li><a href="about.html">Send Post</a></li>
+                <li><a href="/send_post">Send Post</a></li>
+                <li><a href="/profile_photo">Change Profile Photo</a></li>
                 <%
                 if (context["user_type"] == "admin")
                 {
                 %>
-                <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <%
                 }
@@ -127,6 +127,7 @@
                 <%
                 }
                 %>
+                <li><a href="about.html">Logout</a></li>
             </ul>
         </div>
     </div>

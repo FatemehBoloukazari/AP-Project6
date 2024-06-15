@@ -13,6 +13,16 @@ private:
     System* system;
 };
 
+class ProfileChangeHandler : public RequestHandler
+{
+public:
+    ProfileChangeHandler(System *_system, Server *_server);
+    Response* callback(Request*) override;
+private:
+    System* system;
+    Server* server;
+};
+
 class MainPageHandler : public TemplateHandler
 {
 public:

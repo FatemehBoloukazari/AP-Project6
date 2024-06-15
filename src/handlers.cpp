@@ -7,7 +7,7 @@ LoginHandler::LoginHandler(System *_system)
 
 Response *LoginHandler::callback(Request *req)
 {
-    string id = req->getBodyParam("username");
+    string id = req->getBodyParam("id");
     string pass = req->getBodyParam("password");
     Response *res;
     try
@@ -42,7 +42,8 @@ MainPageHandler::MainPageHandler(const string &filePath, System *_system) : Temp
 map<string, string> MainPageHandler::handle(Request *req)
 {
     map<string, string> context;
-    vector <string> user_data = system->get_user_data(req->getSessionId());
+    system->set_logged_in_user(req->getSessionId());
+    vector <string> user_data = system->get_user_data();
     context["user_type"] = user_data[0];
     context["id"] = user_data[1];
     context["name"] = user_data[2];
@@ -50,4 +51,29 @@ map<string, string> MainPageHandler::handle(Request *req)
     if (context["user_type"] != ADMIN)
         context["major"] = user_data[4];
     return context;
+}
+
+ProfileChangeHandler::ProfileChangeHandler(System *_system, Server *_server)
+{
+    system = _system;
+    server = _server;
+}
+
+Response *ProfileChangeHandler::callback(Request *req)
+{
+    string id = req->getSessionId();
+    string address = IMAGE_ADDRESS + id + DOT + PNG;
+    string url = IMAGE_URL + id + DOT + PNG;
+    string file = req->getBodyParam("file");
+    if (!file.empty())
+    {
+        utils::writeToFile(file, address);
+        server->get(url, new ShowImage(address));
+    }
+    else
+        url = DEFAULT_PROFILE;
+    system->set_logged_in_user(id);
+    system->handle_add_profile_photo(url);
+    Response *res = Response::redirect("/mainpage");
+    return res;
 }

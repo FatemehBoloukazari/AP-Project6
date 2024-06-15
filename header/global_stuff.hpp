@@ -60,6 +60,8 @@ const string NEW_LINE = "\n";
 const string COLON_STR = ":";
 const string COMMA = ",";
 const string ZERO = "0";
+const string DOT = ".";
+
 
 const string POST_STRING = "POST";
 const string DELETE_STRING = "DELETE";
@@ -157,6 +159,9 @@ const string ADMIN = "admin";
 const string STUDENT = "student";
 const string PROFESSOR = "professor";
 
-const string DEFAULT_PROFILE = "/files/defualt_profile.png";
+const string DEFAULT_PROFILE = "/images/defualt_profile.png";
+const string PNG = "png";
+const string IMAGE_ADDRESS = "./images/";
+const string IMAGE_URL = "/images/";
 
 #endif
