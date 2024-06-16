@@ -148,15 +148,79 @@ Response *SearchUserHandler::callback(Request *req)
         system->set_logged_in_user(req->getBodyParam(ID));
         res = new Response(Response::Status::ok);
         res->setBody("/personal_page?id=" + req->getBodyParam(ID));
-        //res = Response::redirect("/personal_page?id=" + req->getBodyParam(ID));
     }
     catch (NotFound &ex)
     {
         res = new Response(Response::Status::notFound);
         res->setBody(NOT_FOUND_ERROR);
     }
-    
-    // = Response::redirect("/personal_page?id=" + req->getBodyParam(ID));
+    return res;
+}
 
+TakeCourseHandler::TakeCourseHandler(System *_system)
+{
+    system = _system;
+}
+
+Response *TakeCourseHandler::callback(Request *req)
+{
+    string id = req->getSessionId();
+    string course_id = req->getBodyParam(COURSE_ID);
+    system->set_logged_in_user(id);
+    Response *res;
+    try
+    {
+        res = new Response(Response::Status::ok);
+        system->handle_take_new_course(course_id);
+    }
+    catch (BadRequest &ex)
+    {
+        res = new Response(Response::Status::badRequest);
+        res->setBody(BAD_REQUEST_ERROR);
+    }
+    catch (NotFound &ex)
+    {
+        res = new Response(Response::Status::notFound);
+        res->setBody(NOT_FOUND_ERROR);
+    }
+    catch (PermissionDenied &ex)
+    {
+        res = new Response(Response::Status::forbidden);
+        res->setBody(PERMISSION_DENIED_ERROR);
+    }
+    return res;
+}
+
+RemoveCourseHandler::RemoveCourseHandler(System *_system)
+{
+    system = _system;
+}
+
+Response *RemoveCourseHandler::callback(Request *req)
+{
+    string id = req->getSessionId();
+    string course_id = req->getBodyParam(COURSE_ID);
+    system->set_logged_in_user(id);
+    Response *res;
+    try
+    {
+        res = new Response(Response::Status::ok);
+        system->handle_delete_taken_course(course_id);
+    }
+    catch (BadRequest &ex)
+    {
+        res = new Response(Response::Status::badRequest);
+        res->setBody(BAD_REQUEST_ERROR);
+    }
+    catch (NotFound &ex)
+    {
+        res = new Response(Response::Status::notFound);
+        res->setBody(NOT_FOUND_ERROR);
+    }
+    catch (PermissionDenied &ex)
+    {
+        res = new Response(Response::Status::forbidden);
+        res->setBody(PERMISSION_DENIED_ERROR);
+    }
     return res;
 }

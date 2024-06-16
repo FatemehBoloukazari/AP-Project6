@@ -42,6 +42,24 @@ private:
     System *system;
 };
 
+class TakeCourseHandler : public RequestHandler
+{
+public:
+    TakeCourseHandler(System *_system);
+    Response* callback(Request*) override;
+private:
+    System *system;
+};
+
+class RemoveCourseHandler : public RequestHandler
+{
+public:
+    RemoveCourseHandler(System *_system);
+    Response* callback(Request*) override;
+private:
+    System *system;
+};
+
 class MainPageHandler : public TemplateHandler
 {
 public:

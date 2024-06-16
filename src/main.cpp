@@ -23,6 +23,10 @@ void mapServerPaths(Server& server, System *system)
     server.get("/personal_page", new PersonalPageHandler("template/personal_page.html", system));
     server.get("/search_user", new ShowPage("static/search_user.html"));
     server.post("/search_user", new SearchUserHandler(system));
+    server.get("/take_course", new ShowPage("static/take_course.html"));
+    server.post("/take_course", new TakeCourseHandler(system));
+    server.get("/remove_course", new ShowPage("static/remove_course.html"));
+    server.post("/remove_course", new RemoveCourseHandler(system));
 }
 
 int main(int argc, char *argv[])

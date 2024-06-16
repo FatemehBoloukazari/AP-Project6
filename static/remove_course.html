@@ -29,21 +29,21 @@
 </head>
 <body>
     <div class="container">
-        <form action = "/take_course" method = "post" enctype = "multipart/form-data" id = "take_course">
+        <form action = "/remove_course" method = "post" enctype = "multipart/form-data" id = "remove_course">
             <div class="title-box">
                 <h3 style="color: #b83e5b;">Course ID:</h3>
                 <input type="text" id="course_id" name="course_id" placeholder="Enter course id here">
             </div>
             <br>
             <div class = "submit-button-container">
-                <input type="submit" value="Take Course" class = "button">
+                <input type="submit" value="Remove Course" class = "button">
             </div>
         </form>
     </div>
     <script>
-        document.getElementById('take_course').addEventListener('submit', async function(event) {
+        document.getElementById('remove_course').addEventListener('submit', async function(event) {
             event.preventDefault();
-        var url = "/take_course";
+        var url = "/remove_course";
         var data = new FormData(this);
 
         const response = await fetch(url, {
