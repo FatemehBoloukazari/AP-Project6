@@ -30,13 +30,13 @@ void User::delete_post(int _id)
     throw NotFound();
 }
 
-void User::show_personal_page(vector <string> &result)
+void User::show_personal_page(vector <vector <string>> &result)
 {
     show_user_details(result);
     show_posts(result);
 }
 
-void User::show_posts(vector <string> &result)
+void User::show_posts(vector <vector <string>> &result)
 {
     for (int i = (int)posts.size() - 1; i >= 0; i--)
         posts[i]->show_post_overview(result);
@@ -55,12 +55,11 @@ void User::add_notification(Notification *new_notification)
     notifications.push_back(new_notification);
 }
 
-void User::view_notifications(vector <string> &result)
+void User::view_notifications(vector <vector <string>> &result)
 {
     if (notifications.empty())
     {
-        result.push_back(EMPTY);
-        result.push_back(NEW_LINE);
+        result.push_back({EMPTY});
         return;
     }
     for (int i = (int)notifications.size() - 1; i >= 0; i--)
@@ -68,7 +67,7 @@ void User::view_notifications(vector <string> &result)
     notifications.clear();
 }
 
-void User::view_post(vector <string> &result, int post_id)
+void User::view_post(vector <vector<string>> &result, int post_id)
 {
     for (auto post : posts)
     {
@@ -85,4 +84,12 @@ void User::view_post(vector <string> &result, int post_id)
 void User::set_profile_photo(string _image_address)
 {
     profile_photo_address = _image_address;
+}
+
+vector<vector<string>> User::get_posts()
+{
+    vector<vector<string>> result;
+    for (auto post : posts)
+        post->show_post_details(result);
+    return result;
 }

@@ -11,13 +11,13 @@ void Channel::add_post(string author, string title, string message, string image
     posts.push_back(new_post);
 }
 
-void Channel::show_channel_posts(vector <string> &result)
+void Channel::show_channel_posts(vector <vector <string>> &result)
 {
     for (int i = (int)posts.size() - 1; i >= 0; i--)
         posts[i]->show_course_post_overview(result);
 }
 
-void Channel::view_post(vector <string> &result, int post_id)
+void Channel::view_post(vector <vector <string>> &result, int post_id)
 {
     for (auto post : posts)
     {

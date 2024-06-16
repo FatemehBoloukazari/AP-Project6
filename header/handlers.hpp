@@ -23,10 +23,29 @@ private:
     Server* server;
 };
 
+class SendPostHandler : public RequestHandler
+{
+public:
+    SendPostHandler(System *_system, Server *_server_ptr);
+    Response* callback(Request*) override;
+private:
+    System* system;
+    Server* server;
+};
+
 class MainPageHandler : public TemplateHandler
 {
 public:
     MainPageHandler(const string& filePath, System*);
+    map<string, string> handle(Request* req) override;
+private:
+    System* system;
+};
+
+class PersonalPageHandler : public TemplateHandler
+{
+public:
+    PersonalPageHandler(const string& file_path, System* _system);
     map<string, string> handle(Request* req) override;
 private:
     System* system;

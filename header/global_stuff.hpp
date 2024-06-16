@@ -61,6 +61,7 @@ const string COLON_STR = ":";
 const string COMMA = ",";
 const string ZERO = "0";
 const string DOT = ".";
+const string UNDER_SCORE = "_";
 
 
 const string POST_STRING = "POST";
@@ -93,6 +94,8 @@ const int NUM_OF_GET_COURSE_CHANNEL_ENTRIES = 5;
 
 const int NUM_OF_PUT_MY_COURSES_ENTRIES = 5;
 
+const int NUM_OF_WITH_IMAGE_POST_DATAS = 3;
+
 const string ID = "id";
 const string PASSWORD = "password";
 const string TITLE = "title";
@@ -122,6 +125,7 @@ const string TA_FORM = "ta_form";
 const string CLOSE_TA_FORM = "close_ta_form";
 const string TA_REQUEST = "ta_request";
 const string FORM_ID = "form_id";
+const string FILE_STR = "file";
 
 const char DASH = '-';
 const char COLON = ':';

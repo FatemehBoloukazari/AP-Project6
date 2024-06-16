@@ -7,13 +7,11 @@ Notification::Notification(string _id, string _name, string _text)
     text = _text;
 }
 
-void Notification::show_notification(vector <string> &result)
+void Notification::show_notification(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(id);
-    result.push_back(SPACE);
     result.push_back(name);
-    result.push_back(COLON_STR);
-    result.push_back(SPACE);
     result.push_back(text);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }

@@ -8,20 +8,19 @@ NormalPost::NormalPost(string _title, string _message, int _id, string _image_ad
     image_address = _image_address;
 }
 
-void NormalPost::show_post_overview(vector <string> &result)
+void NormalPost::show_post_overview(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(to_string(id));
-    result.push_back(SPACE);
     result.push_back(title);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }
 
-void NormalPost::show_post_details(vector <string> &result)
+void NormalPost::show_post_details(vector <vector <string>> &_result)
 {
-    result.push_back(to_string(id));
-    result.push_back(SPACE);
+    vector <string> result;
     result.push_back(title);
-    result.push_back(SPACE);
     result.push_back(message);
-    result.push_back(NEW_LINE);
+    result.push_back(image_address);
+    _result.push_back(result);
 }

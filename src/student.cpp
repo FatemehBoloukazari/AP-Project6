@@ -12,21 +12,19 @@ Student::Student(string _id, string _name, int _major_id, string _major_str, int
     last_post_id = 0;
 }
 
-void Student::show_user_details(vector <string> &result)
+void Student::show_user_details(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(name);
-    result.push_back(SPACE);
     result.push_back(major_str);
-    result.push_back(SPACE);
     result.push_back(to_string(semester));
-    result.push_back(SPACE);
     for (int i = 0; i < (int)courses.size(); i++)
     {
         if (i != 0)
             result.push_back(COMMA);
         result.push_back(courses[i]->get_name());
     }
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }
 
 void Student::take_course(CourseOffer *course_offer)
@@ -67,12 +65,11 @@ void Student::remove_course(int course_id)
     throw NotFound();
 }
 
-void Student::view_taken_courses(vector <string> &result)
+void Student::view_taken_courses(vector <vector <string>> &result)
 {
     if (courses.empty())
     {
-        result.push_back(EMPTY);
-        result.push_back(NEW_LINE);
+        result.push_back({EMPTY});
         return;
     }
     for (auto course_offer : courses)

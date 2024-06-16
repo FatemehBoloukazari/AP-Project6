@@ -9,8 +9,9 @@ Admin::Admin(string _name, string _id, string pass)
     last_post_id = 0;
 }
 
-void Admin::show_user_details(vector <string> &result)
+void Admin::show_user_details(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(name);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }

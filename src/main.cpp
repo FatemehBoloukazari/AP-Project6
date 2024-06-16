@@ -18,6 +18,9 @@ void mapServerPaths(Server& server, System *system)
     server.get("/profile_photo", new ShowPage("static/profile_photo.html"));
     Server *server_ptr = &server;
     server.post("/profile_photo", new ProfileChangeHandler(system, server_ptr));
+    server.get("/send_post", new ShowPage("static/send_post.html"));
+    server.post("/send_post", new SendPostHandler(system, server_ptr));
+    server.get("/personal_page", new PersonalPageHandler("template/personal_page.html", system));
 }
 
 int main(int argc, char *argv[])

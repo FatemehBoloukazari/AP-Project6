@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title, Photo Upload, and Text Box</title>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b3e5fc, #81d4fa, #4fc3f7, #29b6f6, #0288d1);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .title-box,
+        .photo-box,
+        .text-box {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="file"] {
+            padding: 3px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+
+        .submit-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action = "/send_post" method = "post" enctype = "multipart/form-data">
+            <div class="title-box">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter title here">
+            </div>
+            <div class="photo-box">
+                <label for="image">Upload Image:</label>
+                <input type="file" id="file" name="file" accept="image/*">
+            </div>
+            <div class="text-box">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="10" placeholder="Enter message here"></textarea>
+            </div>
+            <div class = "submit-button-container">
+                <input type="submit" value="Send" class = "button">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

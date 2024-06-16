@@ -12,21 +12,19 @@ Professor::Professor(string _id, string _name, int _major_id, string _major_str,
     last_post_id = 0;
 }
 
-void Professor::show_user_details(vector <string> &result)
+void Professor::show_user_details(vector <vector<string>> &_result)
 {
+    vector <string> result;
     result.push_back(name);
-    result.push_back(SPACE);
     result.push_back(major_str);
-    result.push_back(SPACE);
     result.push_back(position);
-    result.push_back(SPACE);
     for (int i = 0; i < (int)courses.size(); i++)
     {
         if (i != 0)
             result.push_back(COMMA);
         result.push_back(courses[i]->get_name());
     }
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }
 
 bool Professor::time_intersects(Time *time)
@@ -90,7 +88,7 @@ void Professor::check_having_ta_form(int post_id)
         throw NotFound();
 }
 
-void Professor::show_number_of_ta_requests(vector<string> &result, int form_id)
+void Professor::show_number_of_ta_requests(vector <string> &result, int form_id)
 {
     TAForm *ta_form = find_ta_form_by_id(form_id);
     int num_of_ta_form_requests = ta_form->get_num_of_ta_form_requests();

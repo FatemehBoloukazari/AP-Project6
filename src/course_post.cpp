@@ -6,24 +6,21 @@ CoursePost::CoursePost(string _author, string _title, string _message, int _id, 
     author = _author;
 }
 
-void CoursePost::show_course_post_overview(vector <string> &result)
+void CoursePost::show_course_post_overview(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(to_string(id));
-    result.push_back(SPACE);
     result.push_back(author);
-    result.push_back(SPACE);
     result.push_back(title);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }
 
-void CoursePost::show_course_post_details(vector <string> &result)
+void CoursePost::show_course_post_details(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(to_string(id));
-    result.push_back(SPACE);
     result.push_back(author);
-    result.push_back(SPACE);
     result.push_back(title);
-    result.push_back(SPACE);
     result.push_back(message);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }

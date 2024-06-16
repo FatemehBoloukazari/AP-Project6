@@ -9,10 +9,10 @@ class Student : public User
 {
 public:
     Student(string _id, string _name, int _major_id, string _major_str, int _semester, string _password);
-    virtual void show_user_details(vector <string> &result);
+    virtual void show_user_details(vector <vector <string>> &result);
     void take_course(CourseOffer* course_offer);
     void remove_course(int course_id);
-    void view_taken_courses(vector <string> &result);
+    void view_taken_courses(vector <vector <string>> &result);
     bool have_course_offer(CourseOffer* searching_course_offer);
     bool can_post_in_course_channel(CourseOffer* searching_course_offer);
     int get_semester() {return semester;}

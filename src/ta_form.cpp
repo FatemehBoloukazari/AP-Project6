@@ -9,23 +9,21 @@ TAForm::TAForm(CourseOffer *_course_offer, string _message, int new_post_id)
     id = new_post_id;
 }
 
-void TAForm::show_post_overview(vector<string> &result)
+void TAForm::show_post_overview(vector <vector <string>> &_result)
 {
+    vector <string> result;
     result.push_back(to_string(id));
-    result.push_back(SPACE);
     result.push_back(TA_FORM_TITLE);
     result.push_back(course_offer->get_name());
-    result.push_back(SPACE);
     result.push_back(COURSE);
-    result.push_back(NEW_LINE);
+    _result.push_back(result);
 }
 
-void TAForm::show_post_details(vector<string> &result)
+void TAForm::show_post_details(vector <vector <string>> &_result)
 {
-    show_post_overview(result);
-    course_offer->show_course_details(result);
-    result.push_back(message);
-    result.push_back(NEW_LINE);
+    show_post_overview(_result);
+    course_offer->show_course_details(_result);
+    _result.push_back({message});
 }
 
 void TAForm::get_ta_form_requests(vector<vector<string>> &result)
