@@ -2,12 +2,22 @@
 #define HANDLERS_HPP
 
 #include "system.hpp"
+#include "global_stuff.hpp"
 #include "../server/server.hpp"
 
 class LoginHandler : public RequestHandler
 {
 public:
     LoginHandler(System* _system);
+    Response* callback(Request*) override;
+private:
+    System* system;
+};
+
+class LogoutHandler : public RequestHandler
+{
+public:
+    LogoutHandler(System* _system);
     Response* callback(Request*) override;
 private:
     System* system;
@@ -60,6 +70,15 @@ private:
     System *system;
 };
 
+class OfferCourseHandler : public RequestHandler
+{
+public:
+    OfferCourseHandler(System *_system);
+    Response* callback(Request*) override;
+private:
+    System *system;
+};
+
 class MainPageHandler : public TemplateHandler
 {
 public:
@@ -73,6 +92,15 @@ class PersonalPageHandler : public TemplateHandler
 {
 public:
     PersonalPageHandler(const string& file_path, System* _system);
+    map<string, string> handle(Request* req) override;
+private:
+    System* system;
+};
+
+class ViewCoursesHandler : public TemplateHandler
+{
+public:
+    ViewCoursesHandler(const string& file_path, System* _system);
     map<string, string> handle(Request* req) override;
 private:
     System* system;

@@ -21,8 +21,6 @@ System::System(string majors_file_path, string students_file_path, string course
 
 void System::handle_login(string id, string password)
 {
-    if (logged_in_user != NULL)
-        throw PermissionDenied();
     for (auto user : users)
     {
         if (user->get_id() == id)

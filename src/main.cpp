@@ -8,13 +8,11 @@ void mapServerPaths(Server& server, System *system)
     server.setNotFoundErrPage("static/404.html");
     server.get("/", new ShowPage("static/home.html"));
     server.get("/home.png", new ShowImage("static/home.png"));
-    //server.get("/showImage", new ShowImageHandler());
     server.get("/images/defualt_profile.png", new ShowImage("images/defualt_profile.png"));
     server.get("/login", new ShowPage("static/login.html"));
     server.post("/login", new LoginHandler(system));
+    server.get("/logout", new LogoutHandler(system));
     server.get("/mainpage", new MainPageHandler("template/main_page.html", system));
-    //server.get("/music", new ShowPage("static/music.html"));
-    //server.get("/music/moonlight.mp3", new ShowFile("static/moonlight.mp3", "audio/mpeg"));
     server.get("/profile_photo", new ShowPage("static/profile_photo.html"));
     Server *server_ptr = &server;
     server.post("/profile_photo", new ProfileChangeHandler(system, server_ptr));
@@ -27,6 +25,9 @@ void mapServerPaths(Server& server, System *system)
     server.post("/take_course", new TakeCourseHandler(system));
     server.get("/remove_course", new ShowPage("static/remove_course.html"));
     server.post("/remove_course", new RemoveCourseHandler(system));
+    server.get("/view_courses", new ViewCoursesHandler("template/view_taken_courses.html", system));
+    server.get("/offer_course", new ShowPage("static/offer_course.html"));
+    server.post("/offer_course", new OfferCourseHandler(system));
 }
 
 int main(int argc, char *argv[])

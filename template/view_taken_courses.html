@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Page</title>
+    <style>
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #b83e5b);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        main {
+            margin: 2em;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ffffff;
+            text-align: left;
+            padding: 8px;
+        }
+        th
+        {
+            background-color: #ffe8ee;
+        }
+
+        tr{
+            background-color: #ffdae3;
+        }
+        tr:hover{
+            background-color: #ff98b2;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <main>
+        <table>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Capacity</th>
+                <th>Professor</th>
+                <th>Time</th>
+                <th>Exam Date</th>
+                <th>Class Number</th>
+            </tr>
+            <%for (int i = 0; i < stoi(context["num_of_taken_courses"]); i++)
+            {%>
+            <tr>
+                <td><%cout << context["course_id_" + to_string(i)];%></td>
+                <td><%cout << context["course_name_" + to_string(i)];%></td>
+                <td><%cout << context["capacity_" + to_string(i)];%></td>
+                <td><%cout << context["professor_name_" + to_string(i)];%></td>
+                <td><%cout << context["time_" + to_string(i)];%></td>
+                <td><%cout << context["exam_date_" + to_string(i)];%></td>
+                <td><%cout << context["class_number_" + to_string(i)];%></td>
+            </tr>
+            <%}%>
+        </table>
+    </main>
+</body>
+</html>

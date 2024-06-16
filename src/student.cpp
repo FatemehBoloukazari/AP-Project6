@@ -68,10 +68,7 @@ void Student::remove_course(int course_id)
 void Student::view_taken_courses(vector <vector <string>> &result)
 {
     if (courses.empty())
-    {
-        result.push_back({EMPTY});
         return;
-    }
     for (auto course_offer : courses)
         course_offer->show_course_details(result);
 }

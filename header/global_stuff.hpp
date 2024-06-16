@@ -168,4 +168,6 @@ const string PNG = "png";
 const string IMAGE_ADDRESS = "./images/";
 const string IMAGE_URL = "/images/";
 
+const string NO_USER_SESSION_ID = "";
+
 #endif
