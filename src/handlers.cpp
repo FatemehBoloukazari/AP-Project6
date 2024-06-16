@@ -372,7 +372,6 @@ map<string, string> ViewCoursesHandler::handle(Request *req)
     system->set_logged_in_user(req->getSessionId());
     vector <vector <string>> courses_data = system->handle_view_all_courses();
     context["num_of_courses"] = to_string(courses_data.size());
-    debug("size: " + context["num_of_courses"]);
     for (int i = 0; i < (int)courses_data.size(); i++)
     {
         context["course_id_" + to_string(i)] = courses_data[i][0];
