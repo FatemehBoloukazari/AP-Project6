@@ -114,7 +114,7 @@ PersonalPageHandler::PersonalPageHandler(const string &file_path, System *_syste
 map<string, string> PersonalPageHandler::handle(Request *req)
 {
     map<string, string> context;
-    system->set_logged_in_user(req->getSessionId());
+    system->set_logged_in_user(req->getQueryParam(ID));
     vector <string> user_data = system->get_user_data();
     context["user_type"] = user_data[0];
     context["name"] = user_data[2];
@@ -125,15 +125,38 @@ map<string, string> PersonalPageHandler::handle(Request *req)
         context["position"] = user_data[5];
     vector <vector <string>> posts = system->handle_get_posts();
     context["num_of_posts"] = to_string(posts.size());
-    debug(posts.size());
     for (int i = 0; i < (int)posts.size(); i++)
     {
-        debug("eva");
         context["title_" + to_string(i)] = posts[i][0];
         context["message_" + to_string(i)] = posts[i][1];
         if (posts[i].size() == NUM_OF_WITH_IMAGE_POST_DATAS)
             context["image_" + to_string(i)] = posts[i][2];
     }
-    debug("Welcome");
     return context;
+}
+
+SearchUserHandler::SearchUserHandler(System *_system)
+{
+    system = _system;
+}
+
+Response *SearchUserHandler::callback(Request *req)
+{
+    Response *res;
+    try
+    {
+        system->set_logged_in_user(req->getBodyParam(ID));
+        res = new Response(Response::Status::ok);
+        res->setBody("/personal_page?id=" + req->getBodyParam(ID));
+        //res = Response::redirect("/personal_page?id=" + req->getBodyParam(ID));
+    }
+    catch (NotFound &ex)
+    {
+        res = new Response(Response::Status::notFound);
+        res->setBody(NOT_FOUND_ERROR);
+    }
+    
+    // = Response::redirect("/personal_page?id=" + req->getBodyParam(ID));
+
+    return res;
 }

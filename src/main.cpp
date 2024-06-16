@@ -21,6 +21,8 @@ void mapServerPaths(Server& server, System *system)
     server.get("/send_post", new ShowPage("static/send_post.html"));
     server.post("/send_post", new SendPostHandler(system, server_ptr));
     server.get("/personal_page", new PersonalPageHandler("template/personal_page.html", system));
+    server.get("/search_user", new ShowPage("static/search_user.html"));
+    server.post("/search_user", new SearchUserHandler(system));
 }
 
 int main(int argc, char *argv[])

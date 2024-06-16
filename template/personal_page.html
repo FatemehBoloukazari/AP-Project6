@@ -15,7 +15,7 @@
         }
 
         header {
-            background-color: #81d4fa;
+            background: linear-gradient(135deg, #ffffff, #b83e5b);
             color: white;
             text-align: center;
             padding: 1em 0;
@@ -72,6 +72,7 @@
         {%>
             <p>Position: <%cout << context["position"];%></p>
         <%}%>
+        <br>
     </header>
     <main>
         <section id="posts">
@@ -79,7 +80,7 @@
             {%>
             <section>
                 <h3><%cout << context["title_" + to_string(i)];%></h3>
-                <img src=<%cout << "\"" << context["image_" + to_string(i)] << "\"";%> alt="Post Image" width="300" height="200">
+                <img src=<%cout << "\"" << context["image_" + to_string(i)] << "\"";%> alt="Post Image" width="300" height="auto">
                 <p><% cout << context["message_" + to_string(i)]; %></p>
             </section>
             <%}%>

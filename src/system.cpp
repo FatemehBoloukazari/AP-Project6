@@ -431,6 +431,8 @@ User* System::find_user_by_id(string id)
 void System::set_logged_in_user(string id)
 {
     logged_in_user = find_user_by_id(id);
+    if (logged_in_user == NULL)
+        throw NotFound();
 }
 
 vector<string> System::get_user_data() // ino virtual konam

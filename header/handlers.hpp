@@ -33,6 +33,15 @@ private:
     Server* server;
 };
 
+class SearchUserHandler : public RequestHandler
+{
+public:
+    SearchUserHandler(System* _system);
+    Response* callback(Request*) override;
+private:
+    System *system;
+};
+
 class MainPageHandler : public TemplateHandler
 {
 public:

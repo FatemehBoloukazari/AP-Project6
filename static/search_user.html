@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title, Photo Upload, and Text Box</title>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #b83e5b);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .submit-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action = "/search_user" method = "post" enctype = "multipart/form-data" id = "search_user">
+            <div class="title-box">
+                <h3 style="color: #b83e5b;">User ID:</h3>
+                <input type="text" id="id" name="id" placeholder="Enter user id here">
+            </div>
+            <br>
+            <div class = "submit-button-container">
+                <input type="submit" value="Search" class = "button">
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('search_user').addEventListener('submit', async function(event) {
+            event.preventDefault();
+        var url = "/search_user";
+        var data = new FormData(this);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            body: data
+        });
+        var status = response.status;
+        var text = await response.text();
+        //console.log(text);
+
+        if (status == 404)
+        {
+            alert("Not Found");
+        }
+        else if (status == 200)
+        {
+            window.location.href = text;
+        }
+    });
+    </script>
+</body>
+</html>

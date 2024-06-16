@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Raleway', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b3e5fc, #81d4fa, #4fc3f7, #29b6f6, #0288d1);
+            background: linear-gradient(135deg, #ffffff, #b83e5b);
             margin: 0;
             padding: 0;
             display: flex;
@@ -41,13 +41,13 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             object-fit: cover;
             margin-bottom: 20px;
-            border: 5px solid #29b6f6;
+            border: 5px solid #b83e5b;
         }
 
         .profile h1 {
             font-size: 28px;
             margin: 10px 0;
-            color: #0288d1;
+            color: #b83e5b;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
@@ -73,7 +73,7 @@
 
         .menu a {
             text-decoration: none;
-            color: #0288d1;
+            color: #b83e5b;
             font-weight: bold;
             font-size: 18px;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -81,7 +81,7 @@
         }
 
         .menu a:hover {
-            color: #4fc3f7;
+            color: #efa2b4;
             transform: scale(1.1);
         }
     </style>
@@ -103,6 +103,7 @@
             <ul>
                 <li><a href="/send_post">Send Post</a></li>
                 <li><a href="/profile_photo">Change Profile Photo</a></li>
+                <li><a href="/search_user">Search User</a></li>
                 <%
                 if (context["user_type"] == "admin")
                 {
@@ -113,7 +114,6 @@
                 else if (context["user_type"] == "student")
                 {
                 %>
-                <li><a href="about.html">About Me</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <%
