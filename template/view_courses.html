@@ -60,7 +60,7 @@
                 <th>Exam Date</th>
                 <th>Class Number</th>
             </tr>
-            <%for (int i = 0; i < stoi(context["num_of_taken_courses"]); i++)
+            <%for (int i = 0; i < stoi(context["num_of_courses"]); i++)
             {%>
             <tr>
                 <td><%cout << context["course_id_" + to_string(i)];%></td>

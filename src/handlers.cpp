@@ -284,18 +284,17 @@ Response *RemoveCourseHandler::callback(Request *req)
     return res;
 }
 
-ViewCoursesHandler::ViewCoursesHandler(const string &file_path, System *_system) : TemplateHandler(file_path)
+ViewTakenCoursesHandler::ViewTakenCoursesHandler(const string &file_path, System *_system) : TemplateHandler(file_path)
 {
     system = _system;
 }
 
-map<string, string> ViewCoursesHandler::handle(Request *req)
+map<string, string> ViewTakenCoursesHandler::handle(Request *req)
 {
     map<string, string> context;
     system->set_logged_in_user(req->getSessionId());
     vector <vector <string>> courses_data = system->handle_view_taken_courses();
-    context["num_of_taken_courses"] = to_string(courses_data.size());
-    debug(context["num_of_taken_courses"]);
+    context["num_of_courses"] = to_string(courses_data.size());
     for (int i = 0; i < (int)courses_data.size(); i++)
     {
         context["course_id_" + to_string(i)] = courses_data[i][0];
@@ -360,4 +359,29 @@ Response *LogoutHandler::callback(Request *req)
     Response *res = Response::redirect("/login");
     res->setSessionId(NO_USER_SESSION_ID);
     return res;
+}
+
+ViewCoursesHandler::ViewCoursesHandler(const string &file_path, System *_system) : TemplateHandler(file_path)
+{
+    system = _system;
+}
+
+map<string, string> ViewCoursesHandler::handle(Request *req)
+{
+    map<string, string> context;
+    system->set_logged_in_user(req->getSessionId());
+    vector <vector <string>> courses_data = system->handle_view_all_courses();
+    context["num_of_courses"] = to_string(courses_data.size());
+    debug("size: " + context["num_of_courses"]);
+    for (int i = 0; i < (int)courses_data.size(); i++)
+    {
+        context["course_id_" + to_string(i)] = courses_data[i][0];
+        context["course_name_" + to_string(i)] = courses_data[i][1];
+        context["capacity_" + to_string(i)] = courses_data[i][2];
+        context["professor_name_" + to_string(i)] = courses_data[i][3];
+        context["time_" + to_string(i)] = courses_data[i][4];
+        context["exam_date_" + to_string(i)] = courses_data[i][5];
+        context["class_number_" + to_string(i)] = courses_data[i][6];
+    }
+    return context;
 }

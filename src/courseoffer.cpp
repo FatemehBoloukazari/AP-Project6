@@ -38,13 +38,9 @@ void CourseOffer::show_course_overview(vector <vector <string>> &_result)
 {
     vector <string> result;
     result.push_back(to_string(id));
-    result.push_back(SPACE);
     result.push_back(get_name());
-    result.push_back(SPACE);
     result.push_back(to_string(capacity));
-    result.push_back(SPACE);
     result.push_back(professor_name);
-    result.push_back(NEW_LINE);
     _result.push_back(result);
 }
 

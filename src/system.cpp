@@ -186,12 +186,9 @@ vector <vector <string>> System::handle_view_all_courses()
         throw PermissionDenied();
     vector <vector <string>> result;
     if (course_offers.empty())
-    {
-        result.push_back({EMPTY});
         return result;
-    }
     for (auto course_offer : course_offers)
-        course_offer->show_course_overview(result);
+        course_offer->show_course_details(result);
     return result;
 }
 

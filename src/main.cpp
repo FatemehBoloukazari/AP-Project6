@@ -25,9 +25,10 @@ void mapServerPaths(Server& server, System *system)
     server.post("/take_course", new TakeCourseHandler(system));
     server.get("/remove_course", new ShowPage("static/remove_course.html"));
     server.post("/remove_course", new RemoveCourseHandler(system));
-    server.get("/view_courses", new ViewCoursesHandler("template/view_taken_courses.html", system));
+    server.get("/view_taken_courses", new ViewTakenCoursesHandler("template/view_courses.html", system));
     server.get("/offer_course", new ShowPage("static/offer_course.html"));
     server.post("/offer_course", new OfferCourseHandler(system));
+    server.get("/view_courses", new ViewCoursesHandler("template/view_courses.html", system));
 }
 
 int main(int argc, char *argv[])

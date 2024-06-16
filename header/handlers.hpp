@@ -97,6 +97,15 @@ private:
     System* system;
 };
 
+class ViewTakenCoursesHandler : public TemplateHandler
+{
+public:
+    ViewTakenCoursesHandler(const string& file_path, System* _system);
+    map<string, string> handle(Request* req) override;
+private:
+    System* system;
+};
+
 class ViewCoursesHandler : public TemplateHandler
 {
 public:

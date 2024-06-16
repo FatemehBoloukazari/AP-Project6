@@ -116,9 +116,15 @@
                 %>
                 <li><a href="/take_course">Take Course</a></li>
                 <li><a href="/remove_course">Remove Course</a></li>
-                <li><a href="/view_courses">View Taken Courses</a></li>
-                <%}
+                <li><a href="/view_taken_courses">View Taken Courses</a></li>
+                <li><a href="/view_courses">View Offered Courses</a></li>
+                <%
+                }
+                else if (context["user_type"] == "professor")
+                {
                 %>
+                <li><a href="/view_courses">View Offered Courses</a></li>
+                <%}%>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
