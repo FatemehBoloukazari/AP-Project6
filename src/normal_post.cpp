@@ -2,6 +2,8 @@
 
 NormalPost::NormalPost(string _title, string _message, int _id, string _image_address)
 {
+    if (_title == EMPTY_STRING || _message == EMPTY_STRING)
+        throw BadRequest();
     title = _title;
     message = _message;
     id = _id;

@@ -124,13 +124,19 @@ Response *ProfileChangeHandler::callback(Request *req)
     string address = IMAGE_ADDRESS + id + DOT + PNG;
     string url = IMAGE_URL + id + DOT + PNG;
     string file = req->getBodyParam(FILE_STR);
-    if (!file.empty())
+    string add_or_remove = req->getBodyParam("pressed_button");
+    if (add_or_remove == "Remove Profile Photo")
+        url = DEFAULT_PROFILE;
+    else if (!file.empty())
     {
         utils::writeToFile(file, address);
         server->get(url, new ShowImage(address));
     }
     else
-        url = DEFAULT_PROFILE;
+    {
+        Response *res = Response::redirect("/mainpage");
+        return res;
+    }
     system->set_logged_in_user(id);
     system->handle_add_profile_photo(url);
     Response *res = Response::redirect("/mainpage");
@@ -160,8 +166,30 @@ Response *SendPostHandler::callback(Request *req)
     }
     else
         image_url = EMPTY_STRING;
-    system->handle_new_post(title, message, image_url);
-    Response *res = Response::redirect("/mainpage");
+
+    Response *res;
+    try
+    {
+        system->handle_new_post(title, message, image_url);
+        res = new Response(Response::Status::ok);
+        res->setBody("/mainpage");
+    }
+    catch (BadRequest &ex)
+    {
+        res = new Response(Response::Status::badRequest);
+        res->setBody(BAD_REQUEST_ERROR);
+    }
+    catch (NotFound &ex)
+    {
+        res = new Response(Response::Status::notFound);
+        res->setBody(NOT_FOUND_ERROR);
+    }
+    catch (PermissionDenied &ex)
+    {
+        res = new Response(Response::Status::forbidden);
+        res->setBody(PERMISSION_DENIED_ERROR);
+    }
+    
     return res;
 }
 

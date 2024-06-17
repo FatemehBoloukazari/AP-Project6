@@ -8,7 +8,8 @@ void User::login(string pass)
 
 void User::send_post(string _title, string _message, string _image_address)
 {
-    NormalPost* new_post = new NormalPost(_title, _message, ++last_post_id, _image_address);
+    NormalPost* new_post = new NormalPost(_title, _message, last_post_id + 1, _image_address);
+    last_post_id++;
     posts.push_back(new_post);
     Notification *new_notification = new Notification(id, name, NEW_POST_NOTIFICATION);
     for (auto connected_user : connected_users)

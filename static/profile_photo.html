@@ -113,18 +113,20 @@
             color: #b83e5b;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
+
     </style>
 </head>
 <body>
     <section class = "upload_profile">
         <h1>Add or Remove Profile Photo</h1>
         </br>
-        <h2>Upload</h2>
+        <h2>New Profile Photo</h2>
         <form action = "/profile_photo" method = "post" enctype = "multipart/form-data">
             <input type = "file" name = "file">
             </br>
             </br>
-            <input type="submit" value="Upload" class = "button">
+            <input type="submit" value="Change Profile Photo" class = "button" name="pressed_button">
+            <input type="submit" value="Remove Profile Photo" class = "button" name="pressed_button">
         </form>
     </section>
 </body>

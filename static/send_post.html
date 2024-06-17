@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="container">
-        <form action = "/send_post" method = "post" enctype = "multipart/form-data">
+        <form action = "/send_post" method = "post" enctype = "multipart/form-data" id="myForm">
             <div class="title-box">
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" placeholder="Enter title">
@@ -86,5 +86,36 @@
             </div>
         </form>
     </div>
+    <script>
+        document.getElementById('myForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+        var url = "/send_post";
+        var data = new FormData(this);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            body: data
+        });
+        var status = response.status;
+        var text = await response.text();
+        //console.log(text);
+        if (status == 400)
+        {
+            alert("Bad Request");
+        }
+        if (status == 403)
+        {
+            alert("Permission Denied");
+        }
+        if (status == 404)
+        {
+            alert("Not Found");
+        }
+        if (status == 200)
+        {
+            window.location.href = "/mainpage";
+        }
+        });
+    </script>
 </body>
 </html>
