@@ -21,6 +21,7 @@ void NormalPost::show_post_details(vector <vector <string>> &_result)
     vector <string> result;
     result.push_back(title);
     result.push_back(message);
-    result.push_back(image_address);
+    if (image_address != EMPTY_STRING)
+        result.push_back(image_address);
     _result.push_back(result);
 }

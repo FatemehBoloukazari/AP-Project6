@@ -187,7 +187,16 @@ map<string, string> PersonalPageHandler::handle(Request *req)
     for (int i = 0; i < (int)posts.size(); i++)
     {
         context["title_" + to_string(i)] = posts[i][0];
+        string str = EMPTY_STRING;
+        for (auto c : posts[i][1])
+        {
+            if (c == '\n')
+                str += "<br>";
+            else
+                str += c;
+        }
         context["message_" + to_string(i)] = posts[i][1];
+        context["message_" + to_string(i)] = str;
         if (posts[i].size() == NUM_OF_WITH_IMAGE_POST_DATAS)
             context["image_" + to_string(i)] = posts[i][2];
     }

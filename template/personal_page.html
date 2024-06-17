@@ -90,7 +90,10 @@
             {%>
             <section>
                 <h3><%cout << context["title_" + to_string(i)];%></h3>
+                <% if (context.find("image_" + to_string(i)) != context.end())
+                {%>
                 <img src=<%cout << "\"" << context["image_" + to_string(i)] << "\"";%> alt="Post Image" width="300" height="auto">
+                <%}%>
                 <p><% cout << context["message_" + to_string(i)]; %></p>
             </section>
             <%}%>

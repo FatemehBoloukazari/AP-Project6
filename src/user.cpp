@@ -89,7 +89,6 @@ void User::set_profile_photo(string _image_address)
 vector<vector<string>> User::get_posts()
 {
     vector<vector<string>> result;
-    debug(posts.size());
     for (int i = (int)posts.size() - 1; i >= 0; i--)
         posts[i]->show_post_details(result);
     return result;
