@@ -157,8 +157,8 @@ Response *SendPostHandler::callback(Request *req)
     string image = req->getBodyParam(FILE_STR);
     system->set_logged_in_user(id);
     int new_post_id = system->get_logged_in_users_new_post_id();
-    string image_address = IMAGE_ADDRESS + id + UNDER_SCORE + to_string(new_post_id) + DOT + PNG; // change this
-    string image_url = IMAGE_URL + id + UNDER_SCORE + to_string(new_post_id) + DOT + PNG; // change this
+    string image_address = IMAGE_ADDRESS + id + UNDER_SCORE + to_string(new_post_id) + DOT + PNG;
+    string image_url = IMAGE_URL + id + UNDER_SCORE + to_string(new_post_id) + DOT + PNG;
     if (!image.empty())
     {
         utils::writeToFile(image, image_address);
