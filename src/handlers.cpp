@@ -103,12 +103,12 @@ map<string, string> MainPageHandler::handle(Request *req)
     map<string, string> context;
     system->set_logged_in_user(req->getSessionId());
     vector <string> user_data = system->get_user_data();
-    context["user_type"] = user_data[0];
-    context["id"] = user_data[1];
-    context["name"] = user_data[2];
-    context["profile_pic_address"] = user_data[3];
-    if (context["user_type"] != ADMIN)
-        context["major"] = user_data[4];
+    context[USER_TYPE] = user_data[users_data::USER_TYPE_IND];
+    context[ID] = user_data[users_data::ID_IND];
+    context[NAME] = user_data[users_data::NAME_IND];
+    context[PROFILE_PIC_ADDRESS] = user_data[users_data::PROFILE_PIC_ADDRESS_IND];
+    if (context[USER_TYPE] != ADMIN)
+        context[MAJOR] = user_data[users_data::MAJOR_IND];
     return context;
 }
 
@@ -203,29 +203,29 @@ map<string, string> PersonalPageHandler::handle(Request *req)
     map<string, string> context;
     system->set_logged_in_user(req->getQueryParam(ID));
     vector <string> user_data = system->get_user_data();
-    context["user_type"] = user_data[0];
-    context["name"] = user_data[2];
-    context["profile_pic_address"] = user_data[3];
-    if (context["user_type"] == STUDENT)
-        context["semester"] = user_data[5];
-    else if (context["user_type"] == PROFESSOR)
-        context["position"] = user_data[5];
+    context[USER_TYPE] = user_data[users_data::USER_TYPE_IND];
+    context[NAME] = user_data[users_data::NAME_IND];
+    context[PROFILE_PIC_ADDRESS] = user_data[users_data::PROFILE_PIC_ADDRESS_IND];
+    if (context[USER_TYPE] == STUDENT)
+        context[SEMESTER] = user_data[users_data::SEMESTER_IND];
+    else if (context[USER_TYPE] == PROFESSOR)
+        context[POSITION] = user_data[users_data::POSITION_IND];
     vector <vector <string>> posts = system->handle_get_posts();
-    context["num_of_posts"] = to_string(posts.size());
+    context[NUM_OF_POSTS] = to_string(posts.size());
     for (int i = 0; i < (int)posts.size(); i++)
     {
-        context["title_" + to_string(i)] = posts[i][0];
+        context[TITLE + UNDER_SCORE + to_string(i)] = posts[i][posts_data::TITLE_IND];
         string message = EMPTY_STRING;
-        for (auto c : posts[i][1])
+        for (auto c : posts[i][posts_data::MESSAGE_IND])
         {
-            if (c == '\n')
-                message += "<br>";
+            if (c == NEWLINE_CHAR)
+                message += HTML_BREAK;
             else
                 message += c;
         }
-        context["message_" + to_string(i)] = message;
+        context[MESSAGE + UNDER_SCORE + to_string(i)] = message;
         if (posts[i].size() == NUM_OF_WITH_IMAGE_POST_DATAS)
-            context["image_" + to_string(i)] = posts[i][2];
+            context[IMAGE + UNDER_SCORE + to_string(i)] = posts[i][posts_data::IMAGE_ADDRESS_IND];
     }
     return context;
 }
@@ -330,16 +330,16 @@ map<string, string> ViewTakenCoursesHandler::handle(Request *req)
     map<string, string> context;
     system->set_logged_in_user(req->getSessionId());
     vector <vector <string>> courses_data = system->handle_view_taken_courses();
-    context["num_of_courses"] = to_string(courses_data.size());
+    context[NUM_OF_COURSES] = to_string(courses_data.size());
     for (int i = 0; i < (int)courses_data.size(); i++)
     {
-        context["course_id_" + to_string(i)] = courses_data[i][0];
-        context["course_name_" + to_string(i)] = courses_data[i][1];
-        context["capacity_" + to_string(i)] = courses_data[i][2];
-        context["professor_name_" + to_string(i)] = courses_data[i][3];
-        context["time_" + to_string(i)] = courses_data[i][4];
-        context["exam_date_" + to_string(i)] = courses_data[i][5];
-        context["class_number_" + to_string(i)] = courses_data[i][6];
+        context[COURSE_ID + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_ID_IND];
+        context[COURSE_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_NAME_IND];
+        context[CAPACITY + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CAPACITY_IND];
+        context[PROFESSOR_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::PROFESSOR_NAME_IND];
+        context[TIME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::TIME_IND];
+        context[EXAM_DATE + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::EXAM_DATE_IND];
+        context[CLASS_NUMBER + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CLASS_NUMBER_IND];
     }
     return context;
 }
@@ -407,16 +407,16 @@ map<string, string> ViewCoursesHandler::handle(Request *req)
     map<string, string> context;
     system->set_logged_in_user(req->getSessionId());
     vector <vector <string>> courses_data = system->handle_view_all_courses();
-    context["num_of_courses"] = to_string(courses_data.size());
+    context[NUM_OF_COURSES] = to_string(courses_data.size());
     for (int i = 0; i < (int)courses_data.size(); i++)
     {
-        context["course_id_" + to_string(i)] = courses_data[i][0];
-        context["course_name_" + to_string(i)] = courses_data[i][1];
-        context["capacity_" + to_string(i)] = courses_data[i][2];
-        context["professor_name_" + to_string(i)] = courses_data[i][3];
-        context["time_" + to_string(i)] = courses_data[i][4];
-        context["exam_date_" + to_string(i)] = courses_data[i][5];
-        context["class_number_" + to_string(i)] = courses_data[i][6];
+        context[COURSE_ID + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_ID_IND];
+        context[COURSE_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_NAME_IND];
+        context[CAPACITY + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CAPACITY_IND];
+        context[PROFESSOR_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::PROFESSOR_NAME_IND];
+        context[TIME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::TIME_IND];
+        context[EXAM_DATE + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::EXAM_DATE_IND];
+        context[CLASS_NUMBER + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CLASS_NUMBER_IND];
     }
     return context;
 }

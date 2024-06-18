@@ -126,6 +126,16 @@ const string CLOSE_TA_FORM = "close_ta_form";
 const string TA_REQUEST = "ta_request";
 const string FORM_ID = "form_id";
 const string FILE_STR = "file";
+const string COURSE_NAME  = "course_name";
+const string PROFESSOR_NAME = "professor_name";
+const string NUM_OF_COURSES = "num_of_courses";
+const string NUM_OF_POSTS = "num_of_posts";
+const string USER_TYPE = "user_type";
+const string NAME = "name";
+const string PROFILE_PIC_ADDRESS = "profile_pic_address";
+const string SEMESTER = "semester";
+const string POSITION = "position";
+const string MAJOR = "major";
 
 const char DASH = '-';
 const char COLON = ':';
@@ -134,6 +144,7 @@ const char DOUBLE_QUOTATION = '\"';
 const char SPACE_CHAR = ' ';
 const char COMMA_CHAR = ',';
 const char SEMICOLON = ';';
+const char NEWLINE_CHAR = '\n';
 
 const int MAIN_COMMAND_INDEX = 0;
 const int REQUEST_INDEX = 1;
@@ -169,5 +180,36 @@ const string IMAGE_ADDRESS = "./images/";
 const string IMAGE_URL = "/images/";
 
 const string NO_USER_SESSION_ID = "";
+
+const string HTML_BREAK = "<br>";
+
+namespace users_data
+{
+    const int USER_TYPE_IND = 0;
+    const int ID_IND = 1;
+    const int NAME_IND = 2;
+    const int PROFILE_PIC_ADDRESS_IND = 3;
+    const int MAJOR_IND = 4;
+    const int SEMESTER_IND = 5;
+    const int POSITION_IND = 5;
+}
+
+namespace posts_data
+{
+    const int TITLE_IND = 0;
+    const int MESSAGE_IND = 1;
+    const int IMAGE_ADDRESS_IND = 2;
+}
+
+namespace courses_data
+{
+    const int COURSE_ID_IND = 0;
+    const int COURSE_NAME_IND = 1;
+    const int CAPACITY_IND = 2;
+    const int PROFESSOR_NAME_IND = 3;
+    const int TIME_IND = 4;
+    const int EXAM_DATE_IND = 5;
+    const int CLASS_NUMBER_IND = 6;
+}
 
 #endif
