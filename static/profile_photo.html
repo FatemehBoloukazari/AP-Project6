@@ -114,13 +114,31 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
+        #back_button
+        {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            transition-duration: 0.4s;
+            background-color: whitesmoke; 
+            color: #b83e5b; 
+            border: 2px solid whitesmoke;
+            border-radius: 5px;
+        }
+
+        #back_button:hover
+        {
+           background-color: transparent;
+           color: whitesmoke;
+        }
+
     </style>
 </head>
 <body>
     <section class = "upload_profile">
-        <h1>Add or Remove Profile Photo</h1>
-        </br>
-        <h2>New Profile Photo</h2>
+        <h2>Add or Remove Profile Photo</h2>
+        <br>
+        <br>
         <form action = "/profile_photo" method = "post" enctype = "multipart/form-data">
             <input type = "file" name = "file">
             </br>
@@ -129,5 +147,6 @@
             <input type="submit" value="Remove Profile Photo" class = "button" name="pressed_button">
         </form>
     </section>
+    <button onclick="history.back()" id="back_button">Back</button>
 </body>
 </html>

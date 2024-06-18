@@ -25,6 +25,24 @@
             height: 100%;
         }
 
+        #back_button
+        {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            transition-duration: 0.4s;
+            background-color: whitesmoke; 
+            color: #b83e5b; 
+            border: 2px solid whitesmoke;
+            border-radius: 5px;
+        }
+
+        #back_button:hover
+        {
+           background-color: transparent;
+           color: whitesmoke;
+        }
+
     </style>
 </head>
 <body>
@@ -40,6 +58,7 @@
             </div>
         </form>
     </div>
+    <button onclick="history.back()" id="back_button">Back</button>
     <script>
         document.getElementById('take_course').addEventListener('submit', async function(event) {
             event.preventDefault();

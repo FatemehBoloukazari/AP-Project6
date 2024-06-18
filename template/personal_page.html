@@ -68,6 +68,24 @@
             border: 5px solid #b83e5b;
         }
 
+        #back_button
+        {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            transition-duration: 0.4s;
+            background-color: whitesmoke; 
+            color: #b83e5b; 
+            border: 2px solid whitesmoke;
+            border-radius: 5px;
+        }
+
+        #back_button:hover
+        {
+           background-color: transparent;
+           color: whitesmoke;
+        }
+
     </style>
 </head>
 <body>
@@ -85,7 +103,6 @@
         <br>
     </header>
     <main>
-        <section id="posts">
             <%for (int i = 0; i < stoi(context["num_of_posts"]); i++)
             {%>
             <section>
@@ -97,7 +114,7 @@
                 <p><% cout << context["message_" + to_string(i)]; %></p>
             </section>
             <%}%>
-        </section>
     </main>
+    <button onclick="history.back()" id="back_button">Back</button>
 </body>
 </html>
