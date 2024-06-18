@@ -126,3 +126,13 @@ void Professor::handle_new_ta_request(Student *student, int form_id)
         throw PermissionDenied();
     ta_form->add_new_ta_request(student);
 }
+
+void Professor::get_user_data(vector<string> &result)
+{
+    result.push_back(PROFESSOR);
+    result.push_back(get_id());
+    result.push_back(get_name());
+    result.push_back(get_profile_address());
+    result.push_back(get_major_str());
+    result.push_back(get_position());
+}

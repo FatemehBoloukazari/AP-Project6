@@ -27,6 +27,7 @@ public:
     string get_profile_address() {return profile_photo_address;};
     int get_new_post_id() {return last_post_id + 1;}
     vector <vector<string>> get_posts();
+    virtual void get_user_data(vector <string> &result) = 0;
 protected:
     string name;
     string password;

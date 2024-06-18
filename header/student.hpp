@@ -18,6 +18,7 @@ public:
     int get_semester() {return semester;}
     string get_major_str() {return major_str;}
     void become_ta(CourseOffer *course_offer);
+    virtual void get_user_data(vector <string> &result);
 private:
     int major_id;
     string major_str;

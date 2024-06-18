@@ -15,3 +15,11 @@ void Admin::show_user_details(vector <vector <string>> &_result)
     result.push_back(name);
     _result.push_back(result);
 }
+
+void Admin::get_user_data(vector<string> &result)
+{
+    result.push_back(ADMIN);
+    result.push_back(get_id());
+    result.push_back(get_name());
+    result.push_back(get_profile_address());
+}

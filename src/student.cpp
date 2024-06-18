@@ -93,3 +93,13 @@ void Student::become_ta(CourseOffer *course_offer)
 {
     ta_courses.push_back(course_offer);
 }
+
+void Student::get_user_data(vector<string> &result)
+{
+    result.push_back(STUDENT);
+    result.push_back(get_id());
+    result.push_back(get_name());
+    result.push_back(get_profile_address());
+    result.push_back(get_major_str());
+    result.push_back(to_string(get_semester()));
+}

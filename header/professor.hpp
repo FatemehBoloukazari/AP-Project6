@@ -26,6 +26,7 @@ public:
     void get_ta_form_requests(vector <vector <string>> &result, int form_id);
     void handle_ta_requests_responeses(vector <Status> const responses, int form_id);
     void handle_new_ta_request(Student *student, int form_id);
+    virtual void get_user_data(vector <string> &result);
 private:
     int major_id;
     string major_str;

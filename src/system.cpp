@@ -430,36 +430,10 @@ void System::set_logged_in_user(string id)
         throw NotFound();
 }
 
-vector<string> System::get_user_data() // ino virtual konam
+vector<string> System::get_user_data()
 {
     vector <string> result;
-    if (logged_in_user->get_id() == "0")
-    {
-        result.push_back(ADMIN);
-        result.push_back(logged_in_user->get_id());
-        result.push_back(logged_in_user->get_name());
-        result.push_back(logged_in_user->get_profile_address());
-    }
-    else if (is_a_student(logged_in_user))
-    {
-        result.push_back(STUDENT);
-        result.push_back(logged_in_user->get_id());
-        result.push_back(logged_in_user->get_name());
-        result.push_back(logged_in_user->get_profile_address());
-        Student *student = dynamic_cast<Student*> (logged_in_user);
-        result.push_back(student->get_major_str());
-        result.push_back(to_string(student->get_semester()));
-    }
-    else
-    {
-        result.push_back(PROFESSOR);
-        result.push_back(logged_in_user->get_id());
-        result.push_back(logged_in_user->get_name());
-        result.push_back(logged_in_user->get_profile_address());
-        Professor *professor = dynamic_cast<Professor*> (logged_in_user);
-        result.push_back(professor->get_major_str());
-        result.push_back(professor->get_position());
-    }
+    logged_in_user->get_user_data(result);
     return result;
 }
 
