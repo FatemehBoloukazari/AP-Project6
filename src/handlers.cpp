@@ -124,8 +124,8 @@ Response *ProfileChangeHandler::callback(Request *req)
     string address = IMAGE_ADDRESS + id + DOT + PNG;
     string url = IMAGE_URL + id + DOT + PNG;
     string file = req->getBodyParam(FILE_STR);
-    string add_or_remove = req->getBodyParam("pressed_button");
-    if (add_or_remove == "Remove Profile Photo")
+    string add_or_remove = req->getBodyParam(PRESSED_BUTTON);
+    if (add_or_remove == REMOVE_PROFILE_PHOTO)
         url = DEFAULT_PROFILE;
     else if (!file.empty())
     {

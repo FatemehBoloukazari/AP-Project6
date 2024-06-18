@@ -137,6 +137,9 @@ const string SEMESTER = "semester";
 const string POSITION = "position";
 const string MAJOR = "major";
 
+const string PRESSED_BUTTON = "pressed_button";
+const string REMOVE_PROFILE_PHOTO = "Remove Profile Photo";
+
 const char DASH = '-';
 const char COLON = ':';
 const char SLASH = '/';
