@@ -186,6 +186,8 @@ const string NO_USER_SESSION_ID = "";
 
 const string HTML_BREAK = "<br>";
 
+const string STATUS = "status";
+
 namespace users_data
 {
     const int USER_TYPE_IND = 0;

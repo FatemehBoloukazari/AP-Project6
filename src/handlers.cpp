@@ -71,8 +71,8 @@ Response *LoginHandler::callback(Request *req)
     Response *res;
     try
     {
-        res = new Response(Response::Status::ok);
         system->handle_login(id, pass);
+        res = new Response(Response::Status::ok);
         res->setSessionId(id);
     }
     catch (BadRequest &ex)
@@ -261,12 +261,12 @@ Response *TakeCourseHandler::callback(Request *req)
 {
     string id = req->getSessionId();
     string course_id = req->getBodyParam(COURSE_ID);
-    system->set_logged_in_user(id);
     Response *res;
     try
     {
-        res = new Response(Response::Status::ok);
+        system->set_logged_in_user(id);
         system->handle_take_new_course(course_id);
+        res = new Response(Response::Status::ok);
     }
     catch (BadRequest &ex)
     {
@@ -328,18 +328,26 @@ ViewTakenCoursesHandler::ViewTakenCoursesHandler(const string &file_path, System
 map<string, string> ViewTakenCoursesHandler::handle(Request *req)
 {
     map<string, string> context;
-    system->set_logged_in_user(req->getSessionId());
-    vector <vector <string>> courses_data = system->handle_view_taken_courses();
-    context[NUM_OF_COURSES] = to_string(courses_data.size());
-    for (int i = 0; i < (int)courses_data.size(); i++)
+    try
     {
-        context[COURSE_ID + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_ID_IND];
-        context[COURSE_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_NAME_IND];
-        context[CAPACITY + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CAPACITY_IND];
-        context[PROFESSOR_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::PROFESSOR_NAME_IND];
-        context[TIME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::TIME_IND];
-        context[EXAM_DATE + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::EXAM_DATE_IND];
-        context[CLASS_NUMBER + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CLASS_NUMBER_IND];
+        system->set_logged_in_user(req->getSessionId());
+        vector <vector <string>> courses_data = system->handle_view_taken_courses();
+        context[NUM_OF_COURSES] = to_string(courses_data.size());
+        for (int i = 0; i < (int)courses_data.size(); i++)
+        {
+            context[COURSE_ID + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_ID_IND];
+            context[COURSE_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::COURSE_NAME_IND];
+            context[CAPACITY + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CAPACITY_IND];
+            context[PROFESSOR_NAME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::PROFESSOR_NAME_IND];
+            context[TIME + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::TIME_IND];
+            context[EXAM_DATE + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::EXAM_DATE_IND];
+            context[CLASS_NUMBER + UNDER_SCORE + to_string(i)] = courses_data[i][courses_data::CLASS_NUMBER_IND];
+        }
+        context[STATUS] = OK;
+    }
+    catch (PermissionDenied &ex)
+    {
+        context[STATUS] = PERMISSION_DENIED_ERROR;
     }
     return context;
 }
